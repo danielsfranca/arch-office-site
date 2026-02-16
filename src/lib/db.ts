@@ -73,3 +73,20 @@ export async function addDelivery(clientId: number, delivery: Delivery): Promise
     await saveDatabase(db);
     return true;
 }
+
+// --- Auth Helpers (Added for Build Compatibility) ---
+
+export async function findClientByEmail(email: string): Promise<any | undefined> {
+    const db = await getDatabase();
+    // Using 'any' for return because auth.ts expects properties like passwordHash which aren't in Client interface yet
+    return db.clients.find((c: any) => c.email === email);
+}
+
+export async function saveClient(newClient: any): Promise<void> {
+    const db = await getDatabase();
+    // Adapt newClient from auth.ts (which has string ID) to our DB structure if necessary
+    // checking if we need to cast ID or push as is. 
+    // For now pushing as is to db.clients array.
+    db.clients.push(newClient);
+    await saveDatabase(db);
+}
