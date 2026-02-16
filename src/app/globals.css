@@ -1,0 +1,475 @@
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #ffffff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #555555;
+  --accent: #1a1a1a;
+  --border: #e5e5e5;
+
+  --font-main: var(--font-main-sans), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Dark mode media query removed to enforce light base for inversion logic */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", "Helvetica", "Arial", sans-serif !important;
+  /* NUCLEAR OPTION: FORCE SANS-SERIF */
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+body {
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-main);
+  font-weight: 300;
+  /* Lighter weight for minimalist headings */
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 3.5rem;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 2.5rem;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+/* Utilities */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.btn-outline {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+}
+
+.section {
+  padding: 6rem 0;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 1.5rem 0;
+  background: rgba(var(--bg-primary), 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.nav.scrolled {
+  border-color: var(--border);
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hidden-mobile {
+    display: none !important;
+  }
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* Floating Animations */
+/* Floating Animations - Drifting + Scaling Effect */
+@keyframes float-drifting-1 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  20% {
+    transform: translate(30px, -15px) scale(1.05);
+  }
+
+  40% {
+    transform: translate(15px, 25px) scale(0.95);
+  }
+
+  60% {
+    transform: translate(-25px, 15px) scale(1.02);
+  }
+
+  80% {
+    transform: translate(-15px, -20px) scale(0.98);
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes float-drifting-2 {
+  0% {
+    transform: translate(0, 0) scale(0.95);
+  }
+
+  25% {
+    transform: translate(-25px, 20px) scale(1.02);
+  }
+
+  50% {
+    transform: translate(20px, -15px) scale(0.98);
+  }
+
+  75% {
+    transform: translate(15px, 25px) scale(1.05);
+  }
+
+  100% {
+    transform: translate(0, 0) scale(0.95);
+  }
+}
+
+@keyframes float-drifting-3 {
+  0% {
+    transform: translate(0, 0) scale(1.02);
+  }
+
+  30% {
+    transform: translate(20px, 30px) scale(0.96);
+  }
+
+  60% {
+    transform: translate(-20px, 10px) scale(1.04);
+  }
+
+  90% {
+    transform: translate(10px, -20px) scale(0.98);
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1.02);
+  }
+}
+
+.floating-element {
+  animation: float-drifting-1 18s ease-in-out infinite;
+}
+
+.floating-element-delayed {
+  animation: float-drifting-2 21s ease-in-out infinite;
+}
+
+.floating-element-3 {
+  animation: float-drifting-3 20s ease-in-out infinite;
+}
+
+.floating-element:hover,
+.floating-element-delayed:hover,
+.floating-element-3:hover {
+  animation-play-state: paused;
+}
+
+/* Invert colors in dark mode for specific elements */
+@media (prefers-color-scheme: dark) {
+  .invert-on-dark {
+    filter: invert(1) brightness(2);
+    /* Brightness 2 helps white pop on black */
+  }
+}
+
+/* Hide scrollbar by default for the SPA-like feel */
+html,
+body,
+a,
+button,
+input,
+textarea,
+select,
+* {
+  cursor: none !important;
+}
+
+.custom-cursor-active a,
+.custom-cursor-active button {
+  cursor: none !important;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+
+  /* Typography Scaling */
+  html {
+    font-size: 14px;
+    /* Base scale down */
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.35rem;
+  }
+
+  /* Layout Adjustments */
+  .container {
+    padding: 0 1rem;
+  }
+
+  .section {
+    padding: 4rem 0;
+  }
+
+  /* Navigation & Floating Elements Repositioning */
+  /* Instead of random floating, we stack them on mobile for clarity */
+  .mobile-stack-nav {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 60;
+  }
+
+  .nav-btn-mobile {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    font-size: 1.1rem !important;
+    padding: 0.5rem 1rem;
+  }
+
+  /* Logo Adjustments */
+  .hero-logo-container {
+    width: 85% !important;
+    /* Larger width on mobile relative to screen */
+    max-width: none !important;
+  }
+
+  /* Hide decorative squares on mobile to reduce clutter */
+  .decorative-square {
+    display: none !important;
+  }
+
+  /* Adjust About Section Layout */
+  .about-container {
+    flex-direction: column !important;
+    gap: 3rem !important;
+    padding-top: 6rem !important;
+    overflow-y: auto;
+    /* Allow scrolling on mobile about */
+    height: 100vh;
+    justify-content: flex-start !important;
+  }
+
+  .about-text {
+    max-width: 100% !important;
+    padding-bottom: 2rem;
+  }
+
+  .about-image {
+    max-width: 80% !important;
+    margin: 0 auto;
+    aspect-ratio: 3/4;
+  }
+
+  /* Projects Hub Mobile */
+  .projects-hub-container {
+    padding-right: 2rem !important;
+    align-items: center !important;
+    /* Center on mobile? or keep right? Let's keep right but ensure padding */
+  }
+
+  /* Gallery Mobile */
+  .gallery-grid {
+    grid-template-columns: 1fr !important;
+    /* Single column */
+    gap: 3rem !important;
+  }
+
+  /* Hide Custom Cursor on Touch Devices */
+  .custom-cursor {
+    display: none !important;
+  }
+}
+
+/* Touch Device Specifics (Coarse Pointer) */
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none !important;
+  }
+
+  /* Ensure clickable elements have larger hit areas */
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

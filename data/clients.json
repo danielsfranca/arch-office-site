@@ -1,0 +1,11 @@
+[
+  {
+    "id": "a82ae080-63a1-4672-bdf1-116cef2729e1",
+    "name": "Daniel",
+    "email": "dasofra@usp.br",
+    "phone": "34999232927",
+    "passwordHash": "99f92b37c3e32d373d335b6816faee04c59d94c04d65c9a29b6fc7f2e4619ec9eda2ef78730c539ac2de8a2ac72a8d25fc648cd72b1a4ff807c9a073543cc99b",
+    "salt": "7669064fbe76b30c0ca7a7d9d0dd756f",
+    "createdAt": "2026-02-15T15:48:38.944Z"
+  }
+]

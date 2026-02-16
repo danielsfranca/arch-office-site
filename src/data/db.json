@@ -1,0 +1,66 @@
+{
+  "clients": [
+    {
+      "id": 1,
+      "name": "Cliente Loft",
+      "project": "Loft A",
+      "email": "loft@example.com",
+      "serial": "LOFT",
+      "deliveries": [],
+      "timeline": [
+        {
+          "stage": "Concluído",
+          "status": "completed",
+          "progress": 100
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Cliente Arcos",
+      "project": "Casa Arcos",
+      "email": "arcos@example.com",
+      "serial": "ARCO",
+      "deliveries": [],
+      "timeline": [
+        {
+          "stage": "Executivo",
+          "status": "active",
+          "progress": 80
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Cliente Quarta",
+      "project": "Quarta Esquina",
+      "email": "quarta@example.com",
+      "serial": "QUAR",
+      "deliveries": [],
+      "timeline": [
+        {
+          "stage": "Anteprojeto",
+          "status": "active",
+          "progress": 40
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "p1",
+      "name": "Loft A",
+      "status": "completed"
+    },
+    {
+      "id": "p2",
+      "name": "Casa Arcos",
+      "status": "active"
+    },
+    {
+      "id": "p3",
+      "name": "Quarta Esquina",
+      "status": "active"
+    }
+  ]
+}
