@@ -1063,21 +1063,23 @@ export default function Home() {
                         display: "flex", 
                         flexDirection: "column",
                         alignItems: "flex-start", 
-                        justifyContent: "flex-start", 
-                        animation: "fade-in 1s ease both" 
+                        justifyContent: "center", 
+                        animation: "fade-in 1s ease both",
+                        height: "120px" // Match signature height to help alignment
                     }}>
                         <h2 style={{ 
-                            fontSize: "0.8rem", 
-                            marginBottom: "3rem", 
-                            fontWeight: 400, 
-                            letterSpacing: "0.2em", 
-                            textTransform: "uppercase", 
-                            color: "#888",
-                            textAlign: "left" 
+                            fontSize: "12px", 
+                            fontWeight: 300, 
+                            letterSpacing: "0.05em", 
+                            color: "#555",
+                            opacity: 0.85,
+                            textAlign: "left",
+                            lineHeight: 1.4,
+                            marginBottom: "0.4rem"
                         }}>
                             Obrigado pelo contato! Logo retornaremos.
                         </h2>
-                        <button onClick={() => { setContactStatus("idle"); setPulsePos(null); }} style={{ fontSize: "12px", fontWeight: 300, letterSpacing: "0.1em", textTransform: "uppercase", color: "#333", opacity: 0.85, background: "none", border: "none", cursor: "pointer", marginTop: "2rem", borderBottom: "1px solid #ddd", paddingBottom: "2px" }}>Enviar outra mensagem</button>
+                        <button onClick={() => { setContactStatus("idle"); setPulsePos(null); }} style={{ fontSize: "12px", fontWeight: 300, letterSpacing: "0.1em", textTransform: "uppercase", color: "#333", opacity: 0.85, background: "none", border: "none", cursor: "pointer", borderBottom: "1px solid #ddd", paddingBottom: "2px" }}>Enviar outra mensagem</button>
                     </div>
                   ) : (
                     <>
@@ -1107,32 +1109,46 @@ export default function Home() {
 
               {/* Right: Info */}
               <div style={{ flex: "1 1 300px", paddingTop: "5rem", display: "flex", flexDirection: "column", gap: "0.4rem", alignItems: "flex-end", position: "relative" }}>
-                <a
-                  href="mailto:contato@dfranca.arq.br"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  style={{ fontSize: "12px", fontWeight: 300, color: "#555", opacity: 0.85, letterSpacing: "0.05em", textDecoration: "none" }}
-                >
-                  contato@dfranca.arq.br
-                </a>
-                <a
-                  href="tel:+5534999232927"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  style={{ fontSize: "12px", fontWeight: 300, color: "#555", opacity: 0.85, letterSpacing: "0.05em", textDecoration: "none" }}
-                >
-                  (34) 9 9923 2927
-                </a>
-                <a
-                  href="https://instagram.com/dafrarq"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  style={{ fontSize: "12px", fontWeight: 300, color: "#555", opacity: 0.85, letterSpacing: "0.05em", textDecoration: "none" }}
-                >
-                  @dafrarq
-                </a>
+                {contactStatus === "success" ? (
+                  <div style={{ opacity: 0.9, animation: "fade-in 1.5s ease both", marginTop: "-3rem" }}>
+                    <Image
+                      src="/signature.png"
+                      alt={t.about.signatureAlt}
+                      width={250}
+                      height={120}
+                      style={{ height: "140px", width: "auto" }}
+                    />
+                  </div>
+                ) : (
+                  <>
+                    <a
+                      href="mailto:contato@dfranca.arq.br"
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                      style={{ fontSize: "12px", fontWeight: 300, color: "#555", opacity: 0.85, letterSpacing: "0.05em", textDecoration: "none" }}
+                    >
+                      contato@dfranca.arq.br
+                    </a>
+                    <a
+                      href="tel:+5534999232927"
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                      style={{ fontSize: "12px", fontWeight: 300, color: "#555", opacity: 0.85, letterSpacing: "0.05em", textDecoration: "none" }}
+                    >
+                      (34) 9 9923 2927
+                    </a>
+                    <a
+                      href="https://instagram.com/dafrarq"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                      style={{ fontSize: "12px", fontWeight: 300, color: "#555", opacity: 0.85, letterSpacing: "0.05em", textDecoration: "none" }}
+                    >
+                      @dafrarq
+                    </a>
+                  </>
+                )}
                 <video
                   src="/project-header-anim.mp4"
                   autoPlay
