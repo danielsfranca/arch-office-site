@@ -141,7 +141,7 @@ export default function Home() {
               setPulsePos({ x, y });
               setTimeout(() => {
                   setContactStatus("success");
-              }, 100);
+              }, 600); // Wait for the first wave to pass before centering the text
               inputs.forEach(i => i.value = "");
           } else {
               setContactStatus("error");
@@ -425,13 +425,13 @@ export default function Home() {
         }
 
         @keyframes contactPulse {
-          0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-          100% { transform: translate(-50%, -50%) scale(500); opacity: 0; }
+          0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; border-width: 2px; }
+          100% { transform: translate(-50%, -50%) scale(100); opacity: 0; border-width: 0.5px; }
         }
 
         @keyframes fadeInContact {
-          0% { opacity: 0; filter: blur(10px); }
-          100% { opacity: 1; filter: blur(0); }
+          0% { opacity: 0; transform: scale(0.95); }
+          100% { opacity: 1; transform: scale(1); }
         }
       `}</style>
 
@@ -1129,22 +1129,49 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Pulse Clearing Overlay */}
+              {/* Concentric Water Ripple Effect */}
               {pulsePos && (
-                  <div style={{
-                      position: "fixed",
-                      top: pulsePos.y,
-                      left: pulsePos.x,
-                      transform: "translate(-50%, -50%)",
-                      width: "10px",
-                      height: "10px",
-                      borderRadius: "50%",
-                      background: "white",
-                      boxShadow: "0 0 100px 100px rgba(255, 255, 255, 0.9)",
-                      pointerEvents: "none",
-                      zIndex: 150,
-                      animation: "contactPulse 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards"
-                  }} />
+                  <>
+                    <div style={{
+                        position: "fixed",
+                        top: pulsePos.y,
+                        left: pulsePos.x,
+                        transform: "translate(-50%, -50%)",
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                        border: "1px solid rgba(0,0,0,0.1)",
+                        pointerEvents: "none",
+                        zIndex: 250,
+                        animation: "contactPulse 2s cubic-bezier(0.215, 0.61, 0.355, 1) forwards"
+                    }} />
+                    <div style={{
+                        position: "fixed",
+                        top: pulsePos.y,
+                        left: pulsePos.x,
+                        transform: "translate(-50%, -50%)",
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                        border: "1px solid rgba(0,0,0,0.05)",
+                        pointerEvents: "none",
+                        zIndex: 250,
+                        animation: "contactPulse 2s cubic-bezier(0.215, 0.61, 0.355, 1) 0.3s forwards"
+                    }} />
+                    <div style={{
+                        position: "fixed",
+                        top: pulsePos.y,
+                        left: pulsePos.x,
+                        transform: "translate(-50%, -50%)",
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                        border: "1px solid rgba(0,0,0,0.02)",
+                        pointerEvents: "none",
+                        zIndex: 250,
+                        animation: "contactPulse 2s cubic-bezier(0.215, 0.61, 0.355, 1) 0.6s forwards"
+                    }} />
+                  </>
               )}
 
               {/* Right: Info */}
