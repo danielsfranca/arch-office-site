@@ -43,11 +43,39 @@ function ContactForm() {
     };
 
     if (status === "success") {
+        const successText = "Obrigado pelo contato! Logo retornaremos.";
         return (
-            <div className="h-[50vh] flex flex-col items-center justify-center text-center space-y-4 animate-fade-in">
-                <h2 className="text-2xl font-light">Obrigado pelo contato.</h2>
-                <p className="text-gray-500">Recebemos sua mensagem. Entraremos em contato em até 24 horas úteis.</p>
-                <button onClick={() => setStatus("idle")} className="mt-8 text-xs uppercase tracking-widest border-b border-black pb-1 hover:opacity-50">Enviar outra mensagem</button>
+            <div className="h-[50vh] flex flex-col items-center justify-center text-center space-y-6 animate-fade-in relative">
+                <h2 className="flex items-center justify-center flex-wrap max-w-lg" style={{
+                    fontSize: "0.65rem",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.3em",
+                    color: "#888",
+                    fontWeight: 400
+                }}>
+                    {successText.split("").map((char, i) => (
+                        <span 
+                            key={i} 
+                            style={{ 
+                                animationDelay: `${i * 0.1}s`,
+                                display: "inline-block",
+                                opacity: char === " " ? 1 : 0,
+                                animation: char !== " " ? "textLoadingContact 12s infinite both" : "none",
+                                width: char === " " ? "0.5em" : "auto"
+                            }}
+                        >
+                            {char}
+                        </span>
+                    ))}
+                </h2>
+                <button onClick={() => setStatus("idle")} className="mt-12 text-[10px] uppercase tracking-[0.2em] border-b border-gray-300 pb-1 text-gray-400 hover:text-black hover:border-black transition-colors">Enviar outra mensagem</button>
+                <style dangerouslySetInnerHTML={{__html: `
+                    @keyframes textLoadingContact {
+                        0% { opacity: 0; transform: translateX(-4px); }
+                        5%, 70% { opacity: 1; transform: translateX(0); }
+                        75%, 100% { opacity: 0; transform: translateX(4px); }
+                    }
+                `}} />
             </div>
         );
     }
