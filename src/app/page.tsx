@@ -1060,20 +1060,24 @@ export default function Home() {
                 <div ref={formRef} style={{ display: "flex", flexDirection: "column", gap: "2rem", width: "100%" }}>
                   {contactStatus === "success" ? (
                     <div style={{ 
-                        position: "fixed", 
-                        inset: 0, 
-                        zIndex: 200, 
                         display: "flex", 
                         flexDirection: "column",
-                        alignItems: "center", 
-                        justifyContent: "center", 
-                        background: "white", 
+                        alignItems: "flex-start", 
+                        justifyContent: "flex-start", 
                         animation: "fade-in 1s ease both" 
                     }}>
-                        <h2 style={{ fontSize: "0.75rem", marginBottom: "1rem", fontWeight: 300, letterSpacing: "0.4em", color: "#999", textTransform: "uppercase", textAlign: "center" }}>
+                        <h2 style={{ 
+                            fontSize: "0.8rem", 
+                            marginBottom: "3rem", 
+                            fontWeight: 400, 
+                            letterSpacing: "0.2em", 
+                            textTransform: "uppercase", 
+                            color: "#888",
+                            textAlign: "left" 
+                        }}>
                             Obrigado pelo contato! Logo retornaremos.
                         </h2>
-                        <button onClick={() => { setContactStatus("idle"); setPulsePos(null); }} style={{ fontSize: "0.65rem", fontWeight: 300, letterSpacing: "0.5em", textTransform: "uppercase", color: "#bbb", background: "none", border: "none", cursor: "pointer", marginTop: "0.5rem", borderBottom: "1px solid #f0f0f0", paddingBottom: "10px" }}>Enviar outra mensagem</button>
+                        <button onClick={() => { setContactStatus("idle"); setPulsePos(null); }} style={{ fontSize: "12px", fontWeight: 300, letterSpacing: "0.1em", textTransform: "uppercase", color: "#333", opacity: 0.85, background: "none", border: "none", cursor: "pointer", marginTop: "2rem", borderBottom: "1px solid #ddd", paddingBottom: "2px" }}>Enviar outra mensagem</button>
                     </div>
                   ) : (
                     <>
