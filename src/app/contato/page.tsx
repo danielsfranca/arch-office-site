@@ -1,5 +1,5 @@
 "use client";
-import { useState, Suspense } from "react";
+import { useState, Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 
 function ContactForm() {
@@ -8,19 +8,35 @@ function ContactForm() {
 
     const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
     const [errorMessage, setErrorMessage] = useState("");
+    const formRef = useRef<HTMLDivElement>(null);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setStatus("submitting");
         setErrorMessage("");
         
-        const form = e.currentTarget;
-        const formData = new FormData(form);
+        if (!formRef.current) return;
+        
+        // Manual validation for required fields
+        const inputs = formRef.current.querySelectorAll("input[required], textarea[required], select[required]") as NodeListOf<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
+        for (const input of Array.from(inputs)) {
+            if (!input.value.trim()) {
+                setStatus("idle");
+                setErrorMessage("Por favor, preencha todos os campos obrigatórios.");
+                return;
+            }
+        }
+
+        const nameInput = formRef.current.querySelector("input[name='name']") as HTMLInputElement;
+        const emailInput = formRef.current.querySelector("input[name='email']") as HTMLInputElement;
+        const subjectInput = formRef.current.querySelector("select[name='subject']") as HTMLSelectElement;
+        const messageInput = formRef.current.querySelector("textarea[name='message']") as HTMLTextAreaElement;
+
         const data = {
-            name: formData.get("name"),
-            email: formData.get("email"),
-            subject: formData.get("subject"),
-            message: formData.get("message")
+            name: nameInput?.value || "",
+            email: emailInput?.value || "",
+            subject: subjectInput?.value || "",
+            message: messageInput?.value || ""
         };
 
         try {
@@ -32,7 +48,10 @@ function ContactForm() {
 
             if (res.ok) {
                 setStatus("success");
-                form.reset();
+                if (formRef.current) {
+                    const allInputs = formRef.current.querySelectorAll("input, textarea, select") as NodeListOf<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
+                    allInputs.forEach(input => input.value = "");
+                }
             } else {
                 setStatus("error");
                 setErrorMessage("Houve um erro ao se comunicar com o seu provedor de email. Verifique as variáveis de ambiente na Vercel.");
@@ -83,7 +102,7 @@ function ContactForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-10">
+        <div ref={formRef} className="space-y-10">
             <div className="space-y-2">
                 <label className="text-xs uppercase tracking-widest text-[#555] opacity-85">Nome</label>
                 <input required name="name" type="text" className="w-full border-b border-gray-300 py-3 focus:outline-none focus:border-black transition-colors bg-transparent rounded-none text-[12px] font-light text-[#555] opacity-85" placeholder="Seu nome completo" />
@@ -119,11 +138,11 @@ function ContactForm() {
                         {errorMessage}
                     </div>
                 )}
-                <button disabled={status === "submitting"} type="submit" className="bg-[#1a1a1a] text-white px-12 py-5 uppercase text-xs tracking-[0.2em] hover:bg-gray-800 transition-colors disabled:opacity-50 w-full md:w-auto">
+                <button onClick={handleSubmit} disabled={status === "submitting"} type="button" className="bg-[#1a1a1a] text-white px-12 py-5 uppercase text-xs tracking-[0.2em] hover:bg-gray-800 transition-colors disabled:opacity-50 w-full md:w-auto">
                     {status === "submitting" ? "Enviando..." : "Enviar Mensagem"}
                 </button>
             </div>
-        </form>
+        </div>
     );
 }
 
