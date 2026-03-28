@@ -3,12 +3,65 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useLanguage } from "@/context/LanguageContext";
+import { useSession, signOut } from "next-auth/react";
+
+function UserMenu({ t, router }: { t: any, router: any }) {
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <div style={{ fontSize: "0.8rem", color: "#ccc" }}>...</div>;
+  }
+
+  if (status === "authenticated") {
+    return (
+      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+        <span style={{ fontSize: "0.8rem", fontWeight: 500 }}>
+          {session.user?.name?.split(" ")[0]}
+        </span>
+        <button
+          onClick={() => signOut()}
+          style={{
+            background: "none",
+            border: "1px solid #ddd",
+            padding: "0.3rem 0.8rem",
+            borderRadius: "20px",
+            cursor: "pointer",
+            fontSize: "0.7rem",
+            textTransform: "uppercase"
+          }}
+        >
+          Sair
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      onClick={() => router.push("/login")}
+      className="client-area-trigger"
+      style={{ cursor: "pointer" }}
+    >
+      <span style={{
+        color: "#333",
+        fontSize: "0.80rem",
+        fontWeight: 300,
+        letterSpacing: "0.05em",
+        textTransform: "uppercase"
+      }}>
+        {t.nav.clientArea}
+      </span>
+    </div>
+  );
+}
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { language, setLanguage, t } = useLanguage();
 
   const isHome = pathname === "/";
   const isDashboard = pathname.startsWith("/admin-dashboard") || pathname.startsWith("/client-dashboard") || pathname.startsWith("/dashboard");
@@ -31,12 +84,12 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { name: "Home", action: () => isHome ? navigateToHomeView("hero") : router.push("/") },
-    { name: "Arquitetura", action: () => router.push("/arquitetura") },
-    { name: "Visualização", action: () => router.push("/visualizacao") },
-    { name: "Projetos", action: () => navigateToHomeView("gallery_projects") },
-    { name: "Sobre", action: () => navigateToHomeView("about") },
-    { name: "Contato", action: () => navigateToHomeView("contact") },
+    { name: t.nav.home, action: () => isHome ? navigateToHomeView("hero") : router.push("/") },
+    { name: t.nav.architecture, action: () => router.push("/arquitetura") },
+    { name: t.nav.visualization, action: () => router.push("/visualizacao") },
+    { name: t.nav.projects, action: () => navigateToHomeView("gallery_projects") },
+    { name: t.nav.about, action: () => navigateToHomeView("about") },
+    { name: t.nav.contact, action: () => navigateToHomeView("contact") },
   ];
 
   return (
@@ -69,7 +122,7 @@ export default function Navbar() {
                 color: "#333",
                 fontSize: "0.85rem",
                 fontWeight: 300,
-                textTransform: "capitalize",
+                textTransform: "uppercase", // Changed to uppercase to match design
                 letterSpacing: "0.05em",
                 transition: "color 0.2s"
               }}
@@ -80,26 +133,51 @@ export default function Navbar() {
           ))}
         </div>
 
+        {/* Right Side: Language + Client Area */}
         <div
           style={{
             position: "absolute",
             right: "2rem",
             top: "50%",
             transform: "translateY(-50%)",
-            cursor: "pointer"
+            display: "flex",
+            alignItems: "center",
+            gap: "2rem"
           }}
-          onClick={() => router.push("/login")}
-          className="client-area-trigger"
         >
-          <span style={{
-            color: "#333",
-            fontSize: "0.80rem",
-            fontWeight: 300,
-            letterSpacing: "0.05em",
-            textTransform: "uppercase"
-          }}>
-            ÁREA DO CLIENTE
-          </span>
+          {/* Language Switcher */}
+          <div style={{ display: "flex", gap: "0.5rem", fontSize: "0.75rem", fontWeight: 300 }}>
+            <button
+              onClick={() => setLanguage("pt")}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                color: language === "pt" ? "#000" : "#999",
+                fontWeight: language === "pt" ? 500 : 300,
+                padding: 0
+              }}
+            >
+              PT
+            </button>
+            <span style={{ color: "#ddd" }}>|</span>
+            <button
+              onClick={() => setLanguage("en")}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                color: language === "en" ? "#000" : "#999",
+                fontWeight: language === "en" ? 500 : 300,
+                padding: 0
+              }}
+            >
+              EN
+            </button>
+          </div>
+
+          {/* Session Logic */}
+          <UserMenu t={t} router={router} />
         </div>
 
         {/* Mobile Toggle */}
@@ -148,6 +226,34 @@ export default function Navbar() {
               {link.name}
             </button>
           ))}
+          {/* Mobile Language Switcher */}
+          <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+            <button
+              onClick={() => { setLanguage("pt"); setIsOpen(false); }}
+              style={{
+                background: language === "pt" ? "#f0f0f0" : "none",
+                border: "1px solid #eee",
+                padding: "0.5rem 1rem",
+                borderRadius: "4px",
+                fontWeight: language === "pt" ? 600 : 300
+              }}
+            >
+              Português
+            </button>
+            <button
+              onClick={() => { setLanguage("en"); setIsOpen(false); }}
+              style={{
+                background: language === "en" ? "#f0f0f0" : "none",
+                border: "1px solid #eee",
+                padding: "0.5rem 1rem",
+                borderRadius: "4px",
+                fontWeight: language === "en" ? 600 : 300
+              }}
+            >
+              English
+            </button>
+          </div>
+
           <button
             onClick={() => {
               router.push("/login");
@@ -164,7 +270,7 @@ export default function Navbar() {
               letterSpacing: "0.05em"
             }}
           >
-            Área do Cliente
+            {t.nav.clientArea}
           </button>
         </div>
       )}

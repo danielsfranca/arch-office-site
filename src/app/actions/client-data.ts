@@ -39,3 +39,10 @@ export async function getClientsAction() {
     const db = await getDatabase();
     return db.clients;
 }
+
+export async function getClientDataByEmail(email: string) {
+    const db = await getDatabase();
+    // Normalize email search
+    const client = db.clients.find(c => c.email && c.email.toLowerCase() === email.toLowerCase());
+    return client || null;
+}

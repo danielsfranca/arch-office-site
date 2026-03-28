@@ -1,30 +1,41 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { ArrowLeft, AlertCircle } from "lucide-react";
-import { registerAction } from "../actions/auth";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { ArrowLeft, AlertCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { loginAction } from "../actions/auth";
 
-export default function RegisterPage() {
+export default function LoginPage() {
   const router = useRouter();
+  const [role, setRole] = useState<"client" | "admin">("client");
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [error, setError] = useState("");
 
-  async function handleSubmit(formData: FormData) {
+  async function handleEmailLogin(formData: FormData) {
     setIsLoading(true);
-    setErrorMessage("");
-
+    setError("");
     try {
-      const result = await registerAction(null, formData);
-      if (result.success && result.redirectUrl) {
-        router.push(result.redirectUrl);
+      // Add role manually since hidden input might not update fast enough or be tampered
+      formData.set("role", role);
+
+      const result = await loginAction(null, formData);
+      if (result?.success) {
+        window.location.href = result.redirectUrl || "/client-dashboard";
       } else {
-        setErrorMessage(result.message || "Erro no cadastro");
+        setError(result?.message || "Erro ao entrar.");
         setIsLoading(false);
+
+        // Specific requirement: if admin fails, redirect to client area
+        if (role === 'admin') {
+          setTimeout(() => {
+            setRole("client");
+            setError("Acesso administrativo negado. Redirecionando para área do cliente...");
+          }, 1000); // Small delay to show error, then switch
+        }
       }
-    } catch (error) {
-      setErrorMessage("Erro de conexão.");
+    } catch (e) {
+      setError("Erro de conexão.");
       setIsLoading(false);
     }
   }
@@ -35,11 +46,11 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="register-container">
-      <div className="register-card">
+    <div className="login-container">
+      <div className="login-card">
 
         {/* Header - Minimalist */}
-        <div className="register-header">
+        <div className="login-header">
           <button
             onClick={() => router.push("/")}
             className="back-btn"
@@ -47,21 +58,31 @@ export default function RegisterPage() {
             <ArrowLeft size={14} /> Voltar ao site
           </button>
           <h1 className="brand-title">Daniel França</h1>
-          <p className="sub-title">Novo Cadastro</p>
+          <p className="sub-title">
+            {role === "client" ? "Área do Cliente" : "Área Administrativa"}
+          </p>
         </div>
 
-        {/* Register Form */}
-        <form action={handleSubmit} className="register-form">
-          <div className="input-group">
-            <label>Nome Completo</label>
-            <input
-              required
-              type="text"
-              name="name"
-              placeholder="Seu nome"
-            />
-          </div>
+        {/* Role Toggle */}
+        <div className="role-toggle">
+          <button
+            type="button"
+            className={`toggle-btn ${role === "client" ? "active" : ""}`}
+            onClick={() => setRole("client")}
+          >
+            Sou Cliente
+          </button>
+          <button
+            type="button"
+            className={`toggle-btn ${role === "admin" ? "active" : ""}`}
+            onClick={() => setRole("admin")}
+          >
+            Administração
+          </button>
+        </div>
 
+        {/* Login Form */}
+        <form action={handleEmailLogin} className="login-form">
           <div className="input-group">
             <label>Email</label>
             <input
@@ -73,39 +94,21 @@ export default function RegisterPage() {
           </div>
 
           <div className="input-group">
-            <label>Telefone / WhatsApp</label>
+            <label>Senha</label>
             <input
-              type="tel"
-              name="phone"
-              placeholder="(11) 99999-9999"
+              required
+              type="password"
+              name="password"
+              placeholder="••••••••"
             />
           </div>
 
-          <div className="row-group">
-            <div className="input-group">
-              <label>Senha</label>
-              <input
-                required
-                type="password"
-                name="password"
-                placeholder="••••••••"
-              />
-            </div>
-            <div className="input-group">
-              <label>Confirmar Senha</label>
-              <input
-                required
-                type="password"
-                name="confirmPassword"
-                placeholder="••••••••"
-              />
-            </div>
-          </div>
+          <input type="hidden" name="role" value={role} />
 
-          {errorMessage && (
+          {error && (
             <div className="error-msg">
               <AlertCircle size={14} />
-              <span>{errorMessage}</span>
+              <span>{error}</span>
             </div>
           )}
 
@@ -114,50 +117,56 @@ export default function RegisterPage() {
             disabled={isLoading}
             className="submit-btn"
           >
-            {isLoading ? "Criando Conta..." : "Criar Conta"}
+            {isLoading ? "Entrando..." : "Entrar"}
           </button>
         </form>
 
-        <div className="divider">
-          <div className="line"></div>
-          <span>OU</span>
-          <div className="line"></div>
-        </div>
+        {role === "client" && (
+          <>
+            <div className="divider">
+              <div className="line"></div>
+              <span>OU</span>
+              <div className="line"></div>
+            </div>
 
-        <div className="oauth-container">
-          <button
-            type="button"
-            onClick={() => handleOAuthLogin("google")}
-            disabled={isLoading}
-            className="oauth-btn"
-          >
-            <img src="https://authjs.dev/img/providers/google.svg" width="16" height="16" alt="Google" />
-            <span>Cadastrar com Gmail</span>
-          </button>
+            <div className="oauth-container">
+              <button
+                type="button"
+                onClick={() => handleOAuthLogin("google")}
+                disabled={isLoading}
+                className="oauth-btn"
+              >
+                <img src="https://authjs.dev/img/providers/google.svg" width="16" height="16" alt="Google" />
+                <span>Entrar com Gmail</span>
+              </button>
 
-          <button
-            type="button"
-            onClick={() => handleOAuthLogin("azure-ad")}
-            disabled={isLoading}
-            className="oauth-btn"
-          >
-            <img src="https://authjs.dev/img/providers/azure-ad.svg" width="16" height="16" alt="Microsoft" />
-            <span>Cadastrar com Outlook</span>
-          </button>
-        </div>
+              <button
+                type="button"
+                onClick={() => handleOAuthLogin("azure-ad")}
+                disabled={isLoading}
+                className="oauth-btn"
+              >
+                <img src="https://authjs.dev/img/providers/azure-ad.svg" width="16" height="16" alt="Microsoft" />
+                <span>Entrar com Outlook</span>
+              </button>
+            </div>
+          </>
+        )}
 
-        <div className="footer-links">
-          <span>Já tem uma conta? </span>
-          <button onClick={() => router.push("/login")} className="login-link">
-            Fazer Login
-          </button>
-        </div>
+        {role === "client" && (
+          <div className="footer-links">
+            <span>Ainda não tem conta? </span>
+            <button onClick={() => router.push("/register")} className="register-link">
+              Cadastre-se
+            </button>
+          </div>
+        )}
 
       </div>
 
       <style jsx>{`
         /* Minimalist Global Reset for this view */
-        .register-container {
+        .login-container {
             width: 100vw;
             min-height: 100vh;
             background: #fff;
@@ -169,17 +178,15 @@ export default function RegisterPage() {
             font-family: var(--font-main-sans), "Inter", sans-serif;
         }
 
-        .register-card {
+        .login-card {
             width: 100%;
-            max-width: 450px;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
             gap: 2rem;
-            margin-top: 2rem; /* Ensure space on mobile */
-            padding-bottom: 2rem;
         }
 
-        .register-header {
+        .login-header {
             text-align: center;
             margin-bottom: 1rem;
         }
@@ -216,17 +223,11 @@ export default function RegisterPage() {
             color: #888;
         }
 
-        .register-form {
+        .login-form {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
-
-        .row-group {
-            display: flex;
-            gap: 1.5rem;
-        }
-        .row-group .input-group { flex: 1; }
 
         .input-group {
             display: flex;
@@ -322,7 +323,7 @@ export default function RegisterPage() {
             transition: all 0.2s;
         }
         .oauth-btn:hover { background: #fafafa; border-color: #ddd; color: #333; }
-        .oauth-btn span { margin-top: 2px; }
+        .oauth-btn span { margin-top: 2px; } /* Optical alignment */
 
         .footer-links {
             text-align: center;
@@ -331,7 +332,7 @@ export default function RegisterPage() {
             margin-top: 1rem;
         }
 
-        .login-link {
+        .register-link {
             background: none;
             border: none;
             border-bottom: 1px solid #ccc;
@@ -342,16 +343,38 @@ export default function RegisterPage() {
             margin-left: 0.3rem;
             transition: all 0.2s;
         }
-        .login-link:hover {
+        .register-link:hover {
             color: #1a1a1a;
             border-bottom-color: #1a1a1a;
         }
 
-        @media (max-width: 600px) {
-            .row-group {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
+        /* Toggle Styles */
+        .role-toggle {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 2rem;
+        }
+        
+        .toggle-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 1rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .toggle-btn:hover { color: #555; }
+        
+        .toggle-btn.active {
+            color: #1a1a1a;
+            border-bottom-color: #1a1a1a;
+            font-weight: 600;
         }
       `}</style>
     </div>

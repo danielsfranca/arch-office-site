@@ -3,8 +3,10 @@
 import { ArrowRight } from "lucide-react";
 import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ArquiteturaPage() {
+    const { t } = useLanguage();
     return (
         <>
             <Suspense>
@@ -52,11 +54,11 @@ export default function ArquiteturaPage() {
                             marginBottom: "1.5rem",
                             fontWeight: 300,
                             letterSpacing: "0.4em",
-                            color: "#ffffff",
+                            color: "#e0e0e0",
                             textTransform: "uppercase",
-                            textShadow: "0 2px 20px rgba(0,0,0,0.5)" // Added shadow for legibility
+                            textShadow: "0 2px 20px rgba(0,0,0,0.5)"
                         }}>
-                            Arquitetura e Interiores
+                            {t.architecturePage.hero.title}
                         </h1>
                         <p style={{
                             fontSize: "12px",
@@ -69,7 +71,7 @@ export default function ArquiteturaPage() {
                             lineHeight: "1.8",
                             textShadow: "0 2px 10px rgba(0,0,0,0.5)" // Added shadow for legibility
                         }}>
-                            Projetos desenvolvidos com foco na experiência, contexto e materialidade.
+                            {t.architecturePage.hero.subtitle}
                         </p>
 
                         <div style={{
@@ -86,57 +88,23 @@ export default function ArquiteturaPage() {
                 <section className="section" style={{ padding: "10rem 0", backgroundColor: "var(--bg-primary)" }}>
                     <div className="container" style={{ maxWidth: "1000px" }}>
                         <div style={{ textAlign: "center", marginBottom: "6rem" }}>
-                            <h2 style={{
-                                fontSize: "0.75rem",
-                                fontWeight: 300,
-                                letterSpacing: "0.5em",
-                                color: "#999",
-                                textTransform: "uppercase",
-                                marginBottom: "1rem"
-                            }}>
-                                Serviços
+                            <h2>
+                                {t.services.title}
                             </h2>
-                            <h3 style={{
-                                fontSize: "2rem",
-                                fontWeight: 300,
-                                letterSpacing: "-0.02em",
-                                color: "var(--text-primary)",
-                                opacity: 0.7
-                            }}>
-                                O Que Fazemos
+                            <h3>
+                                {t.services.subtitle}
                             </h3>
                         </div>
 
                         <div className="services-grid">
                             {[
-                                {
-                                    title: "Projeto de Arquitetura",
-                                    description: "Concepção de espaços que unem estética, função e a identidade única de quem habita."
-                                },
-                                {
-                                    title: "Projeto de Interiores",
-                                    description: "Ambientes pensados para o bem-estar, com foco em conforto, design atemporal e exclusividade."
-                                },
-                                {
-                                    title: "Projeto de Iluminação",
-                                    description: "Luz como elemento de design, criando atmosferas envolventes e valorizando a arquitetura."
-                                },
-                                {
-                                    title: "Gestão de Projetos Complementares",
-                                    description: "Compatibilização rigorosa de disciplinas técnicas para garantir uma obra sem imprevistos."
-                                },
-                                {
-                                    title: "Gestão de Fornecedores e Orçamentos",
-                                    description: "Curadoria e negociação estratégica para otimizar custos sem abrir mão da qualidade."
-                                },
-                                {
-                                    title: "Fiscalização de Obra",
-                                    description: "Acompanhamento técnico preciso para assegurar a fidelidade entre o projeto e a execução."
-                                },
-                                {
-                                    title: "Visualização Arquitetônica",
-                                    description: "Imagens e experiências imersivas que antecipam o futuro e materializam sonhos."
-                                }
+                                t.services.items.architecture,
+                                t.services.items.interiors,
+                                t.services.items.lighting,
+                                t.services.items.management,
+                                t.services.items.suppliers,
+                                t.services.items.supervision,
+                                t.services.items.visualization
                             ].map((service, index) => (
                                 <div key={index} style={{
                                     textAlign: "center",
@@ -175,7 +143,7 @@ export default function ArquiteturaPage() {
                                         opacity: 0.85,
                                         letterSpacing: "0.05em"
                                     }}>
-                                        {service.description}
+                                        {service.desc}
                                     </p>
                                     <div style={{
                                         width: "20px",
@@ -213,9 +181,9 @@ export default function ArquiteturaPage() {
                                     e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.1)";
                                     e.currentTarget.style.background = "#1a1a1a";
                                 }}
-                                onClick={() => window.location.href = "mailto:arq.dfranca@gmail.com"}
+                                onClick={() => window.location.href = "mailto:contato@dfranca.arq.br"}
                             >
-                                Vamos conversar sobre seu projeto
+                                {t.services.cta}
                             </button>
                             <div style={{ marginTop: "1.5rem" }}>
                                 <button
@@ -237,7 +205,7 @@ export default function ArquiteturaPage() {
                                     onMouseLeave={(e) => e.currentTarget.style.opacity = "0.7"}
                                     onClick={() => window.location.href = "/projetos"}
                                 >
-                                    Ver projetos
+                                    {t.services.viewProjects}
                                 </button>
                             </div>
                         </div>

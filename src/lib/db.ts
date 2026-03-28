@@ -24,20 +24,84 @@ export interface Client {
     timeline: any[];
 }
 
+export interface Project {
+    id: string | number;
+    client_user_id: string | number; // references Client
+    name: string;
+    status: 'lead' | 'active' | 'finished';
+    complexity?: 'baixa' | 'media' | 'alta';
+    start_date: string;
+    deadline: string;
+}
+
+export interface BoardColumn {
+    id: string | number;
+    project_id: string | number; // references Project
+    name: string;
+    order_index: number;
+}
+
+export interface Task {
+    id: string | number;
+    column_id: string | number; // references BoardColumn
+    project_id: string | number; // references Project
+    title: string;
+    description: string;
+    due_date: string;
+    assigned_to_user_id: string | number;
+}
+
+export interface TimeEntry {
+    id: string | number;
+    user_id: string | number;
+    project_id: string | number; // references Project
+    task_id: string | number; // references Task
+    start_time: string;
+    end_time: string | null;
+    duration_seconds: number;
+    is_billable: boolean;
+}
+
+export interface Financial {
+    id: string | number;
+    project_id: string | number; // references Project
+    type: 'income' | 'expense';
+    amount: number;
+    status: 'pending' | 'paid' | 'cancelled';
+    due_date: string;
+}
+
 export interface Database {
     clients: Client[];
-    projects: any[];
+    projects: Project[];
+    columns: BoardColumn[];
+    tasks: Task[];
+    timeEntries: TimeEntry[];
+    financials: Financial[];
 }
 
 // Function to read the database
 export async function getDatabase(): Promise<Database> {
     try {
         const fileContents = await fs.readFile(DATA_FILE_PATH, 'utf8');
-        return JSON.parse(fileContents);
+        const db = JSON.parse(fileContents);
+
+        // Ensure defaults for all collections
+        return {
+            clients: db.clients || [],
+            projects: db.projects || [],
+            columns: db.columns || [],
+            tasks: db.tasks || [],
+            timeEntries: db.timeEntries || [],
+            financials: db.financials || [],
+        };
     } catch (error) {
         console.error('Error reading database:', error);
         // Return a default structure if reading fails
-        return { clients: [], projects: [] };
+        return {
+            clients: [], projects: [], columns: [], tasks: [],
+            timeEntries: [], financials: []
+        };
     }
 }
 

@@ -15,11 +15,12 @@ export function middleware(request: NextRequest) {
     // Protect Client Dashboard
     if (pathname.startsWith("/client-dashboard")) {
         const clientSession = request.cookies.get("client_session");
-        // Also allow admins to view client dashboard if needed? Or keep separate.
-        // For now, strict: client needs client_session.
-        if (!clientSession) {
-            // Optional: Redirect admins to admin dashboard if they try to access client dash?
-            // For now, just redirect to login if no session.
+        const nextAuthSession = request.cookies.get("next-auth.session-token") ||
+            request.cookies.get("__Secure-next-auth.session-token") ||
+            request.cookies.get("authjs.session-token"); // Check all variants
+
+        // If neither custom session nor NextAuth session exists, redirect
+        if (!clientSession && !nextAuthSession) {
             return NextResponse.redirect(new URL("/login", request.url));
         }
     }

@@ -6,61 +6,66 @@ import { hashPassword, verifyPassword } from "@/lib/security";
 import crypto from "crypto";
 
 export async function loginAction(prevState: any, formData: FormData) {
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const role = formData.get("role") as string;
+    try {
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+        const role = formData.get("role") as string;
 
-    // Simulate a minimal delay to prevent timing attacks
-    await new Promise((resolve) => setTimeout(resolve, 500));
+        // Simulate a minimal delay to prevent timing attacks
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
-    if (role === "admin") {
-        // Validate strict Admin credentials from Environment Variables
-        if (
-            email === process.env.ADMIN_EMAIL &&
-            password === process.env.ADMIN_PASSWORD
-        ) {
-            const cookieStore = await cookies();
+        if (role === "admin") {
+            // Validate strict Admin credentials from Environment Variables
+            if (
+                email === process.env.ADMIN_EMAIL &&
+                password === process.env.ADMIN_PASSWORD
+            ) {
+                const cookieStore = await cookies();
 
-            cookieStore.set("admin_session", "true", {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                sameSite: "strict",
-                maxAge: 60 * 60 * 24, // 1 day
-                path: "/",
-            });
+                cookieStore.set("admin_session", "true", {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production",
+                    sameSite: "strict",
+                    maxAge: 60 * 60 * 24, // 1 day
+                    path: "/",
+                });
 
-            return { success: true, redirectUrl: "/admin-dashboard" };
-        } else {
-            return { success: false, message: "Email ou senha de administrador incorretos." };
+                return { success: true, redirectUrl: "/admin-dashboard" };
+            } else {
+                return { success: false, message: "Email ou senha de administrador incorretos." };
+            }
         }
-    }
 
-    if (role === "client") {
-        const client = await findClientByEmail(email);
+        if (role === "client") {
+            const client = await findClientByEmail(email);
 
-        if (!client) {
-            // Return generic message for security (user enumeration prevention)
+            if (!client) {
+                // Return generic message for security (user enumeration prevention)
+                return { success: false, message: "Credenciais inválidas." };
+            }
+
+            const isValid = verifyPassword(password, client.passwordHash, client.salt);
+
+            if (isValid) {
+                const cookieStore = await cookies();
+                cookieStore.set("client_session", client.id, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production",
+                    sameSite: "strict",
+                    maxAge: 60 * 60 * 24, // 1 day
+                    path: "/",
+                });
+                return { success: true, redirectUrl: "/client-dashboard" };
+            }
+
             return { success: false, message: "Credenciais inválidas." };
         }
 
-        const isValid = verifyPassword(password, client.passwordHash, client.salt);
-
-        if (isValid) {
-            const cookieStore = await cookies();
-            cookieStore.set("client_session", client.id, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                sameSite: "strict",
-                maxAge: 60 * 60 * 24, // 1 day
-                path: "/",
-            });
-            return { success: true, redirectUrl: "/client-dashboard" };
-        }
-
-        return { success: false, message: "Credenciais inválidas." };
+        return { success: false, message: "Tipo de usuário inválido." };
+    } catch (error: any) {
+        console.error("Login Action Error:", error);
+        return { success: false, message: "Erro interno: " + (error.message || "Desconhecido") };
     }
-
-    return { success: false, message: "Tipo de usuário inválido." };
 }
 
 export async function registerAction(prevState: any, formData: FormData) {

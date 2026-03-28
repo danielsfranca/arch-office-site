@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google"; // Using Inter for assured sans-serif
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
+import { LanguageProvider } from "@/context/LanguageContext";
+import SessionProvider from "@/context/SessionProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,8 +24,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body className={`${inter.variable}`}>
-        <CustomCursor />
-        {children}
+        <LanguageProvider>
+          <SessionProvider>
+            <CustomCursor />
+            {children}
+          </SessionProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

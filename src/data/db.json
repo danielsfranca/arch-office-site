@@ -61,6 +61,1496 @@
       "id": "p3",
       "name": "Quarta Esquina",
       "status": "active"
+    },
+    {
+      "id": "1771976748916",
+      "name": "Resid",
+      "client_user_id": "2",
+      "start_date": "40601-02-20",
+      "deadline": "50601-02-20",
+      "status": "lead"
+    },
+    {
+      "id": "1771976781608",
+      "name": "Residencia Alpha",
+      "client_user_id": "2",
+      "start_date": "",
+      "deadline": "",
+      "status": "lead"
+    },
+    {
+      "id": "1771977488223",
+      "name": "Loft B",
+      "client_user_id": "1",
+      "start_date": "2025-02-21",
+      "deadline": "2026-02-22",
+      "status": "lead"
+    },
+    {
+      "id": "1771978048157",
+      "name": "Projeto Teste",
+      "client_user_id": "1",
+      "start_date": "",
+      "deadline": "",
+      "status": "lead"
+    },
+    {
+      "id": "1771979590158",
+      "name": "Resid",
+      "client_user_id": "1",
+      "start_date": "",
+      "deadline": "",
+      "complexity": "alta",
+      "status": "lead"
+    },
+    {
+      "id": "1771979753232",
+      "name": "terte",
+      "client_user_id": "1",
+      "start_date": "",
+      "deadline": "",
+      "complexity": "media",
+      "status": "lead"
+    },
+    {
+      "id": "1771979783177",
+      "name": "444",
+      "client_user_id": "1",
+      "start_date": "",
+      "deadline": "",
+      "complexity": "alta",
+      "status": "lead"
+    },
+    {
+      "id": "1771979955058",
+      "name": "Residencia Teste Alta Complexidade",
+      "client_user_id": "1",
+      "start_date": "2026-02-24",
+      "deadline": "2027-02-24",
+      "complexity": "alta",
+      "status": "lead"
     }
-  ]
+  ],
+  "columns": [
+    {
+      "id": "1771977832027-1",
+      "name": "To Do",
+      "order_index": 0
+    },
+    {
+      "id": "1771977832027-2",
+      "name": "Doing",
+      "order_index": 1
+    },
+    {
+      "id": "1771977832027-3",
+      "name": "Done",
+      "order_index": 2
+    },
+    {
+      "id": "1771978110228-1",
+      "project_id": "p1",
+      "name": "To Do",
+      "order_index": 0
+    },
+    {
+      "id": "1771978110228-2",
+      "project_id": "p1",
+      "name": "Doing",
+      "order_index": 1
+    },
+    {
+      "id": "1771978110228-3",
+      "project_id": "p1",
+      "name": "Done",
+      "order_index": 2
+    },
+    {
+      "id": "1771978795825-1",
+      "project_id": "1771978048157",
+      "name": "To Do",
+      "order_index": 0
+    },
+    {
+      "id": "1771978795825-2",
+      "project_id": "1771978048157",
+      "name": "Doing",
+      "order_index": 1
+    },
+    {
+      "id": "1771978795825-3",
+      "project_id": "1771978048157",
+      "name": "Done",
+      "order_index": 2
+    },
+    {
+      "id": "1771979590158-PI",
+      "project_id": "1771979590158",
+      "name": "Planejamento Inicial",
+      "order_index": 0
+    },
+    {
+      "id": "1771979590158-LV",
+      "project_id": "1771979590158",
+      "name": "Levantamento (Descobrir)",
+      "order_index": 1
+    },
+    {
+      "id": "1771979590158-EP",
+      "project_id": "1771979590158",
+      "name": "Estudo Preliminar (Imaginar)",
+      "order_index": 2
+    },
+    {
+      "id": "1771979590158-PL",
+      "project_id": "1771979590158",
+      "name": "Projeto Legal",
+      "order_index": 3
+    },
+    {
+      "id": "1771979590158-AP",
+      "project_id": "1771979590158",
+      "name": "Anteprojeto (Desenvolver)",
+      "order_index": 4
+    },
+    {
+      "id": "1771979590158-PE",
+      "project_id": "1771979590158",
+      "name": "Projeto Executivo",
+      "order_index": 5
+    },
+    {
+      "id": "1771979590158-PO",
+      "project_id": "1771979590158",
+      "name": "Planejamento de Obra",
+      "order_index": 6
+    },
+    {
+      "id": "1771979753232-PI",
+      "project_id": "1771979753232",
+      "name": "Planejamento Inicial",
+      "order_index": 0
+    },
+    {
+      "id": "1771979753232-LV",
+      "project_id": "1771979753232",
+      "name": "Levantamento (Descobrir)",
+      "order_index": 1
+    },
+    {
+      "id": "1771979753232-EP",
+      "project_id": "1771979753232",
+      "name": "Estudo Preliminar (Imaginar)",
+      "order_index": 2
+    },
+    {
+      "id": "1771979753232-PL",
+      "project_id": "1771979753232",
+      "name": "Projeto Legal",
+      "order_index": 3
+    },
+    {
+      "id": "1771979753232-AP",
+      "project_id": "1771979753232",
+      "name": "Anteprojeto (Desenvolver)",
+      "order_index": 4
+    },
+    {
+      "id": "1771979753232-PE",
+      "project_id": "1771979753232",
+      "name": "Projeto Executivo",
+      "order_index": 5
+    },
+    {
+      "id": "1771979753232-PO",
+      "project_id": "1771979753232",
+      "name": "Planejamento de Obra",
+      "order_index": 6
+    },
+    {
+      "id": "1771979783177-PI",
+      "project_id": "1771979783177",
+      "name": "Planejamento Inicial",
+      "order_index": 0
+    },
+    {
+      "id": "1771979783177-LV",
+      "project_id": "1771979783177",
+      "name": "Levantamento (Descobrir)",
+      "order_index": 1
+    },
+    {
+      "id": "1771979783177-EP",
+      "project_id": "1771979783177",
+      "name": "Estudo Preliminar (Imaginar)",
+      "order_index": 2
+    },
+    {
+      "id": "1771979783177-PL",
+      "project_id": "1771979783177",
+      "name": "Projeto Legal",
+      "order_index": 3
+    },
+    {
+      "id": "1771979783177-AP",
+      "project_id": "1771979783177",
+      "name": "Anteprojeto (Desenvolver)",
+      "order_index": 4
+    },
+    {
+      "id": "1771979783177-PE",
+      "project_id": "1771979783177",
+      "name": "Projeto Executivo",
+      "order_index": 5
+    },
+    {
+      "id": "1771979783177-PO",
+      "project_id": "1771979783177",
+      "name": "Planejamento de Obra",
+      "order_index": 6
+    },
+    {
+      "id": "1771979871249-1",
+      "project_id": "1771976748916",
+      "name": "To Do",
+      "order_index": 0
+    },
+    {
+      "id": "1771979871249-2",
+      "project_id": "1771976748916",
+      "name": "Doing",
+      "order_index": 1
+    },
+    {
+      "id": "1771979871249-3",
+      "project_id": "1771976748916",
+      "name": "Done",
+      "order_index": 2
+    },
+    {
+      "id": "1771979955058-PI",
+      "project_id": "1771979955058",
+      "name": "Planejamento Inicial",
+      "order_index": 0
+    },
+    {
+      "id": "1771979955058-LV",
+      "project_id": "1771979955058",
+      "name": "Levantamento (Descobrir)",
+      "order_index": 1
+    },
+    {
+      "id": "1771979955058-EP",
+      "project_id": "1771979955058",
+      "name": "Estudo Preliminar (Imaginar)",
+      "order_index": 2
+    },
+    {
+      "id": "1771979955058-PL",
+      "project_id": "1771979955058",
+      "name": "Projeto Legal",
+      "order_index": 3
+    },
+    {
+      "id": "1771979955058-AP",
+      "project_id": "1771979955058",
+      "name": "Anteprojeto (Desenvolver)",
+      "order_index": 4
+    },
+    {
+      "id": "1771979955058-PE",
+      "project_id": "1771979955058",
+      "name": "Projeto Executivo",
+      "order_index": 5
+    },
+    {
+      "id": "1771979955058-PO",
+      "project_id": "1771979955058",
+      "name": "Planejamento de Obra",
+      "order_index": 6
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1771978168125",
+      "project_id": "p1",
+      "column_id": "1771978110228-2",
+      "title": "Comprar materiais da reforma",
+      "description": "",
+      "due_date": "",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t0",
+      "column_id": "1771979590158-PI",
+      "project_id": "1771979590158",
+      "title": "[PI] PLANEJAMENTO INICIAL DO PROJETO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-03-04",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t1",
+      "column_id": "1771979590158-LV",
+      "project_id": "1771979590158",
+      "title": "[LV01] LEVANTAMENTO COMPLEMENTARES",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-03-18",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t2",
+      "column_id": "1771979590158-LV",
+      "project_id": "1771979590158",
+      "title": "[LV02] MODELO 3D / DESENHOS BASE",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-03-25",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t3",
+      "column_id": "1771979590158-EP",
+      "project_id": "1771979590158",
+      "title": "[EP01] DESENVOLVIMENTO CONCEPÇÃO",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-04-22",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t4",
+      "column_id": "1771979590158-EP",
+      "project_id": "1771979590158",
+      "title": "[EP02] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-04-29",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t5",
+      "column_id": "1771979590158-EP",
+      "project_id": "1771979590158",
+      "title": "[EP03] DESENVOLVIMENTO FINAL",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-05-27",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t6",
+      "column_id": "1771979590158-EP",
+      "project_id": "1771979590158",
+      "title": "[EP04] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-06-03",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t7",
+      "column_id": "1771979590158-EP",
+      "project_id": "1771979590158",
+      "title": "[EP05] ORÇAMENTAÇÃO COMPLEMENTARES",
+      "description": "Prazo: 3 semana(s) estimada(s) - Automático",
+      "due_date": "2026-06-24",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t8",
+      "column_id": "1771979590158-EP",
+      "project_id": "1771979590158",
+      "title": "[EP06] CONTRATAÇÃO COMPLEMENTARES",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-07-01",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t9",
+      "column_id": "1771979590158-EP",
+      "project_id": "1771979590158",
+      "title": "[EP07] ANÁLISE C. ENG. E C.EST",
+      "description": "Prazo: 3 semana(s) estimada(s) - Automático",
+      "due_date": "2026-07-22",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t10",
+      "column_id": "1771979590158-EP",
+      "project_id": "1771979590158",
+      "title": "[EP08] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-07-29",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t11",
+      "column_id": "1771979590158-EP",
+      "project_id": "1771979590158",
+      "title": "[EP09] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-08-05",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t12",
+      "column_id": "1771979590158-PL",
+      "project_id": "1771979590158",
+      "title": "[PL01] DESENVOLVIMENTO CONSULTOR LEGAL",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-08-19",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t13",
+      "column_id": "1771979590158-PL",
+      "project_id": "1771979590158",
+      "title": "[PL02] ANÁLISE ARQ",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-09-02",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t14",
+      "column_id": "1771979590158-PL",
+      "project_id": "1771979590158",
+      "title": "[PL03] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-09-09",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t15",
+      "column_id": "1771979590158-AP",
+      "project_id": "1771979590158",
+      "title": "[AP01] DESENVOLVIMENTO EST",
+      "description": "Prazo: Variável (Pendente Definição)",
+      "due_date": "",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t16",
+      "column_id": "1771979590158-AP",
+      "project_id": "1771979590158",
+      "title": "[AP02] COMPATIBILIZAÇÃO ARQ + EST + ORÇAMENTO",
+      "description": "Prazo: 3 semana(s) estimada(s) - Automático",
+      "due_date": "2026-09-30",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t17",
+      "column_id": "1771979590158-AP",
+      "project_id": "1771979590158",
+      "title": "[AP03] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-10-07",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t18",
+      "column_id": "1771979590158-AP",
+      "project_id": "1771979590158",
+      "title": "[AP04] DESENVOLVIMENTO C. EST + C. ENG",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-11-04",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t19",
+      "column_id": "1771979590158-AP",
+      "project_id": "1771979590158",
+      "title": "[AP05] DESENVOLVIMENTO ARQ / COMPATIBILIZAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-11-11",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t20",
+      "column_id": "1771979590158-AP",
+      "project_id": "1771979590158",
+      "title": "[AP06] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES + ORÇ.",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-12-09",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t21",
+      "column_id": "1771979590158-AP",
+      "project_id": "1771979590158",
+      "title": "[AP07] AJUSTES COMPLEMENTARES",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-12-23",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t22",
+      "column_id": "1771979590158-AP",
+      "project_id": "1771979590158",
+      "title": "[AP08] EMISSÃO FINAL ARQ",
+      "description": "Prazo: 3 semana(s) estimada(s) - Automático",
+      "due_date": "2027-01-13",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t23",
+      "column_id": "1771979590158-AP",
+      "project_id": "1771979590158",
+      "title": "[AP09] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-01-27",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t24",
+      "column_id": "1771979590158-AP",
+      "project_id": "1771979590158",
+      "title": "[AP10] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-02-10",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t25",
+      "column_id": "1771979590158-AP",
+      "project_id": "1771979590158",
+      "title": "[AP11] BASE MATERIAL DIVULGAÇÃO EMPREENDIMENTO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2027-02-17",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t26",
+      "column_id": "1771979590158-AP",
+      "project_id": "1771979590158",
+      "title": "[AP12] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2027-02-24",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t27",
+      "column_id": "1771979590158-PE",
+      "project_id": "1771979590158",
+      "title": "[PE01] DESENVOLVIMENTO ARQ AMPLIAÇÕES E COMPL.",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-03-10",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t28",
+      "column_id": "1771979590158-PE",
+      "project_id": "1771979590158",
+      "title": "[PE02] DESENVOLVIMENTO ARQ ESQUADRIAS",
+      "description": "Prazo: 8 semana(s) estimada(s) - Automático",
+      "due_date": "2027-05-05",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t29",
+      "column_id": "1771979590158-PE",
+      "project_id": "1771979590158",
+      "title": "[PE03] DESENVOLVIMENTO ARQ DETALHAMENTOS",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-05-19",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t30",
+      "column_id": "1771979590158-PE",
+      "project_id": "1771979590158",
+      "title": "[PE04] DESENVOLVIMENTO ARQ DESENHOS GERAIS",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-06-02",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t31",
+      "column_id": "1771979590158-PE",
+      "project_id": "1771979590158",
+      "title": "[PE05] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-06-16",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t32",
+      "column_id": "1771979590158-PE",
+      "project_id": "1771979590158",
+      "title": "[PE06] AJUSTES FINAIS. EMISSÃO LO E MEMORIAL",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2027-06-23",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979590158-t33",
+      "column_id": "1771979590158-PO",
+      "project_id": "1771979590158",
+      "title": "[PO] ORÇAMENTO FINAL E PLANEJAMENTO DE OBRA",
+      "description": "Prazo: Variável (Pendente Definição)",
+      "due_date": "",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t0",
+      "column_id": "1771979753232-PI",
+      "project_id": "1771979753232",
+      "title": "[PI] PLANEJAMENTO INICIAL DO PROJETO",
+      "description": "Prazo: Variável (Pendente Definição)",
+      "due_date": "",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t1",
+      "column_id": "1771979753232-LV",
+      "project_id": "1771979753232",
+      "title": "[LV01] LEVANTAMENTO COMPLEMENTARES / ARQ",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-03-11",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t2",
+      "column_id": "1771979753232-LV",
+      "project_id": "1771979753232",
+      "title": "[LV02] MODELO 3D / DESENHOS BASE / CONDICIONANTES",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-03-18",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t3",
+      "column_id": "1771979753232-EP",
+      "project_id": "1771979753232",
+      "title": "[EP01] DESENVOLVIMENTO CONCEPÇÃO",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-04-01",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t4",
+      "column_id": "1771979753232-EP",
+      "project_id": "1771979753232",
+      "title": "[EP02] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-04-08",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t5",
+      "column_id": "1771979753232-EP",
+      "project_id": "1771979753232",
+      "title": "[EP03] DESENVOLVIMENTO FINAL ARQ",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-04-22",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t6",
+      "column_id": "1771979753232-EP",
+      "project_id": "1771979753232",
+      "title": "[EP04] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-04-29",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t7",
+      "column_id": "1771979753232-EP",
+      "project_id": "1771979753232",
+      "title": "[EP05] ORÇAMENTAÇÃO E BASE COMPLEMENTARES",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-05-13",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t8",
+      "column_id": "1771979753232-EP",
+      "project_id": "1771979753232",
+      "title": "[EP06] CONTRATAÇÃO COMPLEMENTARES",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-05-20",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t9",
+      "column_id": "1771979753232-EP",
+      "project_id": "1771979753232",
+      "title": "[EP07] ANÁLISE C. ENG. E C.EST",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-05-27",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t10",
+      "column_id": "1771979753232-EP",
+      "project_id": "1771979753232",
+      "title": "[EP08] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-06-03",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t11",
+      "column_id": "1771979753232-PL",
+      "project_id": "1771979753232",
+      "title": "[PL01] DESENVOLVIMENTO CONSULTOR LEGAL",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-06-17",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t12",
+      "column_id": "1771979753232-PL",
+      "project_id": "1771979753232",
+      "title": "[PL02] ANÁLISE ARQ",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-06-24",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t13",
+      "column_id": "1771979753232-PL",
+      "project_id": "1771979753232",
+      "title": "[PL03] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: Variável (Pendente Definição)",
+      "due_date": "",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t14",
+      "column_id": "1771979753232-AP",
+      "project_id": "1771979753232",
+      "title": "[AP01] DESENVOLVIMENTO ARQ E COMPLEMENTARES",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-07-22",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t15",
+      "column_id": "1771979753232-AP",
+      "project_id": "1771979753232",
+      "title": "[AP02] COMPATIBILIZAÇÃO ARQ / INFRA",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-07-29",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t16",
+      "column_id": "1771979753232-AP",
+      "project_id": "1771979753232",
+      "title": "[AP03] DESENVOLVIMENTO C. ENG",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-08-12",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t17",
+      "column_id": "1771979753232-AP",
+      "project_id": "1771979753232",
+      "title": "[AP04] COMPATIBILIZAÇÃO E AJUSTES ARQ",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-08-26",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t18",
+      "column_id": "1771979753232-AP",
+      "project_id": "1771979753232",
+      "title": "[AP05] AJUSTES COMPLEMENTARES",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-09-02",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t19",
+      "column_id": "1771979753232-AP",
+      "project_id": "1771979753232",
+      "title": "[AP06] COMPATIBILIZAÇÃO E AJUSTES ARQ",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-09-09",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t20",
+      "column_id": "1771979753232-AP",
+      "project_id": "1771979753232",
+      "title": "[AP07] ANÁLISE / APROVAÇÃO E ORÇAMENTO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-09-16",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t21",
+      "column_id": "1771979753232-AP",
+      "project_id": "1771979753232",
+      "title": "[AP08] EMISSÃO FINAL ARQ",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-09-23",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t22",
+      "column_id": "1771979753232-PE",
+      "project_id": "1771979753232",
+      "title": "[PE01] DESENVOLVIMENTO ARQ AMPLIAÇÕES E ESQUADRIAS",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-10-21",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t23",
+      "column_id": "1771979753232-PE",
+      "project_id": "1771979753232",
+      "title": "[PE02] DESENVOLVIMENTO ARQ DETALHAMENTOS",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-11-04",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t24",
+      "column_id": "1771979753232-PE",
+      "project_id": "1771979753232",
+      "title": "[PE03] DESENVOLVIMENTO ARQ DESENHOS GERAIS",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-11-11",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t25",
+      "column_id": "1771979753232-PE",
+      "project_id": "1771979753232",
+      "title": "[PE04] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-11-18",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t26",
+      "column_id": "1771979753232-PE",
+      "project_id": "1771979753232",
+      "title": "[PE05] AJUSTES FINAIS. EMISSÃO LO E MEMORIAL",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-11-25",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979753232-t27",
+      "column_id": "1771979753232-PO",
+      "project_id": "1771979753232",
+      "title": "[PO] ORÇAMENTO FINAL E PLANEJAMENTO DE OBRA",
+      "description": "Prazo: Variável (Pendente Definição)",
+      "due_date": "",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t0",
+      "column_id": "1771979783177-PI",
+      "project_id": "1771979783177",
+      "title": "[PI] PLANEJAMENTO INICIAL DO PROJETO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-03-04",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t1",
+      "column_id": "1771979783177-LV",
+      "project_id": "1771979783177",
+      "title": "[LV01] LEVANTAMENTO COMPLEMENTARES",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-03-18",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t2",
+      "column_id": "1771979783177-LV",
+      "project_id": "1771979783177",
+      "title": "[LV02] MODELO 3D / DESENHOS BASE",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-03-25",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t3",
+      "column_id": "1771979783177-EP",
+      "project_id": "1771979783177",
+      "title": "[EP01] DESENVOLVIMENTO CONCEPÇÃO",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-04-22",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t4",
+      "column_id": "1771979783177-EP",
+      "project_id": "1771979783177",
+      "title": "[EP02] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-04-29",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t5",
+      "column_id": "1771979783177-EP",
+      "project_id": "1771979783177",
+      "title": "[EP03] DESENVOLVIMENTO FINAL",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-05-27",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t6",
+      "column_id": "1771979783177-EP",
+      "project_id": "1771979783177",
+      "title": "[EP04] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-06-03",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t7",
+      "column_id": "1771979783177-EP",
+      "project_id": "1771979783177",
+      "title": "[EP05] ORÇAMENTAÇÃO COMPLEMENTARES",
+      "description": "Prazo: 3 semana(s) estimada(s) - Automático",
+      "due_date": "2026-06-24",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t8",
+      "column_id": "1771979783177-EP",
+      "project_id": "1771979783177",
+      "title": "[EP06] CONTRATAÇÃO COMPLEMENTARES",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-07-01",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t9",
+      "column_id": "1771979783177-EP",
+      "project_id": "1771979783177",
+      "title": "[EP07] ANÁLISE C. ENG. E C.EST",
+      "description": "Prazo: 3 semana(s) estimada(s) - Automático",
+      "due_date": "2026-07-22",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t10",
+      "column_id": "1771979783177-EP",
+      "project_id": "1771979783177",
+      "title": "[EP08] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-07-29",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t11",
+      "column_id": "1771979783177-EP",
+      "project_id": "1771979783177",
+      "title": "[EP09] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-08-05",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t12",
+      "column_id": "1771979783177-PL",
+      "project_id": "1771979783177",
+      "title": "[PL01] DESENVOLVIMENTO CONSULTOR LEGAL",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-08-19",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t13",
+      "column_id": "1771979783177-PL",
+      "project_id": "1771979783177",
+      "title": "[PL02] ANÁLISE ARQ",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-09-02",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t14",
+      "column_id": "1771979783177-PL",
+      "project_id": "1771979783177",
+      "title": "[PL03] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-09-09",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t15",
+      "column_id": "1771979783177-AP",
+      "project_id": "1771979783177",
+      "title": "[AP01] DESENVOLVIMENTO EST",
+      "description": "Prazo: Variável (Pendente Definição)",
+      "due_date": "",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t16",
+      "column_id": "1771979783177-AP",
+      "project_id": "1771979783177",
+      "title": "[AP02] COMPATIBILIZAÇÃO ARQ + EST + ORÇAMENTO",
+      "description": "Prazo: 3 semana(s) estimada(s) - Automático",
+      "due_date": "2026-09-30",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t17",
+      "column_id": "1771979783177-AP",
+      "project_id": "1771979783177",
+      "title": "[AP03] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-10-07",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t18",
+      "column_id": "1771979783177-AP",
+      "project_id": "1771979783177",
+      "title": "[AP04] DESENVOLVIMENTO C. EST + C. ENG",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-11-04",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t19",
+      "column_id": "1771979783177-AP",
+      "project_id": "1771979783177",
+      "title": "[AP05] DESENVOLVIMENTO ARQ / COMPATIBILIZAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-11-11",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t20",
+      "column_id": "1771979783177-AP",
+      "project_id": "1771979783177",
+      "title": "[AP06] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES + ORÇ.",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-12-09",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t21",
+      "column_id": "1771979783177-AP",
+      "project_id": "1771979783177",
+      "title": "[AP07] AJUSTES COMPLEMENTARES",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-12-23",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t22",
+      "column_id": "1771979783177-AP",
+      "project_id": "1771979783177",
+      "title": "[AP08] EMISSÃO FINAL ARQ",
+      "description": "Prazo: 3 semana(s) estimada(s) - Automático",
+      "due_date": "2027-01-13",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t23",
+      "column_id": "1771979783177-AP",
+      "project_id": "1771979783177",
+      "title": "[AP09] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-01-27",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t24",
+      "column_id": "1771979783177-AP",
+      "project_id": "1771979783177",
+      "title": "[AP10] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-02-10",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t25",
+      "column_id": "1771979783177-AP",
+      "project_id": "1771979783177",
+      "title": "[AP11] BASE MATERIAL DIVULGAÇÃO EMPREENDIMENTO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2027-02-17",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t26",
+      "column_id": "1771979783177-AP",
+      "project_id": "1771979783177",
+      "title": "[AP12] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2027-02-24",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t27",
+      "column_id": "1771979783177-PE",
+      "project_id": "1771979783177",
+      "title": "[PE01] DESENVOLVIMENTO ARQ AMPLIAÇÕES E COMPL.",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-03-10",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t28",
+      "column_id": "1771979783177-PE",
+      "project_id": "1771979783177",
+      "title": "[PE02] DESENVOLVIMENTO ARQ ESQUADRIAS",
+      "description": "Prazo: 8 semana(s) estimada(s) - Automático",
+      "due_date": "2027-05-05",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t29",
+      "column_id": "1771979783177-PE",
+      "project_id": "1771979783177",
+      "title": "[PE03] DESENVOLVIMENTO ARQ DETALHAMENTOS",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-05-19",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t30",
+      "column_id": "1771979783177-PE",
+      "project_id": "1771979783177",
+      "title": "[PE04] DESENVOLVIMENTO ARQ DESENHOS GERAIS",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-06-02",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t31",
+      "column_id": "1771979783177-PE",
+      "project_id": "1771979783177",
+      "title": "[PE05] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-06-16",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t32",
+      "column_id": "1771979783177-PE",
+      "project_id": "1771979783177",
+      "title": "[PE06] AJUSTES FINAIS. EMISSÃO LO E MEMORIAL",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2027-06-23",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979783177-t33",
+      "column_id": "1771979783177-PO",
+      "project_id": "1771979783177",
+      "title": "[PO] ORÇAMENTO FINAL E PLANEJAMENTO DE OBRA",
+      "description": "Prazo: Variável (Pendente Definição)",
+      "due_date": "",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t0",
+      "column_id": "1771979955058-PI",
+      "project_id": "1771979955058",
+      "title": "[PI] PLANEJAMENTO INICIAL DO PROJETO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-03-03",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t1",
+      "column_id": "1771979955058-LV",
+      "project_id": "1771979955058",
+      "title": "[LV01] LEVANTAMENTO COMPLEMENTARES",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-03-17",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t2",
+      "column_id": "1771979955058-LV",
+      "project_id": "1771979955058",
+      "title": "[LV02] MODELO 3D / DESENHOS BASE",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-03-24",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t3",
+      "column_id": "1771979955058-EP",
+      "project_id": "1771979955058",
+      "title": "[EP01] DESENVOLVIMENTO CONCEPÇÃO",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-04-21",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t4",
+      "column_id": "1771979955058-EP",
+      "project_id": "1771979955058",
+      "title": "[EP02] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-04-28",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t5",
+      "column_id": "1771979955058-EP",
+      "project_id": "1771979955058",
+      "title": "[EP03] DESENVOLVIMENTO FINAL",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-05-26",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t6",
+      "column_id": "1771979955058-EP",
+      "project_id": "1771979955058",
+      "title": "[EP04] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-06-02",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t7",
+      "column_id": "1771979955058-EP",
+      "project_id": "1771979955058",
+      "title": "[EP05] ORÇAMENTAÇÃO COMPLEMENTARES",
+      "description": "Prazo: 3 semana(s) estimada(s) - Automático",
+      "due_date": "2026-06-23",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t8",
+      "column_id": "1771979955058-EP",
+      "project_id": "1771979955058",
+      "title": "[EP06] CONTRATAÇÃO COMPLEMENTARES",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-06-30",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t9",
+      "column_id": "1771979955058-EP",
+      "project_id": "1771979955058",
+      "title": "[EP07] ANÁLISE C. ENG. E C.EST",
+      "description": "Prazo: 3 semana(s) estimada(s) - Automático",
+      "due_date": "2026-07-21",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t10",
+      "column_id": "1771979955058-EP",
+      "project_id": "1771979955058",
+      "title": "[EP08] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-07-28",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t11",
+      "column_id": "1771979955058-EP",
+      "project_id": "1771979955058",
+      "title": "[EP09] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-08-04",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t12",
+      "column_id": "1771979955058-PL",
+      "project_id": "1771979955058",
+      "title": "[PL01] DESENVOLVIMENTO CONSULTOR LEGAL",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-08-18",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t13",
+      "column_id": "1771979955058-PL",
+      "project_id": "1771979955058",
+      "title": "[PL02] ANÁLISE ARQ",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-09-01",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t14",
+      "column_id": "1771979955058-PL",
+      "project_id": "1771979955058",
+      "title": "[PL03] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-09-08",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t15",
+      "column_id": "1771979955058-AP",
+      "project_id": "1771979955058",
+      "title": "[AP01] DESENVOLVIMENTO EST",
+      "description": "Prazo: Variável (Pendente Definição)",
+      "due_date": "",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t16",
+      "column_id": "1771979955058-AP",
+      "project_id": "1771979955058",
+      "title": "[AP02] COMPATIBILIZAÇÃO ARQ + EST + ORÇAMENTO",
+      "description": "Prazo: 3 semana(s) estimada(s) - Automático",
+      "due_date": "2026-09-29",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t17",
+      "column_id": "1771979955058-AP",
+      "project_id": "1771979955058",
+      "title": "[AP03] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-10-06",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t18",
+      "column_id": "1771979955058-AP",
+      "project_id": "1771979955058",
+      "title": "[AP04] DESENVOLVIMENTO C. EST + C. ENG",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-11-03",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t19",
+      "column_id": "1771979955058-AP",
+      "project_id": "1771979955058",
+      "title": "[AP05] DESENVOLVIMENTO ARQ / COMPATIBILIZAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2026-11-10",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t20",
+      "column_id": "1771979955058-AP",
+      "project_id": "1771979955058",
+      "title": "[AP06] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES + ORÇ.",
+      "description": "Prazo: 4 semana(s) estimada(s) - Automático",
+      "due_date": "2026-12-08",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t21",
+      "column_id": "1771979955058-AP",
+      "project_id": "1771979955058",
+      "title": "[AP07] AJUSTES COMPLEMENTARES",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2026-12-22",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t22",
+      "column_id": "1771979955058-AP",
+      "project_id": "1771979955058",
+      "title": "[AP08] EMISSÃO FINAL ARQ",
+      "description": "Prazo: 3 semana(s) estimada(s) - Automático",
+      "due_date": "2027-01-12",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t23",
+      "column_id": "1771979955058-AP",
+      "project_id": "1771979955058",
+      "title": "[AP09] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-01-26",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t24",
+      "column_id": "1771979955058-AP",
+      "project_id": "1771979955058",
+      "title": "[AP10] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-02-09",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t25",
+      "column_id": "1771979955058-AP",
+      "project_id": "1771979955058",
+      "title": "[AP11] BASE MATERIAL DIVULGAÇÃO EMPREENDIMENTO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2027-02-16",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t26",
+      "column_id": "1771979955058-AP",
+      "project_id": "1771979955058",
+      "title": "[AP12] ANÁLISE / APROVAÇÃO",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2027-02-23",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t27",
+      "column_id": "1771979955058-PE",
+      "project_id": "1771979955058",
+      "title": "[PE01] DESENVOLVIMENTO ARQ AMPLIAÇÕES E COMPL.",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-03-09",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t28",
+      "column_id": "1771979955058-PE",
+      "project_id": "1771979955058",
+      "title": "[PE02] DESENVOLVIMENTO ARQ ESQUADRIAS",
+      "description": "Prazo: 8 semana(s) estimada(s) - Automático",
+      "due_date": "2027-05-04",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t29",
+      "column_id": "1771979955058-PE",
+      "project_id": "1771979955058",
+      "title": "[PE03] DESENVOLVIMENTO ARQ DETALHAMENTOS",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-05-18",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t30",
+      "column_id": "1771979955058-PE",
+      "project_id": "1771979955058",
+      "title": "[PE04] DESENVOLVIMENTO ARQ DESENHOS GERAIS",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-06-01",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t31",
+      "column_id": "1771979955058-PE",
+      "project_id": "1771979955058",
+      "title": "[PE05] COMPATIBILIZAÇÃO ARQ + COMPLEMENTARES",
+      "description": "Prazo: 2 semana(s) estimada(s) - Automático",
+      "due_date": "2027-06-15",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t32",
+      "column_id": "1771979955058-PE",
+      "project_id": "1771979955058",
+      "title": "[PE06] AJUSTES FINAIS. EMISSÃO LO E MEMORIAL",
+      "description": "Prazo: 1 semana(s) estimada(s) - Automático",
+      "due_date": "2027-06-22",
+      "assigned_to_user_id": ""
+    },
+    {
+      "id": "1771979955058-t33",
+      "column_id": "1771979955058-PO",
+      "project_id": "1771979955058",
+      "title": "[PO] ORÇAMENTO FINAL E PLANEJAMENTO DE OBRA",
+      "description": "Prazo: Variável (Pendente Definição)",
+      "due_date": "",
+      "assigned_to_user_id": ""
+    }
+  ],
+  "timeEntries": [],
+  "financials": []
 }

@@ -8,13 +8,14 @@ import { useState, useEffect, useRef } from "react";
 import { Suspense } from "react";
 // import { useWindSfx } from "../hooks/use-wind-sfx"; // Removed
 import Navbar from "@/components/Navbar";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Mock Data for Projects
 // Mock Data for Projects
 const projectsData = [
   { id: 100, title: "Loft A", category: "Residencial", year: "2021", src: "/loft-a-cover.png" },
-  { id: 200, title: "Casa Arcos", category: "Residencial", year: "2024", src: "/casa-arcos/main.png" },
-  { id: 300, title: "Quarta Esquina", category: "Comercial", year: "2023", src: "/quarta-esquina/main-v2.png" },
+  { id: 11, title: "Casa Arcos", category: "Residencial", year: "2024", src: "/casa-arcos/main.png" },
+  { id: 12, title: "Quarta Esquina", category: "Comercial", year: "2023", src: "/quarta-esquina/main-v2.png" },
 ];
 
 
@@ -48,6 +49,7 @@ const QUARTA_ESQUINA_IMAGES = [
 
 export default function Home() {
   const router = useRouter();
+  const { t, language } = useLanguage();
   const [currentView, setCurrentViewInternal] = useState("hero");
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const [selectedProject, setSelectedProject] = useState<any>(null);
@@ -586,11 +588,11 @@ export default function Home() {
               position: "relative",
               left: "6px"
             }}>
-              <span>Arquitetura</span>
+              <span>{t.hero.architecture}</span>
               <span>|</span>
-              <span>Interiores</span>
+              <span>{t.hero.interiors}</span>
               <span>|</span>
-              <span>Visualização Arquitetônica</span>
+              <span>{t.hero.visualization}</span>
             </div>
           </div>
 
@@ -642,7 +644,7 @@ export default function Home() {
                 opacity: 0.9,
                 letterSpacing: "0.01em"
               }}>
-                Arquitetura e visualização arquitetônica. Projetos e imagens como parte do mesmo processo.
+                {t.hero.comparisonTitle}
               </h2>
 
               <div style={{ display: "flex", gap: "2.5rem", flexWrap: "wrap", justifyContent: "center" }}>
@@ -665,7 +667,7 @@ export default function Home() {
                   }}
                   className="hover:bg-white hover:text-black"
                 >
-                  Ver Arquitetura
+                  {t.hero.viewArchitecture}
                 </button>
                 <button
                   onClick={() => router.push("/visualizacao")}
@@ -686,7 +688,7 @@ export default function Home() {
                   }}
                   className="hover:bg-white hover:text-black"
                 >
-                  Ver Visualização
+                  {t.hero.viewVisualization}
                 </button>
               </div>
             </div>
@@ -820,7 +822,7 @@ export default function Home() {
                   letterSpacing: "0.2em",
                   textTransform: "uppercase"
                 }}>
-                  Arraste para comparar
+                  {t.hero.dragHint}
                 </p>
               </div>
             </div>
@@ -840,24 +842,24 @@ export default function Home() {
                 WebkitOverflowScrolling: "touch"
               }}>
                 <br /><br /><br /><br /><br /><br /><br /><br />
-                <h2 style={{ fontSize: "0.75rem", marginBottom: "3rem", fontWeight: 300, letterSpacing: "0.4em", color: "#999", textTransform: "uppercase" }}>SOBRE O ESTÚDIO</h2>
+                <h2 style={{ fontSize: "0.75rem", marginBottom: "3rem", fontWeight: 300, letterSpacing: "0.4em", color: "#999", textTransform: "uppercase" }}>{t.about.title}</h2>
 
                 <div style={{ lineHeight: 1.8, fontSize: "12px", fontWeight: 300, letterSpacing: "0.05em", color: "#555", opacity: 0.85 }}>
                   <p style={{ marginBottom: "1.5rem" }}>
-                    O Daniel França Arquitetura é um estúdio que opera na intersecção entre a prática projetual e a representação visual. Fundado sob a premissa de que a imagem é parte indissociável do processo de arquitetura, o escritório atua em duas frentes complementares: o desenvolvimento de projetos de arquitetura e interiores, e a produção de visualização arquitetônica (Archviz) para arquitetos e incorporadores.
+                    {t.about.p1}
                   </p>
                   <p style={{ marginBottom: "1.5rem" }}>
-                    Nossa metodologia rejeita a produção de imagens genéricas. Entendemos a visualização como uma ferramenta de investigação e síntese. Para nós, renderizar é construir virtulamente: exige leitura técnica, compreensão estrutural e sensibilidade à luz e aos materiais.
+                    {t.about.p2}
                   </p>
                   <p style={{ marginBottom: "1rem" }}>
-                    Seja projetando espaços ou traduzindo projetos de terceiros em imagens, o foco permanece o mesmo: clareza arquitetônica, rigor técnico e uma estética silenciosa, que valoriza a essência do objeto construído.
+                    {t.about.p3}
                   </p>
                 </div>
 
                 <div style={{ marginBottom: "1rem", opacity: 0.9 }}>
                   <Image
                     src="/signature.png"
-                    alt="Assinatura Daniel França"
+                    alt={t.about.signatureAlt}
                     width={300}
                     height={150}
                     style={{ height: "180px", width: "auto" }}
@@ -865,19 +867,13 @@ export default function Home() {
                 </div>
 
                 <div style={{ marginTop: "1rem", borderTop: "1px solid #f0f0f0", paddingTop: "3rem" }}>
-                  <h2 style={{ fontSize: "0.75rem", marginBottom: "0.8rem", fontWeight: 300, letterSpacing: "0.4em", color: "#999", textTransform: "uppercase" }}>Daniel Soares França</h2>
-                  <h3 style={{ fontSize: "0.65rem", marginBottom: "3rem", fontWeight: 300, letterSpacing: "0.5em", textTransform: "uppercase", color: "#bbb" }}>arquiteto & engenheiro civil</h3>
+                  <h2 style={{ fontSize: "0.75rem", marginBottom: "0.8rem", fontWeight: 300, letterSpacing: "0.4em", color: "#999", textTransform: "uppercase" }}>{t.about.name}</h2>
+                  <h3 style={{ fontSize: "0.65rem", marginBottom: "3rem", fontWeight: 300, letterSpacing: "0.5em", textTransform: "uppercase", color: "#bbb" }}>{t.about.role}</h3>
 
                   <div style={{ lineHeight: 1.8, fontSize: "12px", fontWeight: 300, letterSpacing: "0.05em", color: "#555", opacity: 0.85 }}>
-                    <p style={{ marginBottom: "1.5rem" }}>
-                      A arquitetura de Daniel Soares França nasce da convergência entre a precisão técnica e a sensibilidade projetual. Graduando pelo <strong>IAU-USP</strong> e Engenheiro Civil formado pela <strong>UFU</strong>, sua trajetória é alicerçada em uma compreensão profunda do construir.
-                    </p>
-                    <p style={{ marginBottom: "1.5rem" }}>
-                      Sua visão foi refinada internacionalmente em <strong>Zurique, Suíça</strong>, colaborando com o escritório <em>merkli degen architekten</em>, onde absorveu o rigor do detalhamento europeu e a excelência em projetos de interiores. No Brasil, atuou no renomado <em>Acayaba + Rosenberg</em>, desenvolvendo arquitetura residencial de alto padrão.
-                    </p>
-                    <p>
-                      O estúdio combina essa bagagem global com pesquisa acadêmica em tecnologias construtivas e modelagem BIM avançada, criando espaços que não apenas habitam le presente, mas dialogam com a memória e a técnica.
-                    </p>
+                    <p style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: t.about.bio1 }} />
+                    <p style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: t.about.bio2 }} />
+                    <p dangerouslySetInnerHTML={{ __html: t.about.bio3 }} />
                   </div>
 
                   <button
@@ -901,7 +897,7 @@ export default function Home() {
                       gap: "0.5rem"
                     }}
                   >
-                    portfólio acadêmico <ArrowRight size={14} />
+                    {t.about.portfolio} <ArrowRight size={14} />
                   </button>
                 </div>
                 {/* 11 empty lines remaining at bottom */}
@@ -955,7 +951,7 @@ export default function Home() {
             <div style={{ maxWidth: "1600px", margin: "0 auto" }}>
               <div style={{ marginBottom: "4rem", textAlign: "center" }}>
                 <h3 style={{ fontSize: "1rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--text-secondary)", fontWeight: 300 }}>
-                  {currentView === "gallery_academic" ? "Portfólio Acadêmico" : "Projetos Selecionados"}
+                  {currentView === "gallery_academic" ? t.projects.academic : t.projects.selected}
                 </h3>
               </div>
 
@@ -1007,17 +1003,17 @@ export default function Home() {
 
               {/* Left: Form */}
               <div style={{ flex: "1 1 400px" }}>
-                <h2 style={{ textAlign: "left", marginBottom: "3rem", fontSize: "0.8rem", fontWeight: 400, letterSpacing: "0.2em", textTransform: "uppercase", color: "#888" }}>DEIXE UM RECADO</h2>
+                <h2 style={{ textAlign: "left", marginBottom: "3rem", fontSize: "0.8rem", fontWeight: 400, letterSpacing: "0.2em", textTransform: "uppercase", color: "#888" }}>{t.contact.title}</h2>
                 <form style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-                  <input type="text" placeholder="NOME" style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
-                  <input type="email" placeholder="EMAIL" style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
-                  <textarea placeholder="MENSAGEM" rows={1} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", resize: "none", color: "#333", opacity: 0.85 }} />
+                  <input type="text" placeholder={t.contact.namePlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
+                  <input type="email" placeholder={t.contact.emailPlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
+                  <textarea placeholder={t.contact.messagePlaceholder} rows={1} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", resize: "none", color: "#333", opacity: 0.85 }} />
                   <button
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                     style={{ marginTop: "2rem", padding: "1rem 2rem", background: "none", border: "1px solid #ddd", color: "#333", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.2em", cursor: "pointer", alignSelf: "flex-start", transition: "all 0.3s ease" }}
                   >
-                    Enviar
+                    {t.contact.sendButton}
                   </button>
                 </form>
               </div>
@@ -1025,12 +1021,12 @@ export default function Home() {
               {/* Right: Info */}
               <div style={{ flex: "1 1 300px", paddingTop: "5rem", display: "flex", flexDirection: "column", gap: "0.4rem", alignItems: "flex-end", position: "relative" }}>
                 <a
-                  href="mailto:arq.dfranca@gmail.com"
+                  href="mailto:contato@dfranca.arq.br"
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                   style={{ fontSize: "12px", fontWeight: 300, color: "#555", opacity: 0.85, letterSpacing: "0.05em", textDecoration: "none" }}
                 >
-                  arq.dfranca@gmail.com
+                  contato@dfranca.arq.br
                 </a>
                 <a
                   href="tel:+5534999232927"
@@ -1125,7 +1121,11 @@ export default function Home() {
                   letterSpacing: "0.2em",
                   textTransform: "uppercase"
                 }}>
-                  {selectedProject.category} | {selectedProject.year}
+                  {t.projects.categories[{
+                    "Residencial": "residential",
+                    "Comercial": "commercial",
+                    "Acadêmico": "academic"
+                  }[selectedProject.category as string] as keyof typeof t.projects.categories] || selectedProject.category} | {selectedProject.year}
                 </p>
               </div>
 
@@ -1147,10 +1147,10 @@ export default function Home() {
                   <div style={{ display: "flex", gap: "2rem", margin: "6rem 0 0 0" }}>
                     <div style={{ flex: 3, textAlign: "left", lineHeight: "1.8", color: "#555", fontSize: "12px", fontWeight: 300, opacity: 0.85 }}>
                       <p style={{ marginBottom: "2rem" }}>
-                        O Loft A surge como um refúgio contemporâneo imerso na paisagem tropical, explorando a honestidade dos materiais em sua forma mais pura. A robustez do concreto pré-fabricado contrasta harmoniosamente com o calor da madeira natural, criando uma atmosfera de serenidade e permanência. Grandes aberturas envidraçadas dissolvem os limites entre interior e exterior, permitindo que a luz e a vegetação se tornem protagonistas da experiência espacial, em um diálogo constante entre a arquitetura e seu entorno.
+                        {t.projects.details.loftA.desc1}
                       </p>
                       <p>
-                        A casa possui área de 78 m², sendo 18 m² da varanda coberta que separa os quartos do restante da casa. O sistema construtivo é o pilar-viga de concreto pré-fabricado, sendo as paredes externas, as escadas e as lajes feitas com concreto alveolar. As paredes internas são de alvenaria e o fechamento de esquadria metálica e vidro temperado. A fachada norte é protegida por um brise horizontal de madeira que dialoga com o ripado.
+                        {t.projects.details.loftA.desc2}
                       </p>
                     </div>
                     <div style={{ flex: 4 }} />
@@ -1226,10 +1226,10 @@ export default function Home() {
                   <div style={{ display: "flex", gap: "2rem", margin: "6rem 0 0 0" }}>
                     <div style={{ flex: 3, textAlign: "left", lineHeight: "1.8", color: "#555", fontSize: "12px", fontWeight: 300, opacity: 0.85 }}>
                       <p style={{ marginBottom: "2rem" }}>
-                        A Casa Arcos se define pela pureza geométrica e pela integração fluida entre interior e exterior. Sua volumetria, marcada por arcos suaves, cria uma transição poética entre os espaços de convívio e a natureza circundante. O projeto explora a dualidade entre a rigidez estrutural e a leveza das formas curvas, resultando em uma arquitetura que acolhe e surpreende.
+                        {t.projects.details.casaArcos.desc1}
                       </p>
                       <p>
-                        Situada em um terreno privilegiado, a residência se orienta para capturar a luz natural e enquadrar as vistas da paisagem. O uso de materiais naturais em tons terrosos reforça a sensação de atemporalidade, enquanto os pátios internos promovem a ventilação cruzada e garantem a privacidade dos moradores.
+                        {t.projects.details.casaArcos.desc2}
                       </p>
                     </div>
                     <div style={{ flex: 4 }} />
@@ -1328,10 +1328,10 @@ export default function Home() {
                   <div style={{ display: "flex", gap: "2rem", margin: "6rem 0 0 0" }}>
                     <div style={{ flex: 3, textAlign: "left", lineHeight: "1.8", color: "#555", fontSize: "12px", fontWeight: 300, opacity: 0.85 }}>
                       <p style={{ marginBottom: "2rem" }}>
-                        O projeto Quarta Esquina nasce da intenção de resignificar o espaço urbano através de uma arquitetura que convida ao encontro. Localizado em um ponto de convergência importante, o edifício se volta para a cidade, criando interfaces permeáveis entre o público e o privado.
+                        {t.projects.details.quartaEsquina.desc1}
                       </p>
                       <p>
-                        A materialidade do concreto aparente dialoga com a estrutura existente, enquanto elementos de transparência sugerem novos usos e dinâmicas. O resultado é uma intervenção que respeita a memória do lugar ao mesmo tempo em que propõe uma nova vitalidade urbana.
+                        {t.projects.details.quartaEsquina.desc2}
                       </p>
                     </div>
                     <div style={{ flex: 4 }} />

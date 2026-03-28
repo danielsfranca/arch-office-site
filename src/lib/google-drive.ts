@@ -19,9 +19,21 @@ export const drive = google.drive({ version: 'v3', auth });
 
 export async function listFiles(folderId?: string) {
     try {
-        const query = folderId
-            ? `'${folderId}' in parents andtrashed = false`
-            : "trashed = false and 'root' in parents"; // Default to root if no folderId
+        let query = "trashed = false";
+
+        if (folderId) {
+            query += ` and '${folderId}' in parents`;
+        } else {
+            // If no folderId, list files in the root folder that the service account has access to
+            // OR files shared with the service account.
+            // 'root' refers to the service account's My Drive, which might be empty.
+            // Usually, we want to find a specific shared folder or just list everything shared.
+            // For now, let's list everything shared with the service account that is a folder, or just everything.
+            // Let's try listing everything in the root of the Service Account (which is likely empty unless filters are used)
+            // Better approach: If the user shared a folder with the service account, we can find it by name or just list all folders.
+            // Let's start by listing files in 'root' OR sharedWithMe
+            query += " and ('root' in parents or sharedWithMe = true)";
+        }
 
         const res = await drive.files.list({
             pageSize: 20,

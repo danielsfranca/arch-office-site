@@ -33,6 +33,7 @@ import {
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { addDeliveryAction, getClientsAction } from "../actions/client-data";
+import ProjectsDashboard from "./management/projects/page";
 
 // --- MOCK DATA ---
 // --- MOCK DATA ---
@@ -153,8 +154,8 @@ const GanttChart = () => (
             <div
               style={{
                 position: "absolute",
-                left: `${Math.random() * 20}%`,
-                width: `${Math.random() * 40 + 20}%`,
+                left: `${client.id * 5}%`,
+                width: `${client.progress}%`,
                 height: "100%",
                 background: client.status === "Atrasado" ? "#ff5252" : "#1a1a1a",
                 borderRadius: "12px",
@@ -472,15 +473,7 @@ export default function AdminDashboard() {
       );
 
       case "projects": return (
-        <div className="fade-in">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-            <h3>Explorador de Projetos (G:)</h3>
-            <button className="primary-btn"><Plus size={14} /> Nova Pasta</button>
-          </div>
-          <div style={{ background: "white", padding: "1rem", borderRadius: "8px", border: "1px solid #eee", minHeight: "400px" }}>
-            {explorerData.map((node, i) => <FileNode key={i} node={node} />)}
-          </div>
-        </div>
+        <ProjectsDashboard />
       );
 
       case "clients": return (
@@ -650,7 +643,7 @@ export default function AdminDashboard() {
           <div className="nav-divider">PROJETOS</div>
 
           <button className={`nav-item ${activeTab === "projects" ? "active" : ""}`} onClick={() => setActiveTab("projects")}>
-            <Folder size={18} /> <span>Projetos (Explorer)</span>
+            <Folder size={18} /> <span>Projetos Vobi</span>
           </button>
           <button className={`nav-item ${activeTab === "schedules" ? "active" : ""}`} onClick={() => setActiveTab("schedules")}>
             <Calendar size={18} /> <span>Cronogramas</span>
@@ -703,7 +696,7 @@ export default function AdminDashboard() {
         <header className="top-header">
           <h2 style={{ fontSize: "1.2rem", fontWeight: "600", textTransform: "capitalize" }}>
             {activeTab === "overview" && "Visão Geral"}
-            {activeTab === "projects" && "Explorador de Arquivos"}
+            {activeTab === "projects" && "Gestão de Projetos e Dashboards"}
             {activeTab === "schedules" && "Cronogramas Gantt"}
             {activeTab === "inputs" && "Arquivos Recebidos"}
             {activeTab === "outputs" && "Entregas Realizadas"}

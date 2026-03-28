@@ -8,13 +8,38 @@ function ContactForm() {
 
     const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setStatus("submitting");
-        // Simulate API call
-        setTimeout(() => {
-            setStatus("success");
-        }, 1500);
+        
+        const form = e.currentTarget;
+        const formData = new FormData(form);
+        const data = {
+            name: formData.get("name"),
+            email: formData.get("email"),
+            subject: formData.get("subject"),
+            message: formData.get("message")
+        };
+
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            if (res.ok) {
+                setStatus("success");
+                form.reset();
+            } else {
+                setStatus("idle");
+                alert("Houve um erro ao enviar sua mensagem. Tente novamente.");
+            }
+        } catch (error) {
+            console.error(error);
+            setStatus("idle");
+            alert("Erro de conexão. Tente novamente.");
+        }
     };
 
     if (status === "success") {
@@ -31,18 +56,18 @@ function ContactForm() {
         <form onSubmit={handleSubmit} className="space-y-10">
             <div className="space-y-2">
                 <label className="text-xs uppercase tracking-widest text-[#555] opacity-85">Nome</label>
-                <input required type="text" className="w-full border-b border-gray-300 py-3 focus:outline-none focus:border-black transition-colors bg-transparent rounded-none text-[12px] font-light text-[#555] opacity-85" placeholder="Seu nome completo" />
+                <input required name="name" type="text" className="w-full border-b border-gray-300 py-3 focus:outline-none focus:border-black transition-colors bg-transparent rounded-none text-[12px] font-light text-[#555] opacity-85" placeholder="Seu nome completo" />
             </div>
 
             <div className="space-y-2">
                 <label className="text-xs uppercase tracking-widest text-[#555] opacity-85">E-mail</label>
-                <input required type="email" className="w-full border-b border-gray-300 py-3 focus:outline-none focus:border-black transition-colors bg-transparent rounded-none text-[12px] font-light text-[#555] opacity-85" placeholder="seu@email.com" />
+                <input required name="email" type="email" className="w-full border-b border-gray-300 py-3 focus:outline-none focus:border-black transition-colors bg-transparent rounded-none text-[12px] font-light text-[#555] opacity-85" placeholder="seu@email.com" />
             </div>
 
             <div className="space-y-2">
                 <label className="text-xs uppercase tracking-widest text-[#555] opacity-85">Assunto</label>
                 <div className="relative">
-                    <select defaultValue={initialSubject} className="w-full border-b border-gray-300 py-3 focus:outline-none focus:border-black transition-colors bg-transparent rounded-none appearance-none text-[12px] font-light text-[#555] opacity-85">
+                    <select required name="subject" defaultValue={initialSubject} className="w-full border-b border-gray-300 py-3 focus:outline-none focus:border-black transition-colors bg-transparent rounded-none appearance-none text-[12px] font-light text-[#555] opacity-85">
                         <option value="" disabled>Selecione um assunto</option>
                         <option value="arquitetura">Projeto de Arquitetura</option>
                         <option value="visualizacao">Visualização 3D</option>
@@ -55,7 +80,7 @@ function ContactForm() {
 
             <div className="space-y-2">
                 <label className="text-xs uppercase tracking-widest text-[#555] opacity-85">Mensagem</label>
-                <textarea required rows={4} className="w-full border-b border-gray-300 py-3 focus:outline-none focus:border-black transition-colors bg-transparent rounded-none resize-none text-[12px] font-light text-[#555] opacity-85" placeholder="Como podemos ajudar?"></textarea>
+                <textarea required name="message" rows={4} className="w-full border-b border-gray-300 py-3 focus:outline-none focus:border-black transition-colors bg-transparent rounded-none resize-none text-[12px] font-light text-[#555] opacity-85" placeholder="Como podemos ajudar?"></textarea>
             </div>
 
             <div className="pt-8 text-right">

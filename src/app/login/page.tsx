@@ -1,171 +1,416 @@
 "use client";
 
-import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useState, useRef, useEffect } from "react";
+import { ArrowLeft, AlertCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
 import { loginAction } from "../actions/auth";
 
 export default function LoginPage() {
   const router = useRouter();
   const [role, setRole] = useState<"client" | "admin">("client");
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [error, setError] = useState("");
+  
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isFinished, setIsFinished] = useState(false);
 
-  async function handleSubmit(formData: FormData) {
+  useEffect(() => {
+    if (role === 'client' && videoRef.current) {
+      videoRef.current.playbackRate = 1.2;
+      // Re-trigger play in case it stopped
+      videoRef.current.play().catch(e => console.log('Autoplay blocked:', e));
+    }
+    if (role === 'admin') {
+      setIsFinished(false);
+    }
+  }, [role]);
+
+  async function handleEmailLogin(formData: FormData) {
     setIsLoading(true);
-    setErrorMessage("");
-
-    // Append role manually since it's a state, not an input
-    formData.append("role", role);
-
+    setError("");
     try {
+      formData.set("role", role);
+
       const result = await loginAction(null, formData);
-      if (result.success && result.redirectUrl) {
-        router.push(result.redirectUrl);
+      if (result?.success) {
+        window.location.href = result.redirectUrl || "/client-dashboard";
       } else {
-        setErrorMessage(result.message || "Erro no login");
+        setError(result?.message || "Erro ao entrar.");
         setIsLoading(false);
+
+        if (role === 'admin') {
+          setTimeout(() => {
+            setRole("client");
+            setError("Acesso administrativo negado. Redirecionando para área do cliente...");
+          }, 1000);
+        }
       }
-    } catch (error) {
-      setErrorMessage("Erro de conexão.");
+    } catch (e) {
+      setError("Erro de conexão.");
       setIsLoading(false);
     }
   }
 
+  const handleOAuthLogin = async (provider: "google" | "azure-ad") => {
+    setIsLoading(true);
+    await signIn(provider, { redirectTo: "/client-dashboard" });
+  };
+
   return (
-    <div style={{
-      width: "100vw",
-      height: "100vh",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      background: "#ffffff" // Pure white background like contact section
-    }}>
+    <div className="login-container">
+      <div className="login-card">
 
-      <div style={{ width: "100%", maxWidth: "400px", padding: "2rem", display: "flex", flexDirection: "column", gap: "3rem" }}>
-
-        {/* Header */}
-        <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
+        {/* Header - Minimalist */}
+        <div className="login-header">
           <button
             onClick={() => router.push("/")}
-            style={{
-              position: "absolute", top: "2rem", left: "2rem",
-              background: "none", border: "none", cursor: "pointer",
-              display: "flex", alignItems: "center", gap: "0.5rem",
-              color: "#888", fontSize: "0.8rem", letterSpacing: "0.1em", textTransform: "uppercase"
-            }}
+            className="back-btn"
           >
-            <ArrowLeft size={14} /> Voltar
+            <ArrowLeft size={14} /> Voltar ao site
           </button>
-
-          <h1 style={{ fontSize: "1.2rem", fontWeight: 300, letterSpacing: "0.2em", textTransform: "uppercase", color: "#1a1a1a" }}>
-            Área do Cliente
-          </h1>
+          <h1 className="brand-title">Daniel França</h1>
+          <p className="sub-title">
+            {role === "client" ? "Área do Cliente" : "Área Administrativa"}
+          </p>
         </div>
 
-        {/* Form */}
-        <form action={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-
-          {/* Role Switcher - Minimalist Text Toggle */}
-          <div style={{ display: "flex", gap: "2rem", justifyContent: "center", marginBottom: "1rem" }}>
-            <button
-              type="button"
-              onClick={() => setRole("client")}
-              style={{
-                background: "none", border: "none", borderBottom: role === "client" ? "1px solid #1a1a1a" : "1px solid transparent",
-                paddingBottom: "0.2rem", cursor: "pointer",
-                fontSize: "0.8rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                color: role === "client" ? "#1a1a1a" : "#aaa",
-                transition: "all 0.3s ease"
-              }}
-            >
-              Sou Cliente
-            </button>
-            <button
-              type="button"
-              onClick={() => setRole("admin")}
-              style={{
-                background: "none", border: "none", borderBottom: role === "admin" ? "1px solid #1a1a1a" : "1px solid transparent",
-                paddingBottom: "0.2rem", cursor: "pointer",
-                fontSize: "0.8rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                color: role === "admin" ? "#1a1a1a" : "#aaa",
-                transition: "all 0.3s ease"
-              }}
-            >
-              Admin
-            </button>
-          </div>
-
-          <input
-            type="email"
-            name="email"
-            placeholder={role === "client" ? "SEU EMAIL" : "EMAIL ADMIN"}
-            required
-            style={{
-              background: "transparent", border: "none", borderBottom: "1px solid #ddd",
-              padding: "1rem 0", fontSize: "0.9rem", outline: "none", letterSpacing: "0.1em",
-              color: "#1a1a1a"
-            }}
-          />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="SENHA"
-            required
-            style={{
-              background: "transparent", border: "none", borderBottom: "1px solid #ddd",
-              padding: "1rem 0", fontSize: "0.9rem", outline: "none", letterSpacing: "0.1em",
-              color: "#1a1a1a"
-            }}
-          />
-
-          {errorMessage && (
-            <div style={{ color: "#d9534f", fontSize: "0.75rem", textAlign: "center", marginTop: "-1rem" }}>
-              {errorMessage}
-            </div>
-          )}
-
+        {/* Role Toggle */}
+        <div className="role-toggle">
           <button
-            type="submit"
-            disabled={isLoading}
-            style={{
-              marginTop: "1rem", padding: "1rem", background: "#1a1a1a", color: "white",
-              border: "none", fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.2em", cursor: "pointer",
-              opacity: isLoading ? 0.7 : 1
-            }}
+            type="button"
+            className={`toggle-btn ${role === "client" ? "active" : ""}`}
+            onClick={() => setRole("client")}
           >
-            {isLoading ? "Entrando..." : "Entrar"}
+            Sou Cliente
           </button>
-        </form>
-
-        <div style={{ textAlign: "center", marginTop: "2rem" }}>
-          <p style={{ fontSize: "0.8rem", color: "#888" }}>ou</p>
-          <div style={{ marginTop: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem", alignItems: "center" }}>
-            <button
-              type="button"
-              style={{ background: "none", border: "1px solid #eee", padding: "0.8rem 2rem", width: "100%", cursor: "pointer", fontSize: "0.75rem", color: "#555", letterSpacing: "0.1em", textTransform: "uppercase" }}
-            >
-              Entrar com Gmail (Google)
-            </button>
-            <button
-              type="button"
-              style={{ background: "none", border: "1px solid #eee", padding: "0.8rem 2rem", width: "100%", cursor: "pointer", fontSize: "0.75rem", color: "#555", letterSpacing: "0.1em", textTransform: "uppercase" }}
-            >
-              Entrar com Outlook (Microsoft)
-            </button>
-
-            <button
-              type="button"
-              onClick={() => router.push("/register")}
-              style={{ marginTop: "1rem", background: "none", border: "none", cursor: "pointer", fontSize: "0.75rem", color: "#888", letterSpacing: "0.1em", textDecoration: "underline" }}
-            >
-              Criar uma conta
-            </button>
-          </div>
+          <button
+            type="button"
+            className={`toggle-btn ${role === "admin" ? "active" : ""}`}
+            onClick={() => setRole("admin")}
+          >
+            Administração
+          </button>
         </div>
+
+        {role === "admin" ? (
+          <form action={handleEmailLogin} className="login-form">
+            <div className="input-group">
+              <label>Email</label>
+              <input
+                required
+                type="email"
+                name="email"
+                placeholder="seu@email.com"
+              />
+            </div>
+
+            <div className="input-group">
+              <label>Senha</label>
+              <input
+                required
+                type="password"
+                name="password"
+                placeholder="••••••••"
+              />
+            </div>
+
+            <input type="hidden" name="role" value={role} />
+
+            {error && (
+              <div className="error-msg">
+                <AlertCircle size={14} />
+                <span>{error}</span>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="submit-btn"
+            >
+              {isLoading ? "Entrando..." : "Entrar"}
+            </button>
+          </form>
+        ) : (
+          <div className="coming-soon-container">
+             <video
+               ref={videoRef}
+               src="/hand-drawn-animation.mp4"
+               autoPlay
+               muted
+               playsInline
+               className="small-video"
+             />
+             
+             <div className="revealed-content visible">
+               <h2 className="loading-text">
+                 {"Em breve...".split("").map((char, i) => (
+                   <span 
+                     key={i} 
+                     style={{ animationDelay: `${i * 0.15}s` }}
+                   >
+                     {char === " " ? "\u00A0" : char}
+                   </span>
+                 ))}
+               </h2>
+             </div>
+          </div>
+        )}
 
       </div>
+
+      <style jsx>{`
+        /* Minimalist Global Reset for this view */
+        .login-container {
+            width: 100vw;
+            min-height: 100vh;
+            background: #fff;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            font-family: var(--font-main-sans), "Inter", sans-serif;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            font-size: 0.75rem;
+            color: #888;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin: 0 auto 2rem auto;
+            transition: color 0.2s;
+        }
+        .back-btn:hover { color: #1a1a1a; }
+
+        .brand-title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub-title {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: #888;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #555;
+            opacity: 0.85;
+        }
+
+        .input-group input {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            padding: 0.8rem 0;
+            background: transparent;
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: #333;
+            outline: none;
+            transition: border-color 0.2s;
+            border-radius: 0;
+        }
+        .input-group input:focus {
+            border-bottom-color: #1a1a1a;
+        }
+        .input-group input::placeholder {
+            color: #ccc;
+        }
+
+        .error-msg {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #d32f2f;
+            font-size: 0.75rem;
+            background: #fff5f5;
+            padding: 0.75rem;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 1rem;
+            border: none;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.2s;
+        }
+        .submit-btn:hover { background: #333; }
+        .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Toggle Styles */
+        .role-toggle {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 2rem;
+        }
+        
+        .toggle-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 1rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .toggle-btn:hover { color: #555; }
+        
+        .toggle-btn.active {
+            color: #1a1a1a;
+            border-bottom-color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        /* Coming Soon Styles */
+        .coming-soon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 0;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .small-video {
+            width: 130px;
+            height: auto;
+            border-radius: 8px;
+            opacity: 0.75;
+        }
+
+        .revealed-content {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            height: 0;
+            cursor: default;
+        }
+
+        .revealed-content.visible {
+            opacity: 1;
+            visibility: visible;
+            height: auto;
+        }
+
+        .revealed-content h2 {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: #888;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-text span {
+            display: inline-block;
+            opacity: 0;
+            animation: textLoading 7s infinite both;
+        }
+
+        @keyframes textLoading {
+            0% {
+                opacity: 0;
+                transform: translateX(-4px);
+            }
+            5%, 70% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            75%, 100% {
+                opacity: 0;
+                transform: translateX(4px);
+            }
+        }
+
+        .return-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            background: transparent;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .return-btn:hover {
+            background-color: #f9f9f9;
+            color: #1a1a1a;
+            border-color: #bbb;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+      `}</style>
     </div>
   );
 }
