@@ -6,11 +6,13 @@ function ContactForm() {
     const searchParams = useSearchParams();
     const initialSubject = searchParams.get("assunto") || "";
 
-    const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
+    const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setStatus("submitting");
+        setErrorMessage("");
         
         const form = e.currentTarget;
         const formData = new FormData(form);
@@ -32,13 +34,13 @@ function ContactForm() {
                 setStatus("success");
                 form.reset();
             } else {
-                setStatus("idle");
-                alert("Houve um erro ao enviar sua mensagem. Tente novamente.");
+                setStatus("error");
+                setErrorMessage("Houve um erro ao se comunicar com o seu provedor de email. Verifique as variáveis de ambiente na Vercel.");
             }
         } catch (error) {
             console.error(error);
-            setStatus("idle");
-            alert("Erro de conexão. Tente novamente.");
+            setStatus("error");
+            setErrorMessage("Erro de conexão. Sem internet ou a Vercel bloqueou a rota.");
         }
     };
 
@@ -111,7 +113,12 @@ function ContactForm() {
                 <textarea required name="message" rows={4} className="w-full border-b border-gray-300 py-3 focus:outline-none focus:border-black transition-colors bg-transparent rounded-none resize-none text-[12px] font-light text-[#555] opacity-85" placeholder="Como podemos ajudar?"></textarea>
             </div>
 
-            <div className="pt-8 text-right">
+            <div className="pt-8 text-right flex flex-col items-end gap-4">
+                {status === "error" && (
+                    <div className="text-red-500 text-xs tracking-widest uppercase">
+                        {errorMessage}
+                    </div>
+                )}
                 <button disabled={status === "submitting"} type="submit" className="bg-[#1a1a1a] text-white px-12 py-5 uppercase text-xs tracking-[0.2em] hover:bg-gray-800 transition-colors disabled:opacity-50 w-full md:w-auto">
                     {status === "submitting" ? "Enviando..." : "Enviar Mensagem"}
                 </button>
