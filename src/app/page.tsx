@@ -123,20 +123,26 @@ export default function Home() {
           return;
       }
 
+      console.log("Iniciando envio via Resend com dados:", data);
+
       try {
           const res = await fetch("/api/contact", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(data)
           });
+          const result = await res.json();
+          console.log("Resultado da API:", result);
+
           if (res.ok) {
               setContactStatus("success");
               inputs.forEach(i => i.value = "");
           } else {
               setContactStatus("error");
-              setContactError("Erro no provedor. Verifique variáveis de ambiente na Vercel.");
+              setContactError(result.error || "Erro no servidor.");
           }
       } catch (err) {
+          console.error("Erro no fetch:", err);
           setContactStatus("error");
           setContactError("Erro de conexão.");
       }
@@ -1047,11 +1053,10 @@ export default function Home() {
 
               {/* Left: Form */}
               <div style={{ flex: "1 1 400px" }}>
-                <h2 style={{ textAlign: "left", marginBottom: "3rem", fontSize: "0.8rem", fontWeight: 400, letterSpacing: "0.2em", textTransform: "uppercase", color: "#888" }}>{t.contact.title}</h2>
                 <div ref={formRef} style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
                   {contactStatus === "success" ? (
-                    <div style={{ padding: "2rem 0", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2rem" }}>
-                        <h2 style={{ fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.3em", color: "#888", fontWeight: 400, display: "flex", flexWrap: "wrap", lineHeight: 1.5 }}>
+                    <div style={{ padding: "0 0", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2rem", minHeight: "300px", justifyContent: "center" }}>
+                        <h2 style={{ fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.3em", color: "#888", fontWeight: 400, display: "flex", flexWrap: "wrap", lineHeight: 2 }}>
                             {"Obrigado pelo contato! Logo retornaremos.".split("").map((char, i) => (
                                 <span key={i} style={{ 
                                     animationDelay: `${i * 0.1}s`,
@@ -1062,15 +1067,16 @@ export default function Home() {
                                 }}>{char}</span>
                             ))}
                         </h2>
-                        <button onClick={() => setContactStatus("idle")} style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.2em", borderBottom: "1px solid #ccc", paddingBottom: "2px", color: "#888", background: "none", border: "none", cursor: "pointer", marginTop: "1rem" }}>Enviar outra mensagem</button>
+                        <button onClick={() => setContactStatus("idle")} style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.2em", borderBottom: "1px solid #ccc", paddingBottom: "2px", color: "#888", background: "none", border: "none", cursor: "pointer", marginTop: "2rem" }}>Enviar outra mensagem</button>
                     </div>
                   ) : (
                     <>
-                      <input type="text" placeholder={t.contact.namePlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
-                      <input type="email" placeholder={t.contact.emailPlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
-                      <textarea placeholder={t.contact.messagePlaceholder} rows={1} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", resize: "none", color: "#333", opacity: 0.85 }} />
+                      <h2 style={{ textAlign: "left", marginBottom: "1rem", fontSize: "0.8rem", fontWeight: 400, letterSpacing: "0.2em", textTransform: "uppercase", color: "#888" }}>{t.contact.title}</h2>
+                      <input type="text" name="name" placeholder={t.contact.namePlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
+                      <input type="email" name="email" placeholder={t.contact.emailPlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
+                      <textarea name="message" placeholder={t.contact.messagePlaceholder} rows={1} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", resize: "none", color: "#333", opacity: 0.85 }} />
                       
-                      {contactStatus === "error" && <span style={{ color: "red", fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase" }}>{contactError}</span>}
+                      {contactStatus === "error" && <span style={{ color: "red", fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: "1rem" }}>{contactError}</span>}
                       
                       <button
                         type="button"
