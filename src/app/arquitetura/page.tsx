@@ -110,9 +110,8 @@ export default function ArquiteturaPage() {
                                 <div key={index} style={{
                                     textAlign: "center",
                                     position: "relative",
-                                    gridColumn: index === 0 ? "1 / -1" : "auto",
-                                    maxWidth: index === 0 ? "600px" : "auto",
-                                    margin: index === 0 ? "0 auto" : "0"
+                                    maxWidth: "auto",
+                                    margin: "0"
                                 }}>
                                     <div style={{
                                         fontSize: "0.7rem",
