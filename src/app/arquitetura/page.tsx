@@ -3,10 +3,12 @@
 import { ArrowRight } from "lucide-react";
 import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function ArquiteturaPage() {
     const { t } = useLanguage();
+    const router = useRouter();
     return (
         <>
             <Suspense>
@@ -100,7 +102,6 @@ export default function ArquiteturaPage() {
                             {[
                                 t.services.items.architecture,
                                 t.services.items.interiors,
-                                t.services.items.lighting,
                                 t.services.items.management,
                                 t.services.items.suppliers,
                                 t.services.items.supervision,
@@ -203,7 +204,7 @@ export default function ArquiteturaPage() {
                                     }}
                                     onMouseEnter={(e) => e.currentTarget.style.opacity = "1"}
                                     onMouseLeave={(e) => e.currentTarget.style.opacity = "0.7"}
-                                    onClick={() => window.location.href = "/projetos"}
+                                    onClick={() => router.push("/?view=gallery_projects")}
                                 >
                                     {t.services.viewProjects}
                                 </button>
