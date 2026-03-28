@@ -1070,18 +1070,10 @@ export default function Home() {
                         background: "white", 
                         animation: "fade-in 1s ease both" 
                     }}>
-                        <h2 style={{ 
-                            fontSize: "0.75rem", 
-                            textTransform: "uppercase", 
-                            letterSpacing: "0.3em", 
-                            color: "#333", 
-                            fontWeight: 300, 
-                            marginBottom: "1rem",
-                            textAlign: "center"
-                        }}>
+                        <h2 style={{ fontSize: "0.75rem", marginBottom: "1rem", fontWeight: 300, letterSpacing: "0.4em", color: "#999", textTransform: "uppercase", textAlign: "center" }}>
                             Obrigado pelo contato! Logo retornaremos.
                         </h2>
-                        <button onClick={() => { setContactStatus("idle"); setPulsePos(null); }} style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.2em", borderBottom: "1px solid #ccc", paddingBottom: "2px", color: "#888", background: "none", border: "none", cursor: "pointer", marginTop: "2rem" }}>Enviar outra mensagem</button>
+                        <button onClick={() => { setContactStatus("idle"); setPulsePos(null); }} style={{ fontSize: "0.65rem", fontWeight: 300, letterSpacing: "0.5em", textTransform: "uppercase", color: "#bbb", background: "none", border: "none", cursor: "pointer", marginTop: "0.5rem", borderBottom: "1px solid #f0f0f0", paddingBottom: "10px" }}>Enviar outra mensagem</button>
                     </div>
                   ) : (
                     <>
