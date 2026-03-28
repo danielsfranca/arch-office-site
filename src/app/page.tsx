@@ -425,13 +425,14 @@ export default function Home() {
         }
 
         @keyframes contactPulse {
-          0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; border-width: 2px; }
-          100% { transform: translate(-50%, -50%) scale(100); opacity: 0; border-width: 0.5px; }
+          0% { transform: translate(-50%, -50%) scale(0); opacity: 0.5; box-shadow: 0 0 0 0 rgba(0,0,0,0.05); }
+          50% { opacity: 0.2; }
+          100% { transform: translate(-50%, -50%) scale(150); opacity: 0; box-shadow: 0 0 50px 20px rgba(0,0,0,0); }
         }
 
         @keyframes fadeInContact {
-          0% { opacity: 0; transform: scale(0.95); }
-          100% { opacity: 1; transform: scale(1); }
+          0% { opacity: 0; filter: blur(20px); }
+          100% { opacity: 1; filter: blur(0); }
         }
       `}</style>
 
@@ -1129,48 +1130,24 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Concentric Water Ripple Effect */}
+              {/* Immersive Ethereal Ripples */}
               {pulsePos && (
                   <>
-                    <div style={{
-                        position: "fixed",
-                        top: pulsePos.y,
-                        left: pulsePos.x,
-                        transform: "translate(-50%, -50%)",
-                        width: "20px",
-                        height: "20px",
-                        borderRadius: "50%",
-                        border: "1px solid rgba(0,0,0,0.1)",
-                        pointerEvents: "none",
-                        zIndex: 250,
-                        animation: "contactPulse 2s cubic-bezier(0.215, 0.61, 0.355, 1) forwards"
-                    }} />
-                    <div style={{
-                        position: "fixed",
-                        top: pulsePos.y,
-                        left: pulsePos.x,
-                        transform: "translate(-50%, -50%)",
-                        width: "20px",
-                        height: "20px",
-                        borderRadius: "50%",
-                        border: "1px solid rgba(0,0,0,0.05)",
-                        pointerEvents: "none",
-                        zIndex: 250,
-                        animation: "contactPulse 2s cubic-bezier(0.215, 0.61, 0.355, 1) 0.3s forwards"
-                    }} />
-                    <div style={{
-                        position: "fixed",
-                        top: pulsePos.y,
-                        left: pulsePos.x,
-                        transform: "translate(-50%, -50%)",
-                        width: "20px",
-                        height: "20px",
-                        borderRadius: "50%",
-                        border: "1px solid rgba(0,0,0,0.02)",
-                        pointerEvents: "none",
-                        zIndex: 250,
-                        animation: "contactPulse 2s cubic-bezier(0.215, 0.61, 0.355, 1) 0.6s forwards"
-                    }} />
+                    {[0, 0.4, 0.8].map((delay, i) => (
+                        <div key={i} style={{
+                            position: "fixed",
+                            top: pulsePos.y,
+                            left: pulsePos.x,
+                            transform: "translate(-50%, -50%)",
+                            width: "40px",
+                            height: "40px",
+                            borderRadius: "50%",
+                            border: "0.5px solid rgba(0,0,0,0.03)",
+                            pointerEvents: "none",
+                            zIndex: 1000,
+                            animation: `contactPulse 3s cubic-bezier(0.2, 0, 0.2, 1) ${delay}s forwards`
+                        }} />
+                    ))}
                   </>
               )}
 
