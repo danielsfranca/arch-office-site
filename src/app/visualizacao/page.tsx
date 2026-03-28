@@ -3,10 +3,12 @@
 import { ArrowRight } from "lucide-react";
 import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function VisualizacaoPage() {
     const { t } = useLanguage();
+    const router = useRouter();
     return (
         <>
             <Suspense>
@@ -189,7 +191,7 @@ export default function VisualizacaoPage() {
                                     e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.1)";
                                     e.currentTarget.style.background = "#1a1a1a";
                                 }}
-                                onClick={() => window.location.href = "mailto:contato@dfranca.arq.br"}
+                                onClick={() => router.push("/?view=contact")}
                             >
                                 {t.visualization.cta.button}
                             </button>
@@ -211,7 +213,7 @@ export default function VisualizacaoPage() {
                                     }}
                                     onMouseEnter={(e) => e.currentTarget.style.opacity = "1"}
                                     onMouseLeave={(e) => e.currentTarget.style.opacity = "0.7"}
-                                    onClick={() => window.location.href = "/projetos"}
+                                    onClick={() => router.push("/?view=gallery_projects")}
                                 >
                                     {t.visualization.cta.projects}
                                 </button>

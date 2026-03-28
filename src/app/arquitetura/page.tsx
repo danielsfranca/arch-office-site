@@ -181,7 +181,7 @@ export default function ArquiteturaPage() {
                                     e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.1)";
                                     e.currentTarget.style.background = "#1a1a1a";
                                 }}
-                                onClick={() => window.location.href = "mailto:contato@dfranca.arq.br"}
+                                onClick={() => router.push("/?view=contact")}
                             >
                                 {t.services.cta}
                             </button>
