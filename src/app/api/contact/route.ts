@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
@@ -10,41 +12,36 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Campos obrigatórios faltando.' }, { status: 400 });
     }
 
-    // Configure the SMTP transport using environment variables
-    const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST, // e.g., smtp.gmail.com
-      port: Number(process.env.EMAIL_PORT) || 465,
-      secure: Number(process.env.EMAIL_PORT) === 465, // true for 465, false for 587
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    const mailOptions = {
-      from: `"${name} (Pelo Site)" <${process.env.EMAIL_USER}>`, // Zoho REQUER que o email do 'from' seja a sua própria conta!
-      to: process.env.EMAIL_TO || process.env.EMAIL_USER, // receiver (you)
+    // Usando Resend como o novo motor de disparo
+    const { data, error } = await resend.emails.send({
+      from: 'Daniel Franca Site <onboarding@resend.dev>', // Por padrão, o Resend usa este remetente enquanto você não valida um domínio próprio.
+      to: [process.env.EMAIL_TO || 'contato@dfranca.arq.br'],
       replyTo: email,
       subject: `Nova mensagem pelo site: ${subject || 'Sem assunto'}`,
-      text: `Nome: ${name}\nEmail: ${email}\nAssunto: ${subject}\n\nMensagem:\n${message}`,
       html: `
-        <div style="font-family: sans-serif; line-height: 1.5; color: #333;">
-          <h2>Novo Contato via Site Institucional</h2>
+        <div style="font-family: sans-serif; line-height: 1.5; color: #333; max-width: 600px; border: 1px solid #eee; padding: 20px; border-radius: 8px;">
+          <h2 style="color: #1a1a1a; border-bottom: 1px solid #eee; padding-bottom: 10px;">Novo Contato عبر Site Institucional</h2>
           <p><strong>Nome:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
           <p><strong>Assunto:</strong> ${subject}</p>
-          <hr />
+          <hr style="border: none; border-top: 1px solid #eee;" />
           <p><strong>Mensagem:</strong></p>
-          <p style="white-space: pre-wrap;">${message}</p>
+          <p style="white-space: pre-wrap; background: #f9f9f9; padding: 15px; border-radius: 4px;">${message}</p>
+          <footer style="margin-top: 20px; font-size: 12px; color: #888;">
+            Este email foi gerado automaticamente pelo formulário de contato do seu site.
+          </footer>
         </div>
       `,
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
+    if (error) {
+      console.error('Erro de API no Resend:', error);
+      return NextResponse.json({ error: 'Falha ao enviar via Resend.' }, { status: 500 });
+    }
 
-    return NextResponse.json({ success: true, message: 'Email enviado com sucesso!' });
+    return NextResponse.json({ success: true, data });
   } catch (error) {
-    console.error('Erro ao enviar email via Nodemailer:', error);
-    return NextResponse.json({ error: 'Falha ao enviar o email. Tente novamente mais tarde.' }, { status: 500 });
+    console.error('Erro ao processar roteamento de email:', error);
+    return NextResponse.json({ error: 'Falha ao enviar o email. Tente novamente.' }, { status: 500 });
   }
 }

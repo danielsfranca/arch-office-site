@@ -98,6 +98,50 @@ export default function Home() {
   const [clickVideoPlaying, setClickVideoPlaying] = useState(false);
   const [isReturningVisit, setIsReturningVisit] = useState(false);
 
+  const [contactStatus, setContactStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [contactError, setContactError] = useState("");
+  const formRef = useRef<HTMLDivElement>(null);
+
+  const handleContactSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      if (!formRef.current) return;
+      setContactStatus("submitting");
+      setContactError("");
+
+      const inputs = formRef.current.querySelectorAll("input, textarea") as NodeListOf<HTMLInputElement | HTMLTextAreaElement>;
+      const data = { name: "", email: "", subject: "Contato Site", message: "" };
+
+      inputs.forEach(input => {
+          if (input.type === "text") data.name = input.value;
+          else if (input.type === "email") data.email = input.value;
+          else if (input.tagName.toLowerCase() === "textarea") data.message = input.value;
+      });
+
+      if (!data.name || !data.email || !data.message) {
+          setContactStatus("idle");
+          setContactError("Por favor, preencha todos os campos.");
+          return;
+      }
+
+      try {
+          const res = await fetch("/api/contact", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data)
+          });
+          if (res.ok) {
+              setContactStatus("success");
+              inputs.forEach(i => i.value = "");
+          } else {
+              setContactStatus("error");
+              setContactError("Erro no provedor. Verifique variáveis de ambiente na Vercel.");
+          }
+      } catch (err) {
+          setContactStatus("error");
+          setContactError("Erro de conexão.");
+      }
+  };
+
   useEffect(() => {
     if (currentView !== "hero") {
       setHasLeftHero(true);
@@ -1004,18 +1048,43 @@ export default function Home() {
               {/* Left: Form */}
               <div style={{ flex: "1 1 400px" }}>
                 <h2 style={{ textAlign: "left", marginBottom: "3rem", fontSize: "0.8rem", fontWeight: 400, letterSpacing: "0.2em", textTransform: "uppercase", color: "#888" }}>{t.contact.title}</h2>
-                <form style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-                  <input type="text" placeholder={t.contact.namePlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
-                  <input type="email" placeholder={t.contact.emailPlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
-                  <textarea placeholder={t.contact.messagePlaceholder} rows={1} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", resize: "none", color: "#333", opacity: 0.85 }} />
-                  <button
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    style={{ marginTop: "2rem", padding: "1rem 2rem", background: "none", border: "1px solid #ddd", color: "#333", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.2em", cursor: "pointer", alignSelf: "flex-start", transition: "all 0.3s ease" }}
-                  >
-                    {t.contact.sendButton}
-                  </button>
-                </form>
+                <div ref={formRef} style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+                  {contactStatus === "success" ? (
+                    <div style={{ padding: "2rem 0", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2rem" }}>
+                        <h2 style={{ fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.3em", color: "#888", fontWeight: 400, display: "flex", flexWrap: "wrap", lineHeight: 1.5 }}>
+                            {"Obrigado pelo contato! Logo retornaremos.".split("").map((char, i) => (
+                                <span key={i} style={{ 
+                                    animationDelay: `${i * 0.1}s`,
+                                    opacity: char === " " ? 1 : 0,
+                                    animation: char !== " " ? "textLoadingContact 12s infinite both" : "none",
+                                    width: char === " " ? "0.5em" : "auto",
+                                    display: "inline-block"
+                                }}>{char}</span>
+                            ))}
+                        </h2>
+                        <button onClick={() => setContactStatus("idle")} style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.2em", borderBottom: "1px solid #ccc", paddingBottom: "2px", color: "#888", background: "none", border: "none", cursor: "pointer", marginTop: "1rem" }}>Enviar outra mensagem</button>
+                    </div>
+                  ) : (
+                    <>
+                      <input type="text" placeholder={t.contact.namePlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
+                      <input type="email" placeholder={t.contact.emailPlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
+                      <textarea placeholder={t.contact.messagePlaceholder} rows={1} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", resize: "none", color: "#333", opacity: 0.85 }} />
+                      
+                      {contactStatus === "error" && <span style={{ color: "red", fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase" }}>{contactError}</span>}
+                      
+                      <button
+                        type="button"
+                        onClick={handleContactSubmit}
+                        disabled={contactStatus === "submitting"}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        style={{ marginTop: "1rem", padding: "1rem 2rem", background: "none", border: "1px solid #ddd", color: "#333", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.2em", cursor: "pointer", alignSelf: "flex-start", transition: "all 0.3s ease", opacity: contactStatus === "submitting" ? 0.5 : 1 }}
+                      >
+                        {contactStatus === "submitting" ? "Enviando..." : t.contact.sendButton}
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
 
               {/* Right: Info */}
