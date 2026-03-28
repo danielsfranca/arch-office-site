@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     });
 
     const mailOptions = {
-      from: `"${name}" <${email}>`, // sender address mapped to user
+      from: `"${name} (Pelo Site)" <${process.env.EMAIL_USER}>`, // Zoho REQUER que o email do 'from' seja a sua própria conta!
       to: process.env.EMAIL_TO || process.env.EMAIL_USER, // receiver (you)
       replyTo: email,
       subject: `Nova mensagem pelo site: ${subject || 'Sem assunto'}`,
