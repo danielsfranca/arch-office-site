@@ -1053,7 +1053,7 @@ export default function Home() {
         {/* Contact View */}
         {currentView === "contact" && (
           <section style={{ position: "fixed", inset: 0, background: "var(--bg-primary)", zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ width: "100%", maxWidth: "1000px", padding: "2rem", display: "flex", flexDirection: "row", gap: "6rem", alignItems: "flex-start", flexWrap: "wrap" }}>
+            <div style={{ width: "100%", maxWidth: "1000px", padding: "2rem", display: "flex", flexDirection: "row", gap: "6rem", alignItems: contactStatus === "success" ? "center" : "flex-start", flexWrap: "wrap" }}>
 
               {/* Left: Form */}
               <div style={{ flex: "1 1 400px" }}>
@@ -1075,7 +1075,7 @@ export default function Home() {
                             opacity: 0.85,
                             textAlign: "left",
                             lineHeight: 1.4,
-                            marginBottom: "0.4rem"
+                            marginBottom: "0.2rem"
                         }}>
                             Obrigado pelo contato! Logo retornaremos.
                         </h2>
@@ -1108,9 +1108,9 @@ export default function Home() {
               {/* No pulse here */}
 
               {/* Right: Info */}
-              <div style={{ flex: "1 1 300px", paddingTop: "5rem", display: "flex", flexDirection: "column", gap: "0.4rem", alignItems: "flex-end", position: "relative" }}>
+              <div style={{ flex: "1 1 300px", paddingTop: contactStatus === "success" ? "0rem" : "5rem", display: "flex", flexDirection: "column", gap: "0.4rem", alignItems: "flex-end", position: "relative" }}>
                 {contactStatus === "success" ? (
-                  <div style={{ opacity: 0.9, animation: "fade-in 1.5s ease both", marginTop: "-3rem" }}>
+                  <div style={{ opacity: 0.9, animation: "fade-in 1.5s ease both" }}>
                     <Image
                       src="/signature.png"
                       alt={t.about.signatureAlt}
