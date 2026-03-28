@@ -138,10 +138,7 @@ export default function Home() {
           console.log("Resultado da API:", result);
 
           if (res.ok) {
-              setPulsePos({ x, y });
-              setTimeout(() => {
-                  setContactStatus("success");
-              }, 600); // Wait for the first wave to pass before centering the text
+              setContactStatus("success");
               inputs.forEach(i => i.value = "");
           } else {
               setContactStatus("error");
@@ -424,16 +421,6 @@ export default function Home() {
           100% { clip-path: inset(40% 0 0 45%); }
         }
 
-        @keyframes contactPulse {
-          0% { transform: translate(-50%, -50%) scale(0); opacity: 0.5; box-shadow: 0 0 0 0 rgba(0,0,0,0.05); }
-          50% { opacity: 0.2; }
-          100% { transform: translate(-50%, -50%) scale(150); opacity: 0; box-shadow: 0 0 50px 20px rgba(0,0,0,0); }
-        }
-
-        @keyframes fadeInContact {
-          0% { opacity: 0; filter: blur(20px); }
-          100% { opacity: 1; filter: blur(0); }
-        }
       `}</style>
 
       {/* Radial Inversion Overlay */}
@@ -1081,34 +1068,24 @@ export default function Home() {
                         alignItems: "center", 
                         justifyContent: "center", 
                         background: "white", 
-                        animation: "fadeInContact 1s ease both" 
+                        animation: "fade-in 1s ease both" 
                     }}>
                         <h2 style={{ 
-                            fontSize: "0.65rem", 
+                            fontSize: "0.75rem", 
                             textTransform: "uppercase", 
                             letterSpacing: "0.3em", 
-                            color: "#888", 
-                            fontWeight: 400, 
-                            display: "flex", 
-                            flexWrap: "wrap", 
-                            lineHeight: 2,
+                            color: "#333", 
+                            fontWeight: 300, 
+                            marginBottom: "1rem",
                             textAlign: "center"
                         }}>
-                            {"Obrigado pelo contato! Logo retornaremos.".split("").map((char, i) => (
-                                <span key={i} style={{ 
-                                    animationDelay: `${i * 0.1}s`,
-                                    opacity: char === " " ? 1 : 0,
-                                    animation: char !== " " ? "textLoadingContact 12s infinite both" : "none",
-                                    width: char === " " ? "0.5em" : "auto",
-                                    display: "inline-block"
-                                }}>{char}</span>
-                            ))}
+                            Obrigado pelo contato! Logo retornaremos.
                         </h2>
-                        <button onClick={() => { setContactStatus("idle"); setPulsePos(null); }} style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.2em", borderBottom: "1px solid #ccc", paddingBottom: "2px", color: "#888", background: "none", border: "none", cursor: "pointer", marginTop: "3rem" }}>Enviar outra mensagem</button>
+                        <button onClick={() => { setContactStatus("idle"); setPulsePos(null); }} style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.2em", borderBottom: "1px solid #ccc", paddingBottom: "2px", color: "#888", background: "none", border: "none", cursor: "pointer", marginTop: "2rem" }}>Enviar outra mensagem</button>
                     </div>
                   ) : (
                     <>
-                      <h2 style={{ textAlign: "left", marginBottom: "1rem", fontSize: "0.8rem", fontWeight: 400, letterSpacing: "0.2em", textTransform: "uppercase", color: "#888" }}>{t.contact.title}</h2>
+                      <h2 style={{ textAlign: "left", marginBottom: "3rem", fontSize: "0.8rem", fontWeight: 400, letterSpacing: "0.2em", textTransform: "uppercase", color: "#888" }}>{t.contact.title}</h2>
                       <input type="text" name="name" placeholder={t.contact.namePlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
                       <input type="email" name="email" placeholder={t.contact.emailPlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
                       <textarea name="message" placeholder={t.contact.messagePlaceholder} rows={1} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", resize: "none", color: "#333", opacity: 0.85 }} />
@@ -1130,26 +1107,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Immersive Ethereal Ripples */}
-              {pulsePos && (
-                  <>
-                    {[0, 0.4, 0.8].map((delay, i) => (
-                        <div key={i} style={{
-                            position: "fixed",
-                            top: pulsePos.y,
-                            left: pulsePos.x,
-                            transform: "translate(-50%, -50%)",
-                            width: "40px",
-                            height: "40px",
-                            borderRadius: "50%",
-                            border: "0.5px solid rgba(0,0,0,0.03)",
-                            pointerEvents: "none",
-                            zIndex: 1000,
-                            animation: `contactPulse 3s cubic-bezier(0.2, 0, 0.2, 1) ${delay}s forwards`
-                        }} />
-                    ))}
-                  </>
-              )}
+              {/* No pulse here */}
 
               {/* Right: Info */}
               <div style={{ flex: "1 1 300px", paddingTop: "5rem", display: "flex", flexDirection: "column", gap: "0.4rem", alignItems: "flex-end", position: "relative" }}>
