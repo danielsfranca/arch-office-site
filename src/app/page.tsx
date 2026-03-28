@@ -100,9 +100,12 @@ export default function Home() {
 
   const [contactStatus, setContactStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [contactError, setContactError] = useState("");
+  const [pulsePos, setPulsePos] = useState<{ x: number, y: number } | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
 
   const handleContactSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+      const x = e.clientX;
+      const y = e.clientY;
       e.preventDefault();
       if (!formRef.current) return;
       setContactStatus("submitting");
@@ -135,7 +138,10 @@ export default function Home() {
           console.log("Resultado da API:", result);
 
           if (res.ok) {
-              setContactStatus("success");
+              setPulsePos({ x, y });
+              setTimeout(() => {
+                  setContactStatus("success");
+              }, 100);
               inputs.forEach(i => i.value = "");
           } else {
               setContactStatus("error");
@@ -416,6 +422,16 @@ export default function Home() {
         @keyframes logo-reveal-franca {
           0% { clip-path: inset(40% 0 0 100%); }
           100% { clip-path: inset(40% 0 0 45%); }
+        }
+
+        @keyframes contactPulse {
+          0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+          100% { transform: translate(-50%, -50%) scale(500); opacity: 0; }
+        }
+
+        @keyframes fadeInContact {
+          0% { opacity: 0; filter: blur(10px); }
+          100% { opacity: 1; filter: blur(0); }
         }
       `}</style>
 
@@ -1053,10 +1069,30 @@ export default function Home() {
 
               {/* Left: Form */}
               <div style={{ flex: "1 1 400px" }}>
-                <div ref={formRef} style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+                <div ref={formRef} style={{ display: "flex", flexDirection: "column", gap: "2rem", width: "100%" }}>
                   {contactStatus === "success" ? (
-                    <div style={{ padding: "0 0", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "2rem", minHeight: "300px", justifyContent: "center" }}>
-                        <h2 style={{ fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.3em", color: "#888", fontWeight: 400, display: "flex", flexWrap: "wrap", lineHeight: 2 }}>
+                    <div style={{ 
+                        position: "fixed", 
+                        inset: 0, 
+                        zIndex: 200, 
+                        display: "flex", 
+                        flexDirection: "column",
+                        alignItems: "center", 
+                        justifyContent: "center", 
+                        background: "white", 
+                        animation: "fadeInContact 1s ease both" 
+                    }}>
+                        <h2 style={{ 
+                            fontSize: "0.65rem", 
+                            textTransform: "uppercase", 
+                            letterSpacing: "0.3em", 
+                            color: "#888", 
+                            fontWeight: 400, 
+                            display: "flex", 
+                            flexWrap: "wrap", 
+                            lineHeight: 2,
+                            textAlign: "center"
+                        }}>
                             {"Obrigado pelo contato! Logo retornaremos.".split("").map((char, i) => (
                                 <span key={i} style={{ 
                                     animationDelay: `${i * 0.1}s`,
@@ -1067,7 +1103,7 @@ export default function Home() {
                                 }}>{char}</span>
                             ))}
                         </h2>
-                        <button onClick={() => setContactStatus("idle")} style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.2em", borderBottom: "1px solid #ccc", paddingBottom: "2px", color: "#888", background: "none", border: "none", cursor: "pointer", marginTop: "2rem" }}>Enviar outra mensagem</button>
+                        <button onClick={() => { setContactStatus("idle"); setPulsePos(null); }} style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.2em", borderBottom: "1px solid #ccc", paddingBottom: "2px", color: "#888", background: "none", border: "none", cursor: "pointer", marginTop: "3rem" }}>Enviar outra mensagem</button>
                     </div>
                   ) : (
                     <>
@@ -1092,6 +1128,24 @@ export default function Home() {
                   )}
                 </div>
               </div>
+
+              {/* Pulse Clearing Overlay */}
+              {pulsePos && (
+                  <div style={{
+                      position: "fixed",
+                      top: pulsePos.y,
+                      left: pulsePos.x,
+                      transform: "translate(-50%, -50%)",
+                      width: "10px",
+                      height: "10px",
+                      borderRadius: "50%",
+                      background: "white",
+                      boxShadow: "0 0 100px 100px rgba(255, 255, 255, 0.9)",
+                      pointerEvents: "none",
+                      zIndex: 150,
+                      animation: "contactPulse 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards"
+                  }} />
+              )}
 
               {/* Right: Info */}
               <div style={{ flex: "1 1 300px", paddingTop: "5rem", display: "flex", flexDirection: "column", gap: "0.4rem", alignItems: "flex-end", position: "relative" }}>
@@ -1468,6 +1522,7 @@ export default function Home() {
           <button
             onClick={(e) => {
               e.stopPropagation();
+              if (!lightboxImage) return;
               const currentGallery = LOFT_A_IMAGES.includes(lightboxImage) ? LOFT_A_IMAGES : (CASA_ARCOS_IMAGES.includes(lightboxImage) ? CASA_ARCOS_IMAGES : (QUARTA_ESQUINA_IMAGES.includes(lightboxImage) ? QUARTA_ESQUINA_IMAGES : []));
               if (currentGallery.length === 0) return;
               const currentIndex = currentGallery.indexOf(lightboxImage);
@@ -1486,7 +1541,7 @@ export default function Home() {
           </button>
 
           {/* Conditionally render based on image type (All White Frame except View 2) */
-            (!lightboxImage.includes("view2")) ? (
+            (lightboxImage && !lightboxImage.includes("view2")) ? (
               // Drawing/Presentation Layout: White Presentation Board
               <div
                 onClick={(e) => e.stopPropagation()}
@@ -1528,6 +1583,7 @@ export default function Home() {
           <button
             onClick={(e) => {
               e.stopPropagation();
+              if (!lightboxImage) return;
               const currentGallery = LOFT_A_IMAGES.includes(lightboxImage) ? LOFT_A_IMAGES : (CASA_ARCOS_IMAGES.includes(lightboxImage) ? CASA_ARCOS_IMAGES : (QUARTA_ESQUINA_IMAGES.includes(lightboxImage) ? QUARTA_ESQUINA_IMAGES : []));
               if (currentGallery.length === 0) return;
               const currentIndex = currentGallery.indexOf(lightboxImage);
