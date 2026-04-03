@@ -1122,12 +1122,12 @@ export default function Home() {
                 ) : (
                   <>
                     <a
-                      href="mailto:contato@dfranca.arq.br"
+                      href="mailto:info@dfranca.arq.br"
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}
                       style={{ fontSize: "12px", fontWeight: 300, color: "#555", opacity: 0.85, letterSpacing: "0.05em", textDecoration: "none" }}
                     >
-                      contato@dfranca.arq.br
+                      info@dfranca.arq.br
                     </a>
                     <a
                       href="tel:+5534999232927"

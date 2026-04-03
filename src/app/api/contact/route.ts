@@ -19,11 +19,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Campos obrigatórios faltando.' }, { status: 400 });
     }
 
-    console.log('Tentando enviar email via Resend para:', process.env.EMAIL_TO || 'contato@dfranca.arq.br');
+    const recipients = process.env.EMAIL_TO 
+      ? process.env.EMAIL_TO.split(",").map(e => e.trim()) 
+      : ['contato@dfranca.arq.br', 'info@dfranca.arq.br'];
+
+    console.log('Tentando enviar email via Resend para:', recipients);
 
     const result = await resend.emails.send({
       from: 'Daniel Franca Site <onboarding@resend.dev>',
-      to: [process.env.EMAIL_TO || 'contato@dfranca.arq.br'],
+      to: recipients,
       replyTo: email,
       subject: `Nova mensagem pelo site: ${subject || 'Sem assunto'}`,
       html: `
