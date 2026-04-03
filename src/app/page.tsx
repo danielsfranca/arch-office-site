@@ -136,9 +136,20 @@ const FilmStrip = ({ images, onLightbox }: { images: string[], onLightbox: (img:
     if (!el) return;
 
     const handleWheel = (e: WheelEvent) => {
-      if (e.deltaY !== 0) {
-        e.preventDefault();
-        el.scrollLeft += e.deltaY;
+      // Use both deltaY (common scroll wheel) and deltaX (horiz trackpad)
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      
+      if (delta !== 0) {
+        // Only prevent page scroll if we can actually scroll horizontally
+        const isAtLeft = el.scrollLeft <= 0;
+        const isAtRight = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+        const canScroll = (delta > 0 && !isAtRight) || (delta < 0 && !isAtLeft);
+        
+        if (canScroll) {
+          e.preventDefault();
+          // Increase speed/sensitivity to make it feel responsive
+          el.scrollLeft += delta * 1.5;
+        }
       }
     };
 
