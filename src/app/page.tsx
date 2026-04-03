@@ -1222,7 +1222,7 @@ export default function Home() {
             overflowX: "hidden",
             padding: "8rem 2rem 4rem"
           }}>
-            <div style={{ maxWidth: "1600px", margin: "0" }}>
+            <div style={{ maxWidth: "1600px", margin: "0 auto" }}>
               {currentView === "gallery_academic" ? (
                 <>
                   <div style={{ marginBottom: "4rem", textAlign: "left", maxWidth: "1600px" }}>
