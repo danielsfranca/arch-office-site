@@ -18,8 +18,7 @@ const projectsData = [
   { id: 11, title: "Casa Arcos", category: "Residencial", year: "2024", src: "/casa-arcos/main.png" },
   { id: 12, title: "Quarta Esquina", category: "Comercial", year: "2023", src: "/quarta-esquina/main-v2.png" },
   { id: 201, title: "Renderizações Realistas", category: "Visualização", year: "", src: "/visualizacao/renderizacoes-realistas/_1.png" },
-  { id: 202, title: "Perspectivas artísticas", category: "Visualização", year: "", src: "/visualizacao/perspectivas-artisticas/_1.png" },
-  { id: 203, title: "Plantas humanizadas", category: "Visualização", year: "", src: "/visualizacao/plantas-humanizadas/1.jpg" },
+  { id: 202, title: "Perspectivas artísticas", category: "Visualização", year: "", src: "/visualizacao/perspectivas-artisticas/_2.png" },
 ];
 
 const LOFT_A_IMAGES = [
@@ -99,7 +98,7 @@ const BeforeAfterSlider = ({ before, after, onLightbox }: { before: string, afte
       ref={containerRef}
       onMouseMove={handleMove}
       onTouchMove={handleMove}
-      style={{ position: "relative", width: "100%", aspectRatio: "16/9", overflow: "hidden", cursor: "ew-resize", userSelect: "none", marginBottom: "4rem" }}
+      style={{ position: "relative", width: "100%", maxWidth: "900px", aspectRatio: "16/9", overflow: "hidden", cursor: "ew-resize", userSelect: "none", marginBottom: "1.5rem" }}
     >
       {/* Before (Bottom Layer) */}
       <img src={before} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -122,7 +121,67 @@ const BeforeAfterSlider = ({ before, after, onLightbox }: { before: string, afte
       </div>
     </div>
   );
+};const FilmStrip = ({ images, onLightbox }: { images: string[], onLightbox: (img: string) => void }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: number) => {
+    if (scrollRef.current) {
+      const scrollAmount = 400;
+      scrollRef.current.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <div style={{ width: "100%", marginTop: "6rem", position: "relative" }}>
+      <h3 style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.2em", marginBottom: "3rem", opacity: 0.6, fontWeight: 300 }}>Extras</h3>
+      
+      {/* Navigation Arrows */}
+      <div style={{ position: "absolute", right: 0, top: "-1rem", display: "flex", gap: "1.5rem", zIndex: 5 }}>
+        <button 
+          onClick={() => scroll(-1)} 
+          className="hover-opacity-100" 
+          style={{ background: "none", cursor: "pointer", opacity: 0.3, transition: "opacity 0.2s", padding: "0.5rem", borderRadius: "50%", border: "1px solid #ddd" }}
+        >
+          <ChevronLeft size={18} strokeWidth={1} />
+        </button>
+        <button 
+          onClick={() => scroll(1)} 
+          className="hover-opacity-100" 
+          style={{ background: "none", cursor: "pointer", opacity: 0.3, transition: "opacity 0.2s", padding: "0.5rem", borderRadius: "50%", border: "1px solid #ddd" }}
+        >
+          <ChevronRight size={18} strokeWidth={1} />
+        </button>
+      </div>
+
+      <div 
+        ref={scrollRef}
+        className="no-scrollbar" 
+        style={{ 
+          display: "flex", 
+          gap: "2rem", 
+          overflowX: "auto", 
+          paddingBottom: "2rem", 
+          scrollSnapType: "x proximity",
+          scrollBehavior: "smooth"
+        }}
+      >
+        {images.map((img, i) => (
+          <div key={i} style={{ flexShrink: 0, height: "240px", aspectRatio: "16/9", position: "relative", scrollSnapAlign: "start" }}>
+            <img 
+              src={img} 
+              onClick={(e) => { e.stopPropagation(); onLightbox(img); }}
+              style={{ height: "100%", width: "auto", cursor: "pointer", objectFit: "contain" }} 
+            />
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: "9px", color: "#999", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "1rem" }}>
+        Arraste ou use as setas para navegar
+      </div>
+    </div>
+  );
 };
+
 
 const ProjectCard = ({ project, onSelect, handleMouseEnter, handleMouseLeave }: any) => {
   const [imgIndex, setImgIndex] = useState(0);
@@ -134,7 +193,6 @@ const ProjectCard = ({ project, onSelect, handleMouseEnter, handleMouseLeave }: 
     if (project.id === 12) list = QUARTA_ESQUINA_IMAGES.filter(s => !s.toLowerCase().includes("implantacao") && !s.toLowerCase().includes("corte") && !s.toLowerCase().includes("elevacao") && !s.toLowerCase().includes("planta"));
     if (project.id === 201) list = RENDER_REALISTAS_IMAGES.filter(s => !s.toLowerCase().includes("extra") && !s.toLowerCase().includes("base"));
     if (project.id === 202) list = PERSPECTIVAS_ARTISTICAS_IMAGES.filter(s => !s.toLowerCase().includes("extra") && !s.toLowerCase().includes("base"));
-    if (project.id === 203) list = PLANTAS_HUMANIZADAS_IMAGES;
     return list;
   }, [project.id, project.src]);
 
@@ -1231,15 +1289,16 @@ export default function Home() {
                       Vizualização arquitetônica
                     </h3>
                   </div>
-                  <div className="gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "4rem" }}>
+                  <div style={{ display: "flex", justifyContent: "center", gap: "4rem", flexWrap: "wrap" }}>
                     {projectsData.filter(p => p.category === "Visualização").map(project => (
-                      <ProjectCard 
-                        key={project.id} 
-                        project={project} 
-                        onSelect={setSelectedProject} 
-                        handleMouseEnter={handleMouseEnter} 
-                        handleMouseLeave={handleMouseLeave} 
-                      />
+                      <div key={project.id} style={{ width: "calc(33.33% - 2.7rem)", minWidth: "350px" }}>
+                        <ProjectCard 
+                          project={project} 
+                          onSelect={setSelectedProject} 
+                          handleMouseEnter={handleMouseEnter} 
+                          handleMouseLeave={handleMouseLeave} 
+                        />
+                      </div>
                     ))}
                   </div>
                 </>
@@ -1603,7 +1662,7 @@ export default function Home() {
                     <img
                       src="/casa-arcos/view5.png"
                       alt="Vista 5"
-                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/view5.png"); }}
+                  onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/view5.png"); }}
                       style={{ height: "35vh", width: "auto", maxWidth: "48vw", objectFit: "contain", cursor: "zoom-in", marginBottom: "80px", filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.15))", clipPath: "inset(0 0 0 14.28%)", marginLeft: "-4vw" }}
                     />
                   </div>
@@ -1673,7 +1732,7 @@ export default function Home() {
 
               {/* Gallery Content - Renderizações Realistas (ID 201) */}
               {selectedProject.id === 201 && (
-                <div style={{ display: "flex", flexDirection: "column", gap: "8rem", marginTop: "4rem", alignItems: "flex-start" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "2rem", marginTop: "4rem", alignItems: "flex-start" }}>
                   <BeforeAfterSlider 
                     after="/visualizacao/renderizacoes-realistas/_1.png" 
                     before="/visualizacao/renderizacoes-realistas/_1 base.png" 
@@ -1686,26 +1745,16 @@ export default function Home() {
                     onLightbox={setLightboxImage} 
                   />
 
-                  <div style={{ width: "100%", marginTop: "10rem" }}>
-                    <h3 style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.2em", marginBottom: "3rem", opacity: 0.6, fontWeight: 300 }}>Extras</h3>
-                    <div className="no-scrollbar" style={{ display: "flex", gap: "2rem", overflowX: "auto", paddingBottom: "4rem", scrollPadding: "0 2rem" }}>
-                      {RENDER_REALISTAS_IMAGES.filter(s => s.toLowerCase().includes("extra")).map((img, i) => (
-                        <div key={i} style={{ flexShrink: 0, height: "35vh", aspectRatio: "16/9", position: "relative" }}>
-                          <img 
-                            src={img} 
-                            onClick={(e) => { e.stopPropagation(); setLightboxImage(img); }}
-                            style={{ height: "100%", width: "auto", cursor: "pointer", objectFit: "contain", filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.1))" }} 
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  <FilmStrip 
+                    images={RENDER_REALISTAS_IMAGES.filter(s => s.toLowerCase().includes("extra"))} 
+                    onLightbox={setLightboxImage} 
+                  />
                 </div>
               )}
 
               {/* Gallery Content - Perspectivas Artísticas (ID 202) */}
               {selectedProject.id === 202 && (
-                <div style={{ display: "flex", flexDirection: "column", gap: "8rem", marginTop: "4rem", alignItems: "flex-start" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "2rem", marginTop: "4rem", alignItems: "flex-start" }}>
                   <BeforeAfterSlider 
                     after="/visualizacao/perspectivas-artisticas/_1.png" 
                     before="/visualizacao/perspectivas-artisticas/_1 base.png" 
@@ -1718,35 +1767,10 @@ export default function Home() {
                     onLightbox={setLightboxImage} 
                   />
 
-                  <div style={{ width: "100%", marginTop: "10rem" }}>
-                    <h3 style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.2em", marginBottom: "3rem", opacity: 0.6, fontWeight: 300 }}>Extras</h3>
-                    <div className="no-scrollbar" style={{ display: "flex", gap: "2rem", overflowX: "auto", paddingBottom: "4rem" }}>
-                      {PERSPECTIVAS_ARTISTICAS_IMAGES.filter(s => s.toLowerCase().includes("extra")).map((img, i) => (
-                        <div key={i} style={{ flexShrink: 0, height: "35vh", aspectRatio: "16/9", position: "relative" }}>
-                          <img 
-                            src={img} 
-                            onClick={(e) => { e.stopPropagation(); setLightboxImage(img); }}
-                            style={{ height: "100%", width: "auto", cursor: "pointer", objectFit: "contain", filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.1))" }} 
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Gallery Content - Plantas Humanizadas (ID 203) */}
-              {selectedProject.id === 203 && (
-                <div style={{ display: "flex", flexDirection: "column", gap: "8rem", marginTop: "4rem", alignItems: "flex-start" }}>
-                  {PLANTAS_HUMANIZADAS_IMAGES.map((img, i) => (
-                    <div key={i} style={{ width: "100%", maxWidth: "1100px", position: "relative" }}>
-                      <img 
-                        src={img} 
-                        onClick={(e) => { e.stopPropagation(); setLightboxImage(img); }}
-                        style={{ width: "100%", height: "auto", objectFit: "contain", cursor: "pointer", display: "block", textAlign: "left" }} 
-                      />
-                    </div>
-                  ))}
+                  <FilmStrip 
+                    images={PERSPECTIVAS_ARTISTICAS_IMAGES.filter(s => s.toLowerCase().includes("extra"))} 
+                    onLightbox={setLightboxImage} 
+                  />
                 </div>
               )}
             </div>
@@ -1896,6 +1920,9 @@ export default function Home() {
       .no-scrollbar {
         -ms-overflow-style: none;
         scrollbar-width: none;
+      }
+      .hover-opacity-100:hover {
+        opacity: 1 !important;
       }
     `}</style>
     </>
