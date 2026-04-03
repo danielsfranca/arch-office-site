@@ -121,62 +121,74 @@ const BeforeAfterSlider = ({ before, after, onLightbox }: { before: string, afte
       </div>
     </div>
   );
-};const FilmStrip = ({ images, onLightbox }: { images: string[], onLightbox: (img: string) => void }) => {
+};
+
+const FilmStrip = ({ images, onLightbox }: { images: string[], onLightbox: (img: string) => void }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: number) => {
     if (scrollRef.current) {
-      const scrollAmount = 400;
+      const scrollAmount = 600;
       scrollRef.current.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
     }
   };
 
+  const handleWheel = (e: React.WheelEvent) => {
+    if (scrollRef.current) {
+      if (e.deltaY !== 0) {
+        scrollRef.current.scrollLeft += e.deltaY;
+      }
+    }
+  };
+
   return (
-    <div style={{ width: "100%", marginTop: "6rem", position: "relative" }}>
-      <h3 style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.2em", marginBottom: "3rem", opacity: 0.6, fontWeight: 300 }}>Extras</h3>
-      
-      {/* Navigation Arrows */}
-      <div style={{ position: "absolute", right: 0, top: "-1rem", display: "flex", gap: "1.5rem", zIndex: 5 }}>
-        <button 
-          onClick={() => scroll(-1)} 
-          className="hover-opacity-100" 
-          style={{ background: "none", cursor: "pointer", opacity: 0.3, transition: "opacity 0.2s", padding: "0.5rem", borderRadius: "50%", border: "1px solid #ddd" }}
-        >
-          <ChevronLeft size={18} strokeWidth={1} />
-        </button>
-        <button 
-          onClick={() => scroll(1)} 
-          className="hover-opacity-100" 
-          style={{ background: "none", cursor: "pointer", opacity: 0.3, transition: "opacity 0.2s", padding: "0.5rem", borderRadius: "50%", border: "1px solid #ddd" }}
-        >
-          <ChevronRight size={18} strokeWidth={1} />
-        </button>
+    <div style={{ width: "100%", marginTop: "8rem", position: "relative" }}>
+      {/* Navigation Header */}
+      <div style={{ position: "absolute", right: 0, top: "-4rem", display: "flex", alignItems: "center", gap: "2rem", zIndex: 10 }}>
+        <div style={{ fontSize: "10px", color: "#aaa", textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 300 }}>
+          Arraste ou use as setas para navegar
+        </div>
+        <div style={{ display: "flex", gap: "1rem" }}>
+          <button 
+            onClick={() => scroll(-1)} 
+            className="hover-opacity-100" 
+            style={{ background: "none", cursor: "pointer", opacity: 0.3, transition: "opacity 0.2s", padding: "0.6rem", borderRadius: "50%", border: "1px solid #ddd", display: "flex", alignItems: "center", justifyContent: "center" }}
+          >
+            <ChevronLeft size={20} strokeWidth={1} />
+          </button>
+          <button 
+            onClick={() => scroll(1)} 
+            className="hover-opacity-100" 
+            style={{ background: "none", cursor: "pointer", opacity: 0.3, transition: "opacity 0.2s", padding: "0.6rem", borderRadius: "50%", border: "1px solid #ddd", display: "flex", alignItems: "center", justifyContent: "center" }}
+          >
+            <ChevronRight size={20} strokeWidth={1} />
+          </button>
+        </div>
       </div>
 
       <div 
         ref={scrollRef}
+        onWheel={handleWheel}
         className="no-scrollbar" 
         style={{ 
           display: "flex", 
-          gap: "2rem", 
+          gap: "2.5rem", 
           overflowX: "auto", 
-          paddingBottom: "2rem", 
+          paddingBottom: "3rem", 
           scrollSnapType: "x proximity",
-          scrollBehavior: "smooth"
+          scrollBehavior: "smooth",
+          cursor: "grab"
         }}
       >
         {images.map((img, i) => (
-          <div key={i} style={{ flexShrink: 0, height: "240px", aspectRatio: "16/9", position: "relative", scrollSnapAlign: "start" }}>
+          <div key={i} style={{ flexShrink: 0, height: "45vh", aspectRatio: "16/9", position: "relative", scrollSnapAlign: "start" }}>
             <img 
               src={img} 
               onClick={(e) => { e.stopPropagation(); onLightbox(img); }}
-              style={{ height: "100%", width: "auto", cursor: "pointer", objectFit: "contain" }} 
+              style={{ height: "100%", width: "auto", cursor: "pointer", objectFit: "contain", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.08))" }} 
             />
           </div>
         ))}
-      </div>
-      <div style={{ fontSize: "9px", color: "#999", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "1rem" }}>
-        Arraste ou use as setas para navegar
       </div>
     </div>
   );
