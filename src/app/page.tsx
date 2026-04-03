@@ -929,59 +929,57 @@ export default function Home() {
                     <p style={{ marginBottom: "1.5rem" }} dangerouslySetInnerHTML={{ __html: t.about.bio2 }} />
                     <p dangerouslySetInnerHTML={{ __html: t.about.bio3 }} />
                   </div>
-
-                  <button
-                    onClick={() => router.push("/portfolio")}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    className="hover-underline-animation"
-                    style={{
-                      marginTop: "3rem", // Spacing from text
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                      color: "#888",
-                      fontSize: "0.75rem",
-                      fontWeight: 300,
-                      letterSpacing: "0.05em",
-                      textTransform: "uppercase", // Matching style
-                      padding: 0,
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem"
-                    }}
-                  >
-                    {t.about.portfolio} <ArrowRight size={14} />
-                  </button>
                 </div>
-                {/* 11 empty lines remaining at bottom */}
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
               </div>
 
-              <div
-                className="about-image"
-                style={{
-                  flex: 1,
-                  position: "relative",
-                  width: "100%",
-                  maxWidth: "400px",
-                  aspectRatio: "3/4",
-                  overflow: "hidden",
-                  boxShadow: "0 20px 50px rgba(0,0,0,0.1)",
-                  animation: "fade-in 1s ease-out 0.2s backwards"
-                }}
-              >
-                <Image
-                  src="/daniel-profile.jpg"
-                  alt="Daniel França"
-                  fill
+              <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "2rem" }}>
+                <div
+                  className="about-image"
                   style={{
-                    objectFit: "cover",
-                    objectPosition: "center 20%",
-                    filter: "grayscale(100%)",
-                    transform: "scale(1.1)"
+                    position: "relative",
+                    width: "100%",
+                    maxWidth: "400px",
+                    aspectRatio: "3/4",
+                    overflow: "hidden",
+                    boxShadow: "0 20px 50px rgba(0,0,0,0.1)",
+                    animation: "fade-in 1s ease-out 0.2s backwards"
                   }}
-                />
+                >
+                  <Image
+                    src="/daniel-profile.jpg"
+                    alt="Daniel França"
+                    fill
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: "center 20%",
+                      filter: "grayscale(100%)",
+                      transform: "scale(1.1)"
+                    }}
+                  />
+                </div>
+                
+                <button
+                  onClick={() => router.push("/portfolio")}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                  className="hover-underline-animation"
+                  style={{
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    color: "#888",
+                    fontSize: "0.75rem",
+                    fontWeight: 300,
+                    letterSpacing: "0.05em",
+                    textTransform: "uppercase",
+                    padding: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem"
+                  }}
+                >
+                  {t.about.portfolio} <ArrowRight size={14} />
+                </button>
               </div>
             </div>
           </section>
