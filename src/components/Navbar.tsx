@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import { useSession, signOut } from "next-auth/react";
 
-function UserMenu({ t, router }: { t: any, router: any }) {
+function UserMenu({ t, router, color }: { t: any, router: any, color: string }) {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
@@ -16,19 +16,21 @@ function UserMenu({ t, router }: { t: any, router: any }) {
   if (status === "authenticated") {
     return (
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-        <span style={{ fontSize: "0.8rem", fontWeight: 500 }}>
+        <span style={{ fontSize: "0.8rem", fontWeight: 500, color }}>
           {session.user?.name?.split(" ")[0]}
         </span>
         <button
           onClick={() => signOut()}
           style={{
             background: "none",
-            border: "1px solid #ddd",
+            border: `1px solid ${color}`,
+            color: color,
             padding: "0.3rem 0.8rem",
             borderRadius: "20px",
             cursor: "pointer",
             fontSize: "0.7rem",
-            textTransform: "uppercase"
+            textTransform: "uppercase",
+            opacity: 0.8
           }}
         >
           Sair
@@ -44,7 +46,7 @@ function UserMenu({ t, router }: { t: any, router: any }) {
       style={{ cursor: "pointer" }}
     >
       <span style={{
-        color: "#333",
+        color: color,
         fontSize: "0.80rem",
         fontWeight: 300,
         letterSpacing: "0.05em",
@@ -206,7 +208,7 @@ export default function Navbar({
           </div>
 
           {/* Session Logic */}
-          <UserMenu t={t} router={router} />
+          <UserMenu t={t} router={router} color={currentTextColor} />
         </div>
 
         {/* Mobile Toggle */}
