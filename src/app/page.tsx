@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 import { ArrowRight, ChevronLeft, ChevronRight, Instagram, Linkedin, Mail, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -49,6 +51,71 @@ const QUARTA_ESQUINA_IMAGES = [
   "/quarta-esquina/elevacao-oeste.png",
   "/quarta-esquina/planta-inferior.png"
 ];
+
+const ProjectCard = ({ project, onSelect, onMouseEnter, onMouseLeave, handleMouseEnter, handleMouseLeave }: any) => {
+  const [imgIndex, setImgIndex] = useState(0);
+
+  const photos = (() => {
+    let list = [project.src];
+    if (project.id === 100) list = LOFT_A_IMAGES.filter(s => !s.toLowerCase().includes("plan") && !s.toLowerCase().includes("section"));
+    if (project.id === 11) list = CASA_ARCOS_IMAGES.filter(s => !s.toLowerCase().includes("planta") && !s.toLowerCase().includes("fachada"));
+    if (project.id === 12) list = QUARTA_ESQUINA_IMAGES.filter(s => !s.toLowerCase().includes("implantacao") && !s.toLowerCase().includes("corte") && !s.toLowerCase().includes("elevacao") && !s.toLowerCase().includes("planta"));
+    return list;
+  })();
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setImgIndex((prev) => (prev + 1) % photos.length);
+  };
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setImgIndex((prev) => (prev - 1 + photos.length) % photos.length);
+  };
+
+  return (
+    <div
+      className="project-card"
+      style={{ cursor: "pointer", position: "relative" }}
+      onClick={() => onSelect && onSelect(project)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", marginBottom: "1rem", overflow: "hidden", background: "#f5f5f5" }}>
+        <Image
+          src={photos[imgIndex]}
+          alt={project.title}
+          fill
+          style={{
+            objectFit: "cover",
+            objectPosition: (project.id === 100 && imgIndex === 0) ? "left" : "center",
+            transition: "transform 0.5s ease"
+          }}
+          className="project-img"
+        />
+        
+        {photos.length > 1 && (
+          <div className="card-nav" style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0 0.5rem", opacity: 0, transition: "opacity 0.3s ease" }}>
+            <button 
+              onClick={handlePrev}
+              style={{ background: "none", border: "none", color: "white", cursor: "pointer", padding: "1rem" }}
+            >
+              <ChevronLeft size={20} strokeWidth={1} />
+            </button>
+            <button 
+              onClick={handleNext}
+              style={{ background: "none", border: "none", color: "white", cursor: "pointer", padding: "1rem" }}
+            >
+              <ChevronRight size={20} strokeWidth={1} />
+            </button>
+          </div>
+        )}
+      </div>
+      <h4 style={{ fontSize: "0.9rem", fontWeight: 400, marginBottom: "0.2rem" }}>{project.title}</h4>
+      {project.year && <p style={{ fontSize: "0.75rem", color: "#888", textTransform: "uppercase", letterSpacing: "0.1em" }}>{project.year}</p>}
+    </div>
+  );
+};
 
 export default function Home() {
   const router = useRouter();
@@ -1054,34 +1121,13 @@ export default function Home() {
                   </div>
                   <div className="gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "4rem", marginBottom: "8rem" }}>
                     {projectsData.filter(p => ["Residencial", "Comercial"].includes(p.category)).map(project => (
-                      <div
-                        key={project.id}
-                        className="project-card"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          if (project.id === 100 || project.id === 11 || project.id === 12) {
-                            setSelectedProject(project);
-                          }
-                        }}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                      >
-                        <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", marginBottom: "1rem", overflow: "hidden", background: "#f5f5f5" }}>
-                          <Image
-                            src={project.src}
-                            alt={project.title}
-                            fill
-                            style={{
-                              objectFit: "cover",
-                              objectPosition: project.id === 100 ? "left" : "center",
-                              transition: "transform 0.5s ease"
-                            }}
-                            className="project-img"
-                          />
-                        </div>
-                        <h4 style={{ fontSize: "0.9rem", fontWeight: 400, marginBottom: "0.2rem" }}>{project.title}</h4>
-                        <p style={{ fontSize: "0.75rem", color: "#888", textTransform: "uppercase", letterSpacing: "0.1em" }}>{project.year}</p>
-                      </div>
+                      <ProjectCard 
+                        key={project.id} 
+                        project={project} 
+                        onSelect={setSelectedProject} 
+                        handleMouseEnter={handleMouseEnter} 
+                        handleMouseLeave={handleMouseLeave} 
+                      />
                     ))}
                   </div>
 
@@ -1093,29 +1139,12 @@ export default function Home() {
                   </div>
                   <div className="gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "4rem" }}>
                     {projectsData.filter(p => p.category === "Visualização").map(project => (
-                      <div
-                        key={project.id}
-                        className="project-card"
-                        style={{ cursor: "pointer" }}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                      >
-                        <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", marginBottom: "1rem", overflow: "hidden", background: "#f5f5f5" }}>
-                          <Image
-                            src={project.src}
-                            alt={project.title}
-                            fill
-                            style={{
-                              objectFit: "cover",
-                              objectPosition: "center",
-                              transition: "transform 0.5s ease"
-                            }}
-                            className="project-img"
-                          />
-                        </div>
-                        <h4 style={{ fontSize: "0.9rem", fontWeight: 400, marginBottom: "0.2rem" }}>{project.title}</h4>
-                        {project.year && <p style={{ fontSize: "0.75rem", color: "#888", textTransform: "uppercase", letterSpacing: "0.1em" }}>{project.year}</p>}
-                      </div>
+                      <ProjectCard 
+                        key={project.id} 
+                        project={project} 
+                        handleMouseEnter={handleMouseEnter} 
+                        handleMouseLeave={handleMouseLeave} 
+                      />
                     ))}
                   </div>
                 </>
@@ -1551,6 +1580,18 @@ export default function Home() {
         )}
 
       </main >
+
+      <style jsx>{`
+        .project-card:hover .card-nav {
+          opacity: 1 !important;
+        }
+        .project-img {
+          transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+        }
+        .project-card:hover .project-img {
+          transform: scale(1.05);
+        }
+      `}</style>
 
       {/* Lightbox Overlay (ArchDaily Style with Navigation) */}
       {lightboxImage && (

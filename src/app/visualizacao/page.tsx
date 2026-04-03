@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 import { ArrowRight } from "lucide-react";
 import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
@@ -163,6 +165,40 @@ export default function VisualizacaoPage() {
                                     }} />
                                 </div>
                             ))}
+                        </div>
+
+                        {/* Process Diagram */}
+                        <div style={{ margin: "10rem 0 8rem", textAlign: "center" }}>
+                          <h3 style={{ fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.3em", color: "#888", marginBottom: "5rem", fontWeight: 300 }}>Processo</h3>
+                          <div style={{ 
+                            display: "flex", 
+                            alignItems: "center", 
+                            justifyContent: "space-between", 
+                            maxWidth: "1100px", 
+                            margin: "0 auto", 
+                            gap: "1.5rem",
+                            flexWrap: "wrap"
+                          }}>
+                            {[
+                                "Definição de estilo (artístico, realista, etc.)",
+                                "Definição da cena",
+                                "Definição dos materiais, luz e paisagismo",
+                                "Aprimoramento",
+                                "Aprovação"
+                            ].map((step, idx, arr) => (
+                              <React.Fragment key={idx}>
+                                <div style={{ flex: 1, minWidth: "150px" }}>
+                                  <div style={{ fontSize: "10px", color: "#ccc", marginBottom: "0.8rem", letterSpacing: "0.1em" }}>0{idx + 1}</div>
+                                  <div style={{ fontSize: "11px", color: "#333", textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 300, lineHeight: 1.6 }}>
+                                    {step}
+                                  </div>
+                                </div>
+                                {idx < arr.length - 1 && (
+                                  <div style={{ height: "1px", width: "30px", background: "#eee", flexShrink: 0 }} />
+                                )}
+                              </React.Fragment>
+                            ))}
+                          </div>
                         </div>
 
                         {/* CTA */}
