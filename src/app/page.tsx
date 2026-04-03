@@ -191,9 +191,15 @@ const ProjectCard = ({ project, onSelect, handleMouseEnter, handleMouseLeave }: 
     if (project.id === 100) list = LOFT_A_IMAGES.filter(s => !s.toLowerCase().includes("plan") && !s.toLowerCase().includes("section"));
     if (project.id === 11) list = CASA_ARCOS_IMAGES.filter(s => !s.toLowerCase().includes("planta") && !s.toLowerCase().includes("fachada"));
     if (project.id === 12) list = QUARTA_ESQUINA_IMAGES.filter(s => !s.toLowerCase().includes("implantacao") && !s.toLowerCase().includes("corte") && !s.toLowerCase().includes("elevacao") && !s.toLowerCase().includes("planta"));
-    if (project.id === 201) list = RENDER_REALISTAS_IMAGES.filter(s => !s.toLowerCase().includes("extra") && !s.toLowerCase().includes("base"));
-    if (project.id === 202) list = PERSPECTIVAS_ARTISTICAS_IMAGES.filter(s => !s.toLowerCase().includes("extra") && !s.toLowerCase().includes("base"));
-    return list;
+    if (project.id === 201) {
+      const mainImages = RENDER_REALISTAS_IMAGES.filter(s => !s.toLowerCase().includes("extra") && !s.toLowerCase().includes("base"));
+      list = [project.src, ...mainImages.filter(s => s !== project.src)];
+    }
+    if (project.id === 202) {
+      const mainImages = PERSPECTIVAS_ARTISTICAS_IMAGES.filter(s => !s.toLowerCase().includes("extra") && !s.toLowerCase().includes("base"));
+      list = [project.src, ...mainImages.filter(s => s !== project.src)];
+    }
+    return list.length > 0 ? list : [project.src];
   }, [project.id, project.src]);
 
   const handleNext = (e: React.MouseEvent) => {
