@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     console.log('Tentando enviar email via Resend para info@ e contato@ dfranca.arq.br');
     
     const result = await resend.emails.send({
-      from: 'Daniel Franca Site <onboarding@resend.dev>',
+      from: 'Daniel França Arquitetura <contato@dfranca.arq.br>',
       to: ['info@dfranca.arq.br', 'contato@dfranca.arq.br'],
       replyTo: email,
       subject: `Nova mensagem pelo site: ${subject || 'Sem assunto'}`,
