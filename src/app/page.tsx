@@ -18,7 +18,7 @@ const projectsData = [
   { id: 11, title: "Casa Arcos", category: "Residencial", year: "2024", src: "/casa-arcos/main.png" },
   { id: 12, title: "Quarta Esquina", category: "Comercial", year: "2023", src: "/quarta-esquina/main-v2.png" },
   { id: 201, title: "Renderizações Realistas", category: "Visualização", year: "", src: "/visualizacao/renderizacoes-realistas/_1.png" },
-  { id: 202, title: "Perspectivas artísticas", category: "Visualização", year: "", src: "/visualizacao/perspectivas-artisticas/_1 base.png" },
+  { id: 202, title: "Perspectivas artísticas", category: "Visualização", year: "", src: "/visualizacao/perspectivas-artisticas/Extra 01.png" },
 ];
 
 const LOFT_A_IMAGES = [
