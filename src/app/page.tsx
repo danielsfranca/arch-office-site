@@ -84,8 +84,10 @@ const PLANTAS_HUMANIZADAS_IMAGES = [
 const BeforeAfterSlider = ({ before, after, onLightbox }: { before: string, after: string, onLightbox: (img: string) => void }) => {
   const [sliderPos, setSliderPos] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
   const handleMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging && !("touches" in e)) return;
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = "touches" in e ? e.touches[0].clientX : e.clientX;
@@ -98,7 +100,10 @@ const BeforeAfterSlider = ({ before, after, onLightbox }: { before: string, afte
       ref={containerRef}
       onMouseMove={handleMove}
       onTouchMove={handleMove}
-      style={{ position: "relative", width: "100%", maxWidth: "900px", aspectRatio: "16/9", overflow: "hidden", cursor: "ew-resize", userSelect: "none", marginBottom: "1.5rem" }}
+      onMouseDown={() => setIsDragging(true)}
+      onMouseUp={() => setIsDragging(false)}
+      onMouseLeave={() => setIsDragging(false)}
+      style={{ position: "relative", width: "100%", maxWidth: "900px", aspectRatio: "16/9", overflow: "hidden", cursor: isDragging ? "ew-resize" : "default", userSelect: "none", marginBottom: "1.5rem" }}
     >
       {/* Before (Bottom Layer) */}
       <img src={before} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -108,13 +113,13 @@ const BeforeAfterSlider = ({ before, after, onLightbox }: { before: string, afte
         <img 
           src={after} 
           style={{ width: "100%", height: "100%", objectFit: "cover" }} 
-          onClick={(e) => { e.stopPropagation(); onLightbox(sliderPos > 50 ? after : before); }}
+          onClick={(e) => { e.stopPropagation(); if(!isDragging) onLightbox(sliderPos > 50 ? after : before); }}
         />
       </div>
 
       {/* Slider Line */}
       <div style={{ position: "absolute", top: 0, left: `${sliderPos}%`, width: "2px", height: "100%", background: "#fff", pointerEvents: "none", zIndex: 10 }}>
-        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "40px", height: "40px", borderRadius: "50%", border: "2px solid #fff", display: "flex", alignItems: "center", justifyContent: "center", gap: "4px" }}>
+        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "40px", height: "40px", borderRadius: "50%", border: "2px solid #fff", display: "flex", alignItems: "center", justifyContent: "center", gap: "4px", cursor: "ew-resize", pointerEvents: "auto" }}>
           <ChevronLeft size={16} color="#fff" />
           <ChevronRight size={16} color="#fff" />
         </div>
@@ -126,18 +131,25 @@ const BeforeAfterSlider = ({ before, after, onLightbox }: { before: string, afte
 const FilmStrip = ({ images, onLightbox }: { images: string[], onLightbox: (img: string) => void }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY;
+      }
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    return () => el.removeEventListener("wheel", handleWheel);
+  }, []);
+
   const scroll = (direction: number) => {
     if (scrollRef.current) {
       const scrollAmount = 600;
       scrollRef.current.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
-    }
-  };
-
-  const handleWheel = (e: React.WheelEvent) => {
-    if (scrollRef.current) {
-      if (e.deltaY !== 0) {
-        scrollRef.current.scrollLeft += e.deltaY;
-      }
     }
   };
 
@@ -168,7 +180,6 @@ const FilmStrip = ({ images, onLightbox }: { images: string[], onLightbox: (img:
 
       <div 
         ref={scrollRef}
-        onWheel={handleWheel}
         className="no-scrollbar" 
         style={{ 
           display: "flex", 
@@ -181,7 +192,7 @@ const FilmStrip = ({ images, onLightbox }: { images: string[], onLightbox: (img:
         }}
       >
         {images.map((img, i) => (
-          <div key={i} style={{ flexShrink: 0, height: "45vh", aspectRatio: "16/9", position: "relative", scrollSnapAlign: "start" }}>
+          <div key={i} style={{ flexShrink: 0, height: "36vh", aspectRatio: "16/9", position: "relative", scrollSnapAlign: "start" }}>
             <img 
               src={img} 
               onClick={(e) => { e.stopPropagation(); onLightbox(img); }}
