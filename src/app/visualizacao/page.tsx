@@ -41,7 +41,7 @@ function VisualizacaoContent() {
                             zIndex: 0
                         }}>
                             <img 
-                                src="/loft-a/render-01.png" 
+                                src="/loft-a-view2.png" 
                                 alt="Visualização Arquitetônica"
                                 style={{
                                     width: "100%",
