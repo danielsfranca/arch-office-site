@@ -41,13 +41,13 @@ function VisualizacaoContent() {
                             zIndex: 0
                         }}>
                             <img 
-                                src="/loft-a-view2.png" 
+                                src="/quarta-esquina/main-v2.png" 
                                 alt="Visualização Arquitetônica"
                                 style={{
                                     width: "100%",
                                     height: "100%",
                                     objectFit: "cover",
-                                    filter: "brightness(0.5) contrast(1.1)"
+                                    filter: "brightness(0.65) contrast(1.05)"
                                 }}
                             />
                         </div>
