@@ -1225,7 +1225,7 @@ export default function Home() {
             <div style={{ maxWidth: "1600px", margin: "0 auto" }}>
               {currentView === "gallery_academic" ? (
                 <>
-                  <div style={{ marginBottom: "4rem", textAlign: "left", maxWidth: "1600px" }}>
+                  <div style={{ marginBottom: "4rem", textAlign: "center" }}>
                     <h3 style={{ fontSize: "1rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--text-secondary)", fontWeight: 300 }}>
                       {t.projects.academic}
                     </h3>
@@ -1266,7 +1266,7 @@ export default function Home() {
               ) : (
                 <>
                   {/* Category 1: Selected Projects */}
-                  <div style={{ marginBottom: "4rem", textAlign: "left" }}>
+                  <div style={{ marginBottom: "4rem", textAlign: "center" }}>
                     <h3 style={{ fontSize: "1rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--text-secondary)", fontWeight: 300 }}>
                       {t.projects.selected}
                     </h3>
@@ -1284,7 +1284,7 @@ export default function Home() {
                   </div>
 
                   {/* Category 2: Visualization */}
-                  <div style={{ marginBottom: "4rem", textAlign: "left" }}>
+                  <div style={{ marginBottom: "4rem", textAlign: "center" }}>
                     <h3 style={{ fontSize: "1rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--text-secondary)", fontWeight: 300 }}>
                       Vizualização arquitetônica
                     </h3>
