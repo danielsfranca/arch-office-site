@@ -16,6 +16,9 @@ const projectsData = [
   { id: 100, title: "Loft A", category: "Residencial", year: "2021", src: "/loft-a-cover.png" },
   { id: 11, title: "Casa Arcos", category: "Residencial", year: "2024", src: "/casa-arcos/main.png" },
   { id: 12, title: "Quarta Esquina", category: "Comercial", year: "2023", src: "/quarta-esquina/main-v2.png" },
+  { id: 201, title: "Renderizações Realistas", category: "Visualização", year: "", src: "https://images.unsplash.com/photo-1600585154340-be6199f7d009?auto=format&fit=crop&q=80&w=1000" },
+  { id: 202, title: "Perspectivas artísticas", category: "Visualização", year: "", src: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1000" },
+  { id: 203, title: "Plantas humanizadas", category: "Visualização", year: "", src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1000" },
 ];
 
 
@@ -1001,49 +1004,122 @@ export default function Home() {
             padding: "8rem 2rem 4rem"
           }}>
             <div style={{ maxWidth: "1600px", margin: "0 auto" }}>
-              <div style={{ marginBottom: "4rem", textAlign: "center" }}>
-                <h3 style={{ fontSize: "1rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--text-secondary)", fontWeight: 300 }}>
-                  {currentView === "gallery_academic" ? t.projects.academic : t.projects.selected}
-                </h3>
-              </div>
-
-              {/* Gallery Grid */}
-              <div className="gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "4rem" }}>
-                {projectsData.filter(p => currentView === "gallery_academic" ? p.category === "Acadêmico" : p.category !== "Acadêmico").map(project => (
-                  <div
-                    key={project.id}
-                    className="project-card"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      // Only allow click for specific project "Loft A" (ID 100) or all? 
-                      // User said "ele deve ser clicável", implying others might not be or only this one.
-                      // But for consistency I'll enable for all, but only Loft A has gallery data.
-                      // If I want to be safe, I check ID.
-                      if (project.id === 100 || project.id === 11 || project.id === 12) {
-                        setSelectedProject(project);
-                      }
-                    }}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", marginBottom: "1rem", overflow: "hidden", background: "#f5f5f5" }}>
-                      <Image
-                        src={project.src}
-                        alt={project.title}
-                        fill
-                        style={{
-                          objectFit: "cover",
-                          objectPosition: project.id === 100 ? "left" : "center",
-                          transition: "transform 0.5s ease"
-                        }}
-                        className="project-img"
-                      />
-                    </div>
-                    <h4 style={{ fontSize: "0.9rem", fontWeight: 400, marginBottom: "0.2rem" }}>{project.title}</h4>
-                    <p style={{ fontSize: "0.75rem", color: "#888", textTransform: "uppercase", letterSpacing: "0.1em" }}>{project.year}</p>
+              {currentView === "gallery_academic" ? (
+                <>
+                  <div style={{ marginBottom: "4rem", textAlign: "center" }}>
+                    <h3 style={{ fontSize: "1rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--text-secondary)", fontWeight: 300 }}>
+                      {t.projects.academic}
+                    </h3>
                   </div>
-                ))}
-              </div>
+                  <div className="gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "4rem" }}>
+                    {projectsData.filter(p => p.category === "Acadêmico").map(project => (
+                      <div
+                        key={project.id}
+                        className="project-card"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          if (project.id === 100 || project.id === 11 || project.id === 12) {
+                            setSelectedProject(project);
+                          }
+                        }}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", marginBottom: "1rem", overflow: "hidden", background: "#f5f5f5" }}>
+                          <Image
+                            src={project.src}
+                            alt={project.title}
+                            fill
+                            style={{
+                              objectFit: "cover",
+                              objectPosition: "center",
+                              transition: "transform 0.5s ease"
+                            }}
+                            className="project-img"
+                          />
+                        </div>
+                        <h4 style={{ fontSize: "0.9rem", fontWeight: 400, marginBottom: "0.2rem" }}>{project.title}</h4>
+                        <p style={{ fontSize: "0.75rem", color: "#888", textTransform: "uppercase", letterSpacing: "0.1em" }}>{project.year}</p>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Category 1: Selected Projects */}
+                  <div style={{ marginBottom: "4rem", textAlign: "center" }}>
+                    <h3 style={{ fontSize: "1rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--text-secondary)", fontWeight: 300 }}>
+                      {t.projects.selected}
+                    </h3>
+                  </div>
+                  <div className="gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "4rem", marginBottom: "8rem" }}>
+                    {projectsData.filter(p => ["Residencial", "Comercial"].includes(p.category)).map(project => (
+                      <div
+                        key={project.id}
+                        className="project-card"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          if (project.id === 100 || project.id === 11 || project.id === 12) {
+                            setSelectedProject(project);
+                          }
+                        }}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", marginBottom: "1rem", overflow: "hidden", background: "#f5f5f5" }}>
+                          <Image
+                            src={project.src}
+                            alt={project.title}
+                            fill
+                            style={{
+                              objectFit: "cover",
+                              objectPosition: project.id === 100 ? "left" : "center",
+                              transition: "transform 0.5s ease"
+                            }}
+                            className="project-img"
+                          />
+                        </div>
+                        <h4 style={{ fontSize: "0.9rem", fontWeight: 400, marginBottom: "0.2rem" }}>{project.title}</h4>
+                        <p style={{ fontSize: "0.75rem", color: "#888", textTransform: "uppercase", letterSpacing: "0.1em" }}>{project.year}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Category 2: Visualization */}
+                  <div style={{ marginBottom: "4rem", textAlign: "center" }}>
+                    <h3 style={{ fontSize: "1rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--text-secondary)", fontWeight: 300 }}>
+                      Vizualização arquitetônica
+                    </h3>
+                  </div>
+                  <div className="gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "4rem" }}>
+                    {projectsData.filter(p => p.category === "Visualização").map(project => (
+                      <div
+                        key={project.id}
+                        className="project-card"
+                        style={{ cursor: "pointer" }}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", marginBottom: "1rem", overflow: "hidden", background: "#f5f5f5" }}>
+                          <Image
+                            src={project.src}
+                            alt={project.title}
+                            fill
+                            style={{
+                              objectFit: "cover",
+                              objectPosition: "center",
+                              transition: "transform 0.5s ease"
+                            }}
+                            className="project-img"
+                          />
+                        </div>
+                        <h4 style={{ fontSize: "0.9rem", fontWeight: 400, marginBottom: "0.2rem" }}>{project.title}</h4>
+                        {project.year && <p style={{ fontSize: "0.75rem", color: "#888", textTransform: "uppercase", letterSpacing: "0.1em" }}>{project.year}</p>}
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </section>
         )}
