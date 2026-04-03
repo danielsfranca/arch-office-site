@@ -130,9 +130,8 @@ function VisualizacaoContent() {
                                     <div key={index} style={{
                                         textAlign: "center",
                                         position: "relative",
-                                        gridColumn: index === 3 ? "2 / span 2" : index === 4 ? "4 / span 2" : "span 2",
-                                        maxWidth: "400px",
-                                        margin: "0 auto"
+                                        flex: "0 1 300px",
+                                        margin: "0"
                                     }}>
                                         <div style={{
                                             fontSize: "0.7rem",
@@ -159,7 +158,7 @@ function VisualizacaoContent() {
                                             fontWeight: 300,
                                             color: "#555",
                                             lineHeight: "1.6",
-                                            maxWidth: "300px",
+                                            maxWidth: "260px",
                                             margin: "0 auto",
                                             opacity: 0.85,
                                             letterSpacing: "0.05em"
@@ -187,9 +186,9 @@ function VisualizacaoContent() {
                                 <div style={{ 
                                     display: "flex", 
                                     alignItems: "flex-start", 
-                                    justifyContent: "space-between", 
-                                    gap: "1rem",
-                                    flexWrap: "nowrap",
+                                    justifyContent: "center", 
+                                    gap: "4rem",
+                                    flexWrap: "wrap",
                                     position: "relative"
                                 }}>
                                     {[
@@ -198,17 +197,12 @@ function VisualizacaoContent() {
                                         "Definição dos materiais, luz e paisagismo",
                                         "Aprimoramento",
                                         "Aprovação"
-                                    ].map((step, idx, arr) => (
-                                        <div key={idx} style={{ flex: 1, display: "flex", alignItems: "flex-start", gap: "1rem" }}>
-                                            <div style={{ flex: 1, textAlign: "left" }}>
-                                                <div style={{ fontSize: "10px", color: "#555", marginBottom: "0.8rem", letterSpacing: "0.1em" }}>0{idx + 1}</div>
-                                                <div style={{ fontSize: "10px", color: "#fff", textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 300, lineHeight: 1.6 }}>
-                                                    {step}
-                                                </div>
+                                    ].map((step, idx) => (
+                                        <div key={idx} style={{ flex: "0 1 180px", textAlign: "center" }}>
+                                            <div style={{ fontSize: "10px", color: "#555", marginBottom: "0.8rem", letterSpacing: "0.1em" }}>0{idx + 1}</div>
+                                            <div style={{ fontSize: "10px", color: "#fff", textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 300, lineHeight: 1.6 }}>
+                                                {step}
                                             </div>
-                                            {idx < arr.length - 1 && (
-                                                <div style={{ height: "1px", width: "20px", background: "#333", marginTop: "5px", flexShrink: 0 }} />
-                                            )}
                                         </div>
                                     ))}
                                 </div>
@@ -280,18 +274,15 @@ function VisualizacaoContent() {
                     100% { transform: scale(0.95) translateY(0); opacity: 0.3; }
                 }
                 .services-grid {
-                    display: grid;
-                    grid-template-columns: repeat(6, 1fr);
-                    gap: 4rem 2rem;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 6rem 4rem;
                     margin-bottom: 8rem;
                 }
                 @media (max-width: 900px) {
                     .services-grid {
-                        grid-template-columns: 1fr;
                         gap: 3rem;
-                    }
-                    .services-grid > div {
-                        grid-column: 1 / -1 !important;
                     }
                 }
             `}</style>

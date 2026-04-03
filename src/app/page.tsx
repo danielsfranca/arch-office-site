@@ -90,7 +90,7 @@ const ProjectCard = ({ project, onSelect, handleMouseEnter, handleMouseLeave }: 
           sizes="(max-width: 768px) 100vw, 33vw"
           style={{
             objectFit: "cover",
-            objectPosition: "center",
+            objectPosition: (project.id === 100 && imgIndex === 0) ? "left center" : "center",
             transition: "transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)"
           }}
           className="project-img"
