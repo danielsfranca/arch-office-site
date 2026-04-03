@@ -1222,10 +1222,10 @@ export default function Home() {
             overflowX: "hidden",
             padding: "8rem 2rem 4rem"
           }}>
-            <div style={{ maxWidth: "1600px", margin: "0 auto" }}>
+            <div style={{ maxWidth: "1600px", margin: "0" }}>
               {currentView === "gallery_academic" ? (
                 <>
-                  <div style={{ marginBottom: "4rem", textAlign: "center" }}>
+                  <div style={{ marginBottom: "4rem", textAlign: "left", maxWidth: "1600px" }}>
                     <h3 style={{ fontSize: "1rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--text-secondary)", fontWeight: 300 }}>
                       {t.projects.academic}
                     </h3>
@@ -1266,7 +1266,7 @@ export default function Home() {
               ) : (
                 <>
                   {/* Category 1: Selected Projects */}
-                  <div style={{ marginBottom: "4rem", textAlign: "center" }}>
+                  <div style={{ marginBottom: "4rem", textAlign: "left" }}>
                     <h3 style={{ fontSize: "1rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--text-secondary)", fontWeight: 300 }}>
                       {t.projects.selected}
                     </h3>
@@ -1284,21 +1284,20 @@ export default function Home() {
                   </div>
 
                   {/* Category 2: Visualization */}
-                  <div style={{ marginBottom: "4rem", textAlign: "center" }}>
+                  <div style={{ marginBottom: "4rem", textAlign: "left" }}>
                     <h3 style={{ fontSize: "1rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--text-secondary)", fontWeight: 300 }}>
                       Vizualização arquitetônica
                     </h3>
                   </div>
-                  <div style={{ display: "flex", justifyContent: "center", gap: "4rem", flexWrap: "wrap" }}>
+                  <div className="gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "4rem" }}>
                     {projectsData.filter(p => p.category === "Visualização").map(project => (
-                      <div key={project.id} style={{ width: "calc(33.33% - 2.7rem)", minWidth: "350px" }}>
-                        <ProjectCard 
-                          project={project} 
-                          onSelect={setSelectedProject} 
-                          handleMouseEnter={handleMouseEnter} 
-                          handleMouseLeave={handleMouseLeave} 
-                        />
-                      </div>
+                      <ProjectCard 
+                        key={project.id} 
+                        project={project} 
+                        onSelect={setSelectedProject} 
+                        handleMouseEnter={handleMouseEnter} 
+                        handleMouseLeave={handleMouseLeave} 
+                      />
                     ))}
                   </div>
                 </>
