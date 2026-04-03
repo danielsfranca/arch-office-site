@@ -108,8 +108,14 @@ function VisualizacaoContent() {
                     </section>
 
                     {/* Services Section */}
-                    <section className="section" style={{ padding: "10rem 0", backgroundColor: "#ffffff" }}>
-                        <div className="container" style={{ maxWidth: "1000px" }}>
+                    <section className="section" style={{ 
+                        padding: "8rem 0", 
+                        backgroundColor: "#ffffff",
+                        minHeight: "90vh",
+                        display: "flex",
+                        alignItems: "center"
+                    }}>
+                        <div className="container" style={{ maxWidth: "1000px", margin: "0 auto" }}>
                             <div style={{ textAlign: "center", marginBottom: "6rem" }}>
                                 <h2>
                                     {t.visualization.services.subtitle}
@@ -119,58 +125,60 @@ function VisualizacaoContent() {
                                 </h3>
                             </div>
 
-                            <div className="services-grid">
+                            {/* Row 1: 3 Items */}
+                            <div style={{ 
+                                display: "flex", 
+                                justifyContent: "center", 
+                                gap: "4rem", 
+                                marginBottom: "4rem",
+                                flexWrap: "wrap" 
+                            }}>
                                 {[
                                     t.visualization.services.items.render,
                                     t.visualization.services.items.plans,
-                                    t.visualization.services.items.diagrams,
+                                    t.visualization.services.items.diagrams
+                                ].map((service, index) => (
+                                    <div key={index} style={{
+                                        textAlign: "center",
+                                        flex: "0 1 280px"
+                                    }}>
+                                        <div style={{ fontSize: "0.7rem", color: "#ccc", marginBottom: "1rem", letterSpacing: "0.2em" }}>
+                                            0{index + 1}
+                                        </div>
+                                        <h4 style={{ fontSize: "1.1rem", fontWeight: 300, letterSpacing: "0.1em", color: "#1a1a1a", textTransform: "uppercase", marginBottom: "1rem" }}>
+                                            {service.title}
+                                        </h4>
+                                        <p style={{ fontSize: "12px", color: "#555", lineHeight: "1.6", maxWidth: "260px", margin: "0 auto", opacity: 0.85 }}>
+                                            {service.desc}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Row 2: 2 Items */}
+                            <div style={{ 
+                                display: "flex", 
+                                justifyContent: "center", 
+                                gap: "4rem", 
+                                flexWrap: "wrap" 
+                            }}>
+                                {[
                                     t.visualization.services.items.consulting,
                                     t.visualization.services.items.artistic
                                 ].map((service, index) => (
                                     <div key={index} style={{
                                         textAlign: "center",
-                                        position: "relative",
-                                        flex: "0 1 300px",
-                                        margin: "0"
+                                        flex: "0 1 280px"
                                     }}>
-                                        <div style={{
-                                            fontSize: "0.7rem",
-                                            color: "#ccc",
-                                            marginBottom: "1rem",
-                                            fontWeight: 400,
-                                            letterSpacing: "0.2em"
-                                        }}>
-                                            0{index + 1}
+                                        <div style={{ fontSize: "0.7rem", color: "#ccc", marginBottom: "1rem", letterSpacing: "0.2em" }}>
+                                            0{index + 4}
                                         </div>
-                                        <h4 style={{
-                                            fontSize: "1.1rem",
-                                            fontWeight: 300,
-                                            letterSpacing: "0.1em",
-                                            color: "#1a1a1a",
-                                            textTransform: "uppercase",
-                                            opacity: 0.8,
-                                            marginBottom: "1rem"
-                                        }}>
+                                        <h4 style={{ fontSize: "1.1rem", fontWeight: 300, letterSpacing: "0.1em", color: "#1a1a1a", textTransform: "uppercase", marginBottom: "1rem" }}>
                                             {service.title}
                                         </h4>
-                                        <p style={{
-                                            fontSize: "12px",
-                                            fontWeight: 300,
-                                            color: "#555",
-                                            lineHeight: "1.6",
-                                            maxWidth: "260px",
-                                            margin: "0 auto",
-                                            opacity: 0.85,
-                                            letterSpacing: "0.05em"
-                                        }}>
+                                        <p style={{ fontSize: "12px", color: "#555", lineHeight: "1.6", maxWidth: "260px", margin: "0 auto", opacity: 0.85 }}>
                                             {service.desc}
                                         </p>
-                                        <div style={{
-                                            width: "20px",
-                                            height: "1px",
-                                            background: "#e0e0e0",
-                                            margin: "1.5rem auto 0"
-                                        }} />
                                     </div>
                                 ))}
                             </div>
@@ -186,10 +194,12 @@ function VisualizacaoContent() {
                                 <div style={{ 
                                     display: "flex", 
                                     alignItems: "flex-start", 
-                                    justifyContent: "center", 
-                                    gap: "4rem",
-                                    flexWrap: "wrap",
-                                    position: "relative"
+                                    justifyContent: "space-between", 
+                                    gap: "1.5rem",
+                                    flexWrap: "nowrap", // Single line
+                                    position: "relative",
+                                    maxWidth: "100%",
+                                    overflowX: "auto"
                                 }}>
                                     {[
                                         "Definição de estilo (artístico, realista, etc.)",
@@ -198,7 +208,7 @@ function VisualizacaoContent() {
                                         "Aprimoramento",
                                         "Aprovação"
                                     ].map((step, idx) => (
-                                        <div key={idx} style={{ flex: "0 1 180px", textAlign: "center" }}>
+                                        <div key={idx} style={{ flex: "1", minWidth: "160px", textAlign: "center" }}>
                                             <div style={{ fontSize: "10px", color: "#555", marginBottom: "0.8rem", letterSpacing: "0.1em" }}>0{idx + 1}</div>
                                             <div style={{ fontSize: "10px", color: "#fff", textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 300, lineHeight: 1.6 }}>
                                                 {step}
