@@ -56,15 +56,43 @@ function UserMenu({ t, router }: { t: any, router: any }) {
   );
 }
 
-export default function Navbar() {
+export default function Navbar({
+  logoColor = "#1a1a1a",
+  textColor = "#333",
+  scrolledTextColor = "#333",
+  scrolledLogoColor = "#1a1a1a",
+  scrolledBg = "rgba(255,255,255,0.95)",
+  transparent = false
+}: {
+  logoColor?: string;
+  textColor?: string;
+  scrolledTextColor?: string;
+  scrolledLogoColor?: string;
+  scrolledBg?: string;
+  transparent?: boolean;
+}) {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { language, setLanguage, t } = useLanguage();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const isHome = pathname === "/";
   const isDashboard = pathname.startsWith("/admin-dashboard") || pathname.startsWith("/client-dashboard") || pathname.startsWith("/dashboard");
+
+  // Colors based on state
+  const currentTextColor = scrolled ? scrolledTextColor : (transparent ? textColor : "#333");
+  const currentBg = scrolled ? scrolledBg : (transparent ? "transparent" : "#ffffff");
+  const currentBorder = scrolled || !transparent ? "1px solid #f0f0f0" : "none";
 
   // Hide on dashboards
   if (isDashboard) return null;
@@ -105,8 +133,9 @@ export default function Navbar() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#ffffff",
-        borderBottom: "1px solid #f0f0f0",
+        backgroundColor: currentBg,
+        borderBottom: currentBorder,
+        transition: "all 0.3s ease",
         pointerEvents: "auto"
       }}>
         {/* Desktop Links - Centered */}
@@ -119,7 +148,7 @@ export default function Navbar() {
                 background: "none",
                 border: "none",
                 cursor: "pointer",
-                color: "#333",
+                color: currentTextColor,
                 fontSize: "0.85rem",
                 fontWeight: 300,
                 textTransform: "uppercase", // Changed to uppercase to match design
@@ -153,7 +182,7 @@ export default function Navbar() {
                 background: "none",
                 border: "none",
                 cursor: "pointer",
-                color: language === "pt" ? "#000" : "#999",
+                color: language === "pt" ? currentTextColor : "#999",
                 fontWeight: language === "pt" ? 500 : 300,
                 padding: 0
               }}
@@ -167,7 +196,7 @@ export default function Navbar() {
                 background: "none",
                 border: "none",
                 cursor: "pointer",
-                color: language === "en" ? "#000" : "#999",
+                color: language === "en" ? currentTextColor : "#999",
                 fontWeight: language === "en" ? 500 : 300,
                 padding: 0
               }}

@@ -523,7 +523,7 @@ export default function Home() {
       >
 
         <Suspense>
-          <Navbar />
+          <Navbar transparent={currentView === "hero"} />
         </Suspense>
 
         {/* Hero View */}
