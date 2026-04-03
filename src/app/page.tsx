@@ -26,11 +26,11 @@ const projectsData = [
 
 
 const LOFT_A_IMAGES = [
-  "/loft-a-cover.png?v=2",
-  "/loft-a-view2.png?v=3",
-  "/loft-a-view3-v3.png?v=2",
-  "/loft-a-plan.png?v=2",
-  "/loft-a-section.png?v=2"
+  "/loft-a-cover.png",
+  "/loft-a-view2.png",
+  "/loft-a-view3-v3.png",
+  "/loft-a-plan.png",
+  "/loft-a-section.png"
 ];
 
 const CASA_ARCOS_IMAGES = [
@@ -52,16 +52,16 @@ const QUARTA_ESQUINA_IMAGES = [
   "/quarta-esquina/planta-inferior.png"
 ];
 
-const ProjectCard = ({ project, onSelect, onMouseEnter, onMouseLeave, handleMouseEnter, handleMouseLeave }: any) => {
+const ProjectCard = ({ project, onSelect, handleMouseEnter, handleMouseLeave }: any) => {
   const [imgIndex, setImgIndex] = useState(0);
 
-  const photos = (() => {
+  const photos = React.useMemo(() => {
     let list = [project.src];
     if (project.id === 100) list = LOFT_A_IMAGES.filter(s => !s.toLowerCase().includes("plan") && !s.toLowerCase().includes("section"));
     if (project.id === 11) list = CASA_ARCOS_IMAGES.filter(s => !s.toLowerCase().includes("planta") && !s.toLowerCase().includes("fachada"));
     if (project.id === 12) list = QUARTA_ESQUINA_IMAGES.filter(s => !s.toLowerCase().includes("implantacao") && !s.toLowerCase().includes("corte") && !s.toLowerCase().includes("elevacao") && !s.toLowerCase().includes("planta"));
     return list;
-  })();
+  }, [project.id, project.src]);
 
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -76,37 +76,56 @@ const ProjectCard = ({ project, onSelect, onMouseEnter, onMouseLeave, handleMous
   return (
     <div
       className="project-card"
-      style={{ cursor: "pointer", position: "relative" }}
+      style={{ cursor: "pointer", position: "relative", transition: "all 0.3s ease" }}
       onClick={() => onSelect && onSelect(project)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", marginBottom: "1rem", overflow: "hidden", background: "#f5f5f5" }}>
         <Image
-          src={photos[imgIndex]}
+          src={photos[imgIndex] || project.src}
           alt={project.title}
           fill
+          priority={project.id < 200}
+          sizes="(max-width: 768px) 100vw, 33vw"
           style={{
             objectFit: "cover",
-            objectPosition: (project.id === 100 && imgIndex === 0) ? "left" : "center",
-            transition: "transform 0.5s ease"
+            objectPosition: "center",
+            transition: "transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)"
           }}
           className="project-img"
         />
         
         {photos.length > 1 && (
-          <div className="card-nav" style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0 0.5rem", opacity: 0, transition: "opacity 0.3s ease" }}>
+          <div className="card-nav" style={{ 
+            position: "absolute", 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            bottom: 0, 
+            display: "flex", 
+            justifyContent: "space-between", 
+            alignItems: "center", 
+            padding: "0 0.5rem", 
+            opacity: 0.4, 
+            transition: "opacity 0.3s ease",
+            zIndex: 5
+          }}>
             <button 
               onClick={handlePrev}
-              style={{ background: "none", border: "none", color: "white", cursor: "pointer", padding: "1rem" }}
+              style={{ background: "rgba(0,0,0,0.2)", border: "none", color: "white", cursor: "pointer", padding: "0.5rem", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}
+              onMouseEnter={(e) => e.currentTarget.style.background = "rgba(0,0,0,0.4)"}
+              onMouseLeave={(e) => e.currentTarget.style.background = "rgba(0,0,0,0.2)"}
             >
-              <ChevronLeft size={20} strokeWidth={1} />
+              <ChevronLeft size={18} strokeWidth={1.5} />
             </button>
             <button 
               onClick={handleNext}
-              style={{ background: "none", border: "none", color: "white", cursor: "pointer", padding: "1rem" }}
+              style={{ background: "rgba(0,0,0,0.2)", border: "none", color: "white", cursor: "pointer", padding: "0.5rem", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}
+              onMouseEnter={(e) => e.currentTarget.style.background = "rgba(0,0,0,0.4)"}
+              onMouseLeave={(e) => e.currentTarget.style.background = "rgba(0,0,0,0.2)"}
             >
-              <ChevronRight size={20} strokeWidth={1} />
+              <ChevronRight size={18} strokeWidth={1.5} />
             </button>
           </div>
         )}
@@ -1691,6 +1710,18 @@ export default function Home() {
           </button>
         </div>
       )}
+    <style jsx global>{`
+      .project-card:hover .card-nav {
+        opacity: 1 !important;
+      }
+      .project-card:hover .project-img {
+        transform: scale(1.05);
+      }
+      @keyframes square-drop {
+        0% { transform: translateY(-50px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+      }
+    `}</style>
     </>
-  );
+);
 }

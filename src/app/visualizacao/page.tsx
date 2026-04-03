@@ -175,18 +175,21 @@ function VisualizacaoContent() {
                                     </div>
                                 ))}
                             </div>
+                        </div>
+                    </section>
 
+                    {/* Process & CTA Section (Inverted) */}
+                    <section style={{ padding: "10rem 0", backgroundColor: "#1a1a1a", color: "#ffffff" }}>
+                        <div className="container" style={{ maxWidth: "1100px" }}>
                             {/* Process Diagram */}
-                            <div style={{ margin: "10rem 0 8rem", textAlign: "center" }}>
-                                <h3 style={{ fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.3em", color: "#888", marginBottom: "5rem", fontWeight: 300 }}>Processo</h3>
+                            <div style={{ marginBottom: "8rem", textAlign: "center" }}>
+                                <h3 style={{ fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.4em", color: "#888", marginBottom: "5rem", fontWeight: 300 }}>Processo</h3>
                                 <div style={{ 
                                     display: "flex", 
-                                    alignItems: "center", 
+                                    alignItems: "flex-start", 
                                     justifyContent: "space-between", 
-                                    maxWidth: "1100px", 
-                                    margin: "0 auto", 
-                                    gap: "1.5rem",
-                                    flexWrap: "wrap",
+                                    gap: "1rem",
+                                    flexWrap: "nowrap",
                                     position: "relative"
                                 }}>
                                     {[
@@ -196,17 +199,17 @@ function VisualizacaoContent() {
                                         "Aprimoramento",
                                         "Aprovação"
                                     ].map((step, idx, arr) => (
-                                        <React.Fragment key={idx}>
-                                            <div style={{ flex: 1, minWidth: "150px" }}>
-                                                <div style={{ fontSize: "10px", color: "#ccc", marginBottom: "0.8rem", letterSpacing: "0.1em" }}>0{idx + 1}</div>
-                                                <div style={{ fontSize: "11px", color: "#333", textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 300, lineHeight: 1.6 }}>
+                                        <div key={idx} style={{ flex: 1, display: "flex", alignItems: "flex-start", gap: "1rem" }}>
+                                            <div style={{ flex: 1, textAlign: "left" }}>
+                                                <div style={{ fontSize: "10px", color: "#555", marginBottom: "0.8rem", letterSpacing: "0.1em" }}>0{idx + 1}</div>
+                                                <div style={{ fontSize: "10px", color: "#fff", textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 300, lineHeight: 1.6 }}>
                                                     {step}
                                                 </div>
                                             </div>
                                             {idx < arr.length - 1 && (
-                                                <div style={{ height: "1px", width: "30px", background: "#eee", flexShrink: 0 }} />
+                                                <div style={{ height: "1px", width: "20px", background: "#333", marginTop: "5px", flexShrink: 0 }} />
                                             )}
-                                        </React.Fragment>
+                                        </div>
                                     ))}
                                 </div>
                             </div>
@@ -215,8 +218,8 @@ function VisualizacaoContent() {
                             <div style={{ textAlign: "center" }}>
                                 <button style={{
                                     padding: "1.2rem 3rem",
-                                    background: "#1a1a1a",
-                                    color: "white",
+                                    background: "#ffffff",
+                                    color: "#1a1a1a",
                                     border: "none",
                                     borderRadius: "2px",
                                     fontSize: "0.8rem",
@@ -224,18 +227,18 @@ function VisualizacaoContent() {
                                     letterSpacing: "0.2em",
                                     cursor: "pointer",
                                     transition: "all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1)",
-                                    boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-                                    opacity: 0.85
+                                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+                                    opacity: 1
                                 }}
                                     onMouseEnter={(e) => {
                                         e.currentTarget.style.transform = "translateY(-5px)";
-                                        e.currentTarget.style.boxShadow = "0 15px 40px rgba(0,0,0,0.2)";
-                                        e.currentTarget.style.background = "#000";
+                                        e.currentTarget.style.boxShadow = "0 15px 40px rgba(0,0,0,0.5)";
+                                        e.currentTarget.style.background = "#f0f0f0";
                                     }}
                                     onMouseLeave={(e) => {
                                         e.currentTarget.style.transform = "translateY(0)";
-                                        e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.1)";
-                                        e.currentTarget.style.background = "#1a1a1a";
+                                        e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.3)";
+                                        e.currentTarget.style.background = "#ffffff";
                                     }}
                                     onClick={() => router.push("/?view=contact")}
                                 >
@@ -246,19 +249,19 @@ function VisualizacaoContent() {
                                         style={{
                                             background: "transparent",
                                             border: "none",
-                                            borderBottom: "1px solid #1a1a1a",
+                                            borderBottom: "1px solid #ffffff",
                                             padding: "0.2rem 0",
                                             fontFamily: "inherit",
                                             fontSize: "0.75rem",
                                             textTransform: "uppercase",
                                             letterSpacing: "0.2em",
-                                            color: "#1a1a1a",
+                                            color: "#ffffff",
                                             cursor: "pointer",
-                                            opacity: 0.7,
+                                            opacity: 0.6,
                                             transition: "opacity 0.3s ease"
                                         }}
                                         onMouseEnter={(e) => e.currentTarget.style.opacity = "1"}
-                                        onMouseLeave={(e) => e.currentTarget.style.opacity = "0.7"}
+                                        onMouseLeave={(e) => e.currentTarget.style.opacity = "0.6"}
                                         onClick={() => router.push("/?view=gallery_projects")}
                                     >
                                         {t.visualization.cta.projects}
