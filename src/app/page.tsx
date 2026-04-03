@@ -104,51 +104,51 @@ export default function Home() {
   const formRef = useRef<HTMLDivElement>(null);
 
   const handleContactSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-      const x = e.clientX;
-      const y = e.clientY;
-      e.preventDefault();
-      if (!formRef.current) return;
-      setContactStatus("submitting");
-      setContactError("");
+    const x = e.clientX;
+    const y = e.clientY;
+    e.preventDefault();
+    if (!formRef.current) return;
+    setContactStatus("submitting");
+    setContactError("");
 
-      const inputs = formRef.current.querySelectorAll("input, textarea") as NodeListOf<HTMLInputElement | HTMLTextAreaElement>;
-      const data = { name: "", email: "", subject: "Contato Site", message: "" };
+    const inputs = formRef.current.querySelectorAll("input, textarea") as NodeListOf<HTMLInputElement | HTMLTextAreaElement>;
+    const data = { name: "", email: "", subject: "Contato Site", message: "" };
 
-      inputs.forEach(input => {
-          if (input.type === "text") data.name = input.value;
-          else if (input.type === "email") data.email = input.value;
-          else if (input.tagName.toLowerCase() === "textarea") data.message = input.value;
+    inputs.forEach(input => {
+      if (input.type === "text") data.name = input.value;
+      else if (input.type === "email") data.email = input.value;
+      else if (input.tagName.toLowerCase() === "textarea") data.message = input.value;
+    });
+
+    if (!data.name || !data.email || !data.message) {
+      setContactStatus("idle");
+      setContactError("Por favor, preencha todos os campos.");
+      return;
+    }
+
+    console.log("Iniciando envio via Resend com dados:", data);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
       });
+      const result = await res.json();
+      console.log("Resultado da API:", result);
 
-      if (!data.name || !data.email || !data.message) {
-          setContactStatus("idle");
-          setContactError("Por favor, preencha todos os campos.");
-          return;
+      if (res.ok) {
+        setContactStatus("success");
+        inputs.forEach(i => i.value = "");
+      } else {
+        setContactStatus("error");
+        setContactError(result.error || "Erro no servidor.");
       }
-
-      console.log("Iniciando envio via Resend com dados:", data);
-
-      try {
-          const res = await fetch("/api/contact", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data)
-          });
-          const result = await res.json();
-          console.log("Resultado da API:", result);
-
-          if (res.ok) {
-              setContactStatus("success");
-              inputs.forEach(i => i.value = "");
-          } else {
-              setContactStatus("error");
-              setContactError(result.error || "Erro no servidor.");
-          }
-      } catch (err) {
-          console.error("Erro no fetch:", err);
-          setContactStatus("error");
-          setContactError("Erro de conexão.");
-      }
+    } catch (err) {
+      console.error("Erro no fetch:", err);
+      setContactStatus("error");
+      setContactError("Erro de conexão.");
+    }
   };
 
   useEffect(() => {
@@ -1059,27 +1059,27 @@ export default function Home() {
               <div style={{ flex: "1 1 400px" }}>
                 <div ref={formRef} style={{ display: "flex", flexDirection: "column", gap: "2rem", width: "100%" }}>
                   {contactStatus === "success" ? (
-                    <div style={{ 
-                        display: "flex", 
-                        flexDirection: "column",
-                        alignItems: "flex-start", 
-                        justifyContent: "center", 
-                        animation: "fade-in 1s ease both",
-                        height: "120px" // Match signature height to help alignment
+                    <div style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      justifyContent: "center",
+                      animation: "fade-in 1s ease both",
+                      height: "120px" // Match signature height to help alignment
                     }}>
-                        <h2 style={{ 
-                            fontSize: "12px", 
-                            fontWeight: 300, 
-                            letterSpacing: "0.05em", 
-                            color: "#555",
-                            opacity: 0.85,
-                            textAlign: "left",
-                            lineHeight: 1.4,
-                            marginBottom: "0.2rem"
-                        }}>
-                            Obrigado pelo contato! Logo retornaremos.
-                        </h2>
-                        <button onClick={() => { setContactStatus("idle"); setPulsePos(null); }} style={{ fontSize: "12px", fontWeight: 300, letterSpacing: "0.1em", textTransform: "uppercase", color: "#333", opacity: 0.85, background: "none", border: "none", cursor: "pointer", borderBottom: "1px solid #ddd", paddingBottom: "2px" }}>Enviar outra mensagem</button>
+                      <h2 style={{
+                        fontSize: "12px",
+                        fontWeight: 300,
+                        letterSpacing: "0.05em",
+                        color: "#555",
+                        opacity: 0.85,
+                        textAlign: "left",
+                        lineHeight: 1.4,
+                        marginBottom: "0.2rem"
+                      }}>
+                        Obrigado pelo contato! Logo retornaremos.
+                      </h2>
+                      <button onClick={() => { setContactStatus("idle"); setPulsePos(null); }} style={{ fontSize: "12px", fontWeight: 300, letterSpacing: "0.1em", textTransform: "uppercase", color: "#333", opacity: 0.85, background: "none", border: "none", cursor: "pointer", borderBottom: "1px solid #ddd", paddingBottom: "2px" }}>Enviar outra mensagem</button>
                     </div>
                   ) : (
                     <>
@@ -1087,9 +1087,9 @@ export default function Home() {
                       <input type="text" name="name" placeholder={t.contact.namePlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
                       <input type="email" name="email" placeholder={t.contact.emailPlaceholder} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", color: "#333", opacity: 0.85 }} />
                       <textarea name="message" placeholder={t.contact.messagePlaceholder} rows={1} style={{ background: "transparent", border: "none", borderBottom: "1px solid #ddd", padding: "1rem 0", fontSize: "12px", outline: "none", letterSpacing: "0.1em", resize: "none", color: "#333", opacity: 0.85 }} />
-                      
+
                       {contactStatus === "error" && <span style={{ color: "red", fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: "1rem" }}>{contactError}</span>}
-                      
+
                       <button
                         type="button"
                         onClick={handleContactSubmit}
