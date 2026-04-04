@@ -81,7 +81,7 @@ const PLANTAS_HUMANIZADAS_IMAGES = [
   "/visualizacao/plantas-humanizadas/4.jpg",
 ];
 
-const BeforeAfterSlider = ({ before, after, onLightbox }: { before: string, after: string, onLightbox: (img: string) => void }) => {
+const BeforeAfterSlider = ({ before, after, onLightbox, label }: { before: string, after: string, onLightbox: (img: string) => void, label?: string }) => {
   const [sliderPos, setSliderPos] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -96,154 +96,93 @@ const BeforeAfterSlider = ({ before, after, onLightbox }: { before: string, afte
   };
 
   return (
-    <div 
-      ref={containerRef}
-      onMouseMove={handleMove}
-      onTouchMove={handleMove}
-      onMouseDown={() => setIsDragging(true)}
-      onMouseUp={() => setIsDragging(false)}
-      onMouseLeave={() => setIsDragging(false)}
-      style={{ position: "relative", width: "100%", maxWidth: "900px", aspectRatio: "16/9", overflow: "hidden", cursor: isDragging ? "ew-resize" : "default", userSelect: "none", marginBottom: "1.5rem" }}
-    >
-      {/* Before (Bottom Layer) */}
-      <img src={before} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-      
-      {/* After (Top Layer, Clipped) */}
-      <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}>
-        <img 
-          src={after} 
-          style={{ width: "100%", height: "100%", objectFit: "cover" }} 
-          onClick={(e) => { e.stopPropagation(); if(!isDragging) onLightbox(sliderPos > 50 ? after : before); }}
-        />
-      </div>
+    <div style={{ width: "100%", maxWidth: "1200px", marginBottom: "6rem" }}>
+      {label && (
+        <h4 style={{ fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.2em", marginBottom: "2rem", opacity: 0.6, fontWeight: 300, textAlign: "left" }}>
+          {label}
+        </h4>
+      )}
+      <div 
+        ref={containerRef}
+        onMouseMove={handleMove}
+        onTouchMove={handleMove}
+        onMouseDown={() => setIsDragging(true)}
+        onMouseUp={() => setIsDragging(false)}
+        onMouseLeave={() => setIsDragging(false)}
+        style={{ 
+          position: "relative", 
+          width: "100%", 
+          aspectRatio: "16/9", 
+          overflow: "hidden", 
+          cursor: isDragging ? "ew-resize" : "default", 
+          userSelect: "none",
+          boxShadow: "0 20px 50px rgba(0,0,0,0.05)",
+          border: "1px solid #f0f0f0"
+        }}
+      >
+        <img src={before} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        
+        <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}>
+          <img 
+            src={after} 
+            style={{ width: "100%", height: "100%", objectFit: "cover" }} 
+            onClick={(e) => { e.stopPropagation(); if(!isDragging) onLightbox(sliderPos > 50 ? after : before); }}
+          />
+        </div>
 
-      {/* Slider Line */}
-      <div style={{ position: "absolute", top: 0, left: `${sliderPos}%`, width: "2px", height: "100%", background: "#fff", pointerEvents: "none", zIndex: 10 }}>
-        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "40px", height: "40px", borderRadius: "50%", border: "2px solid #fff", display: "flex", alignItems: "center", justifyContent: "center", gap: "4px", cursor: "ew-resize", pointerEvents: "auto" }}>
-          <ChevronLeft size={16} color="#fff" />
-          <ChevronRight size={16} color="#fff" />
+        <div style={{ position: "absolute", top: 0, left: `${sliderPos}%`, width: "1px", height: "100%", background: "#fff", pointerEvents: "none", zIndex: 10 }}>
+          <div style={{ 
+            position: "absolute", 
+            top: "50%", 
+            left: "50%", 
+            transform: "translate(-50%, -50%)", 
+            width: "50px", 
+            height: "50px", 
+            borderRadius: "50%", 
+            background: "rgba(255,255,255,0.1)",
+            backdropFilter: "blur(4px)",
+            border: "1px solid rgba(255,255,255,0.5)", 
+            display: "flex", 
+            alignItems: "center", 
+            justifyContent: "center", 
+            gap: "8px", 
+            cursor: "ew-resize", 
+            pointerEvents: "auto",
+            transition: "background 0.2s"
+          }}>
+            <ChevronLeft size={18} color="#fff" strokeWidth={1.5} />
+            <ChevronRight size={18} color="#fff" strokeWidth={1.5} />
+          </div>
+        </div>
+
+        <div style={{ position: "absolute", bottom: "1.5rem", width: "100%", padding: "0 2rem", display: "flex", justifyContent: "space-between", pointerEvents: "none", color: "#fff", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.2em", opacity: 0.8 }}>
+          <span>PROCESSO</span>
+          <span>RESULTADO</span>
         </div>
       </div>
     </div>
   );
 };
 
-const FilmStrip = ({ images, onLightbox }: { images: string[], onLightbox: (img: string) => void }) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
-  const startX = useRef(0);
-  const scrollLeft = useRef(0);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      if (delta !== 0) {
-        const isAtLeft = el.scrollLeft <= 0;
-        const isAtRight = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
-        const canScroll = (delta > 0 && !isAtRight) || (delta < 0 && !isAtLeft);
-        
-        if (canScroll) {
-          e.preventDefault();
-          e.stopPropagation();
-          el.scrollLeft += delta * 1.5;
-        }
-      }
-    };
-
-    const handleMouseDown = (e: MouseEvent) => {
-      isDragging.current = true;
-      startX.current = e.pageX - el.offsetLeft;
-      scrollLeft.current = el.scrollLeft;
-      el.style.cursor = "grabbing";
-    };
-
-    const handleMouseLeave = () => {
-      isDragging.current = false;
-      el.style.cursor = "grab";
-    };
-
-    const handleMouseUp = () => {
-      isDragging.current = false;
-      el.style.cursor = "grab";
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging.current) return;
-      e.preventDefault();
-      const x = e.pageX - el.offsetLeft;
-      const walk = (x - startX.current) * 2;
-      el.scrollLeft = scrollLeft.current - walk;
-    };
-
-    el.addEventListener("wheel", handleWheel, { passive: false });
-    el.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
-    el.addEventListener("mouseleave", handleMouseLeave);
-    el.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      el.removeEventListener("wheel", handleWheel);
-      el.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mouseup", handleMouseUp);
-      el.removeEventListener("mouseleave", handleMouseLeave);
-      el.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
-  const scroll = (direction: number) => {
-    if (scrollRef.current) {
-      const scrollAmount = 600;
-      scrollRef.current.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
-    }
-  };
-
+const ProjectExtras = ({ images, onLightbox }: { images: string[], onLightbox: (img: string) => void }) => {
   return (
-    <div style={{ width: "100%", marginTop: "8rem", position: "relative" }}>
-      {/* Navigation Header */}
-      <div style={{ position: "absolute", right: 0, top: "-4rem", display: "flex", alignItems: "center", gap: "2rem", zIndex: 10 }}>
-        <div style={{ fontSize: "10px", color: "#aaa", textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 300 }}>
-          Arraste ou use as setas para navegar
-        </div>
-        <div style={{ display: "flex", gap: "1rem" }}>
-          <button 
-            onClick={() => scroll(-1)} 
-            className="hover-opacity-100" 
-            style={{ background: "none", cursor: "pointer", opacity: 0.3, transition: "opacity 0.2s", padding: "0.6rem", borderRadius: "50%", border: "1px solid #ddd", display: "flex", alignItems: "center", justifyContent: "center" }}
-          >
-            <ChevronLeft size={20} strokeWidth={1} />
-          </button>
-          <button 
-            onClick={() => scroll(1)} 
-            className="hover-opacity-100" 
-            style={{ background: "none", cursor: "pointer", opacity: 0.3, transition: "opacity 0.2s", padding: "0.6rem", borderRadius: "50%", border: "1px solid #ddd", display: "flex", alignItems: "center", justifyContent: "center" }}
-          >
-            <ChevronRight size={20} strokeWidth={1} />
-          </button>
-        </div>
-      </div>
-
-      <div 
-        ref={scrollRef}
-        className="no-scrollbar" 
-        style={{ 
-          display: "flex", 
-          gap: "2.5rem", 
-          overflowX: "auto", 
-          paddingBottom: "3rem", 
-          scrollSnapType: "x proximity",
-          scrollBehavior: "smooth",
-          cursor: "grab"
-        }}
-      >
+    <div style={{ width: "100%", maxWidth: "1200px", marginTop: "4rem" }}>
+      <h3 style={{ fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.2em", marginBottom: "3rem", opacity: 0.6, fontWeight: 300 }}>
+        Visualizações Adicionais
+      </h3>
+      <div style={{ 
+        display: "grid", 
+        gridTemplateColumns: "repeat(2, 1fr)", 
+        gap: "2.5rem",
+        width: "100%"
+      }}>
         {images.map((img, i) => (
-          <div key={i} style={{ flexShrink: 0, height: "36vh", aspectRatio: "16/9", position: "relative", scrollSnapAlign: "start" }}>
+          <div key={i} style={{ width: "100%", aspectRatio: "16/9", overflow: "hidden", cursor: "zoom-in", transition: "transform 0.5s ease" }}>
             <img 
               src={img} 
-              onClick={(e) => { e.stopPropagation(); onLightbox(img); }}
-              style={{ height: "100%", width: "auto", cursor: "pointer", objectFit: "contain", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.08))" }} 
+              onClick={() => onLightbox(img)}
+              className="hover-scale"
+              style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.6s ease" }} 
             />
           </div>
         ))}
@@ -1812,15 +1751,17 @@ export default function Home() {
                     after="/visualizacao/renderizacoes-realistas/_1.png" 
                     before="/visualizacao/renderizacoes-realistas/_1 base.png" 
                     onLightbox={setLightboxImage} 
+                    label="Perspectiva 01"
                   />
                   
                   <BeforeAfterSlider 
                     after="/visualizacao/renderizacoes-realistas/_3.png" 
                     before="/visualizacao/renderizacoes-realistas/_3 base.png" 
                     onLightbox={setLightboxImage} 
+                    label="Perspectiva 02"
                   />
 
-                  <FilmStrip 
+                  <ProjectExtras 
                     images={RENDER_REALISTAS_IMAGES.filter(s => s.toLowerCase().includes("extra"))} 
                     onLightbox={setLightboxImage} 
                   />
@@ -1834,15 +1775,17 @@ export default function Home() {
                     after="/visualizacao/perspectivas-artisticas/_1.png" 
                     before="/visualizacao/perspectivas-artisticas/_1 base.png" 
                     onLightbox={setLightboxImage} 
+                    label="Croqui de Fachada"
                   />
                   
                   <BeforeAfterSlider 
                     after="/visualizacao/perspectivas-artisticas/_2.png" 
                     before="/visualizacao/perspectivas-artisticas/_2 base.png" 
                     onLightbox={setLightboxImage} 
+                    label="Composição de Jardim"
                   />
 
-                  <FilmStrip 
+                  <ProjectExtras 
                     images={PERSPECTIVAS_ARTISTICAS_IMAGES.filter(s => s.toLowerCase().includes("extra"))} 
                     onLightbox={setLightboxImage} 
                   />
