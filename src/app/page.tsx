@@ -130,31 +130,67 @@ const BeforeAfterSlider = ({ before, after, onLightbox }: { before: string, afte
 
 const FilmStrip = ({ images, onLightbox }: { images: string[], onLightbox: (img: string) => void }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
 
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
 
     const handleWheel = (e: WheelEvent) => {
-      // Use both deltaY (common scroll wheel) and deltaX (horiz trackpad)
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      
       if (delta !== 0) {
-        // Only prevent page scroll if we can actually scroll horizontally
         const isAtLeft = el.scrollLeft <= 0;
         const isAtRight = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
         const canScroll = (delta > 0 && !isAtRight) || (delta < 0 && !isAtLeft);
         
         if (canScroll) {
           e.preventDefault();
-          // Increase speed/sensitivity to make it feel responsive
+          e.stopPropagation();
           el.scrollLeft += delta * 1.5;
         }
       }
     };
 
+    const handleMouseDown = (e: MouseEvent) => {
+      isDragging.current = true;
+      startX.current = e.pageX - el.offsetLeft;
+      scrollLeft.current = el.scrollLeft;
+      el.style.cursor = "grabbing";
+    };
+
+    const handleMouseLeave = () => {
+      isDragging.current = false;
+      el.style.cursor = "grab";
+    };
+
+    const handleMouseUp = () => {
+      isDragging.current = false;
+      el.style.cursor = "grab";
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging.current) return;
+      e.preventDefault();
+      const x = e.pageX - el.offsetLeft;
+      const walk = (x - startX.current) * 2;
+      el.scrollLeft = scrollLeft.current - walk;
+    };
+
     el.addEventListener("wheel", handleWheel, { passive: false });
-    return () => el.removeEventListener("wheel", handleWheel);
+    el.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
+    el.addEventListener("mouseleave", handleMouseLeave);
+    el.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      el.removeEventListener("wheel", handleWheel);
+      el.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
+      el.removeEventListener("mouseleave", handleMouseLeave);
+      el.removeEventListener("mousemove", handleMouseMove);
+    };
   }, []);
 
   const scroll = (direction: number) => {
