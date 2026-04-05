@@ -97,11 +97,6 @@ const BeforeAfterSlider = ({ before, after, onLightbox, label }: { before: strin
 
   return (
     <div style={{ width: "100%", maxWidth: "1200px", marginBottom: "6rem" }}>
-      {label && (
-        <h4 style={{ fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.2em", marginBottom: "2rem", opacity: 0.6, fontWeight: 300, textAlign: "left" }}>
-          {label}
-        </h4>
-      )}
       <div 
         ref={containerRef}
         onMouseMove={handleMove}
@@ -156,8 +151,8 @@ const BeforeAfterSlider = ({ before, after, onLightbox, label }: { before: strin
         </div>
 
         <div style={{ position: "absolute", bottom: "1.5rem", width: "100%", padding: "0 2rem", display: "flex", justifyContent: "space-between", pointerEvents: "none", color: "#fff", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.2em", opacity: 0.8 }}>
-          <span>PROCESSO</span>
           <span>RESULTADO</span>
+          <span>PROCESSO</span>
         </div>
       </div>
     </div>
