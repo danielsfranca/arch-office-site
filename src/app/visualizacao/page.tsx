@@ -124,19 +124,14 @@ function VisualizacaoContent() {
                                     {t.visualization.services.title}
                                 </h3>
                             </div>
-
-                            {/* Row 1: 3 Items */}
-                            <div style={{ 
-                                display: "flex", 
-                                justifyContent: "center", 
-                                gap: "3rem", 
-                                marginBottom: "4rem",
-                                flexWrap: "nowrap" // Force single line on desktop
-                            }}>
+                            {/* Row 1: 5 Items */}
+                            <div className="services-grid">
                                 {[
                                     t.visualization.services.items.render,
                                     t.visualization.services.items.plans,
-                                    t.visualization.services.items.diagrams
+                                    t.visualization.services.items.diagrams,
+                                    t.visualization.services.items.artistic,
+                                    t.visualization.services.items.consulting
                                 ].map((service, index) => (
                                     <div key={index} style={{
                                         textAlign: "center",
@@ -145,35 +140,7 @@ function VisualizacaoContent() {
                                         <div style={{ fontSize: "0.7rem", color: "#ccc", marginBottom: "1rem", letterSpacing: "0.2em" }}>
                                             0{index + 1}
                                         </div>
-                                        <h4 style={{ fontSize: "1rem", fontWeight: 300, letterSpacing: "0.1em", color: "#1a1a1a", textTransform: "uppercase", marginBottom: "1rem" }}>
-                                            {service.title}
-                                        </h4>
-                                        <p style={{ fontSize: "11px", color: "#666", lineHeight: "1.6", maxWidth: "220px", margin: "0 auto", opacity: 0.85 }}>
-                                            {service.desc}
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* Row 2: 2 Items (Swapped 4 and 5) */}
-                            <div style={{ 
-                                display: "flex", 
-                                justifyContent: "center", 
-                                gap: "3rem", 
-                                flexWrap: "nowrap" 
-                            }}>
-                                {[
-                                    t.visualization.services.items.artistic, // Previously 5
-                                    t.visualization.services.items.consulting // Previously 4
-                                ].map((service, index) => (
-                                    <div key={index} style={{
-                                        textAlign: "center",
-                                        flex: "0 1 240px"
-                                    }}>
-                                        <div style={{ fontSize: "0.7rem", color: "#ccc", marginBottom: "1rem", letterSpacing: "0.2em" }}>
-                                            0{index + 4}
-                                        </div>
-                                        <h4 style={{ fontSize: "1rem", fontWeight: 300, letterSpacing: "0.1em", color: "#1a1a1a", textTransform: "uppercase", marginBottom: "1rem" }}>
+                                        <h4 style={{ fontSize: "1.1rem", fontWeight: 300, letterSpacing: "0.1em", color: "#1a1a1a", textTransform: "uppercase", marginBottom: "1rem" }}>
                                             {service.title}
                                         </h4>
                                         <p style={{ fontSize: "11px", color: "#666", lineHeight: "1.6", maxWidth: "220px", margin: "0 auto", opacity: 0.85 }}>
@@ -186,21 +153,12 @@ function VisualizacaoContent() {
                     </section>
 
                     {/* Process & CTA Section (Inverted) */}
-                    <section style={{ padding: "10rem 0", backgroundColor: "#1a1a1a", color: "#ffffff" }}>
+                    <section style={{ padding: "10rem 1rem", backgroundColor: "#1a1a1a", color: "#ffffff" }}>
                         <div className="container" style={{ maxWidth: "1100px" }}>
                             {/* Process Diagram */}
                             <div style={{ marginBottom: "8rem", textAlign: "center" }}>
                                 <h3 style={{ fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.4em", color: "#888", marginBottom: "5rem", fontWeight: 300 }}>Processo</h3>
-                                <div style={{ 
-                                    display: "flex", 
-                                    alignItems: "flex-start", 
-                                    justifyContent: "space-between", 
-                                    gap: "1.5rem",
-                                    flexWrap: "nowrap", // Single line
-                                    position: "relative",
-                                    maxWidth: "100%",
-                                    overflowX: "auto"
-                                }}>
+                                <div className="process-grid">
                                     {[
                                         "Definição de estilo (artístico, realista, etc.)",
                                         "Definição da cena",
@@ -290,8 +248,21 @@ function VisualizacaoContent() {
                     gap: 6rem 4rem;
                     margin-bottom: 8rem;
                 }
+                .process-grid {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: space-between;
+                    gap: 1.5rem;
+                }
                 @media (max-width: 900px) {
                     .services-grid {
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 4rem;
+                    }
+                    .process-grid {
+                        flex-direction: column;
+                        align-items: center;
                         gap: 3rem;
                     }
                 }
