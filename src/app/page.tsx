@@ -165,7 +165,7 @@ const ProjectExtras = ({ images, onLightbox }: { images: string[], onLightbox: (
       <h3 style={{ fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.2em", marginBottom: "3rem", opacity: 0.6, fontWeight: 300 }}>
         Visualizações Adicionais
       </h3>
-      <div style={{ 
+      <div className="gallery-grid" style={{ 
         display: "grid", 
         gridTemplateColumns: "repeat(2, 1fr)", 
         gap: "2.5rem",
@@ -858,7 +858,7 @@ export default function Home() {
             </div>
 
             {/* Subtitle Text */}
-            <div style={{
+            <div className="hero-subtitles" style={{
               width: "auto",
               gap: "2rem",
               display: "flex",
@@ -1936,6 +1936,24 @@ export default function Home() {
       }
       .hover-opacity-100:hover {
         opacity: 1 !important;
+      }
+      @media (max-width: 768px) {
+        .hero-subtitles {
+          flex-direction: column !important;
+          align-items: flex-start !important;
+          gap: 0.6rem !important;
+          left: -15% !important; /* Adjusted to align better with logo on mobile */
+          width: 100% !important;
+          padding-left: 2rem;
+        }
+        .hero-subtitles span:nth-child(even) {
+          display: none !important;
+        }
+        .gallery-grid {
+          grid-template-columns: 1fr !important;
+          gap: 3rem !important;
+          padding: 0 1rem;
+        }
       }
     `}</style>
     </>

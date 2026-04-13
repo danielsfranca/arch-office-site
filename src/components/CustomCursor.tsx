@@ -38,6 +38,7 @@ export default function CustomCursor() {
         <>
             <div
                 ref={cursorRef}
+                className="cursor-element"
                 style={{
                     position: "fixed",
                     top: 0,
@@ -55,8 +56,15 @@ export default function CustomCursor() {
             />
 
             <style jsx global>{`
-                * {
-                    cursor: none !important;
+                @media (min-width: 769px) {
+                    * {
+                        cursor: none !important;
+                    }
+                }
+                @media (max-width: 768px) {
+                    .cursor-element {
+                        display: none !important;
+                    }
                 }
             `}</style>
         </>
