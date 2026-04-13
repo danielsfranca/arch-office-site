@@ -29,7 +29,7 @@ export const en: Translation = {
         name: "Daniel Soares França",
         role: "architect & civil engineer",
         bio1: "Daniel Soares França's architecture stems from the convergence of technical precision and design sensitivity. Graduating from <strong>IAU-USP</strong> and as a Civil Engineer from <strong>UFU</strong>, his trajectory is grounded in a deep understanding of building.",
-        bio2: "His vision was refined internationally in <strong>Zurich, Switzerland</strong>, collaborating with the office <em>merkli degen architekten</em>, where he absorbed the rigor of European detailing and excellence in interior projects. In Brazil, he worked at the renowned <em>Acayaba + Rosenberg</em>, developing high-end residential and commercial architecture.",
+        bio2: "His vision was refined internationally in <strong>Zurich, Switzerland</strong>, collaborating with the office <em>merkli degen architekten</em>, where he absorbed the rigor of European detailing and excellence in architectural projects. In Brazil, he worked at the renowned <em>Acayaba + Rosenberg</em> and <em>VAGA</em>, developing high-end residential and commercial architecture.",
         bio3: "The studio combines this global background with academic research in construction technologies and advanced BIM modeling, creating spaces that not only inhabit the present but dialogue with memory and technique.",
         portfolio: "academic portfolio"
     },

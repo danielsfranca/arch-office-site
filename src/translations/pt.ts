@@ -29,7 +29,7 @@ export const pt: Translation = {
         name: "Daniel Soares França",
         role: "arquiteto & engenheiro civil",
         bio1: "A arquitetura de Daniel Soares França nasce da convergência entre a precisão técnica e a sensibilidade projetual. Graduando pelo <strong>IAU-USP</strong> e Engenheiro Civil formado pela <strong>UFU</strong>, sua trajetória é alicerçada em uma compreensão profunda do construir.",
-        bio2: "Sua visão foi refinada internacionalmente em <strong>Zurique, Suíça</strong>, colaborando com o escritório <em>merkli degen architekten</em>, onde absorveu o rigor do detalhamento europeu e a excelência em projetos de interiores. No Brasil, atuou no renomado <em>Acayaba + Rosenberg</em>, desenvolvendo arquitetura residencial e comercial de alto padrão.",
+        bio2: "Sua visão foi refinada internacionalmente em <strong>Zurique, Suíça</strong>, colaborando com o escritório <em>merkli degen architekten</em>, onde absorveu o rigor do detalhamento europeu e a excelência em projetos de arquitetura. No Brasil, atuou nos renomados <em>Acayaba + Rosenberg</em> e <em>VAGA</em>, desenvolvendo arquitetura residencial e comercial de alto padrão.",
         bio3: "O estúdio combina essa bagagem global com pesquisa acadêmica em tecnologias construtivas e modelagem BIM avançada, criando espaços que não apenas habitam o presente, mas dialogam com a memória e a técnica.",
         portfolio: "portfólio acadêmico"
     },
