@@ -14,71 +14,71 @@ import { useLanguage } from "@/context/LanguageContext";
 
 // Mock Data for Projects
 const projectsData = [
-  { id: 100, title: "Loft A", category: "Residencial", year: "2021", src: "/loft-a-cover.png" },
-  { id: 11, title: "Casa Arcos", category: "Residencial", year: "2024", src: "/casa-arcos/main.png" },
-  { id: 12, title: "Quarta Esquina", category: "Comercial", year: "2023", src: "/quarta-esquina/main-v2.png" },
-  { id: 201, title: "Renderizações Realistas", category: "Visualização", year: "", src: "/visualizacao/renderizacoes-realistas/_1.png" },
-  { id: 202, title: "Perspectivas artísticas", category: "Visualização", year: "", src: "/visualizacao/perspectivas-artisticas/Extra 01.png" },
+  { id: 100, title: "Loft A", category: "Residencial", year: "2021", src: "/loft-a-cover.webp" },
+  { id: 11, title: "Casa Arcos", category: "Residencial", year: "2024", src: "/casa-arcos/main.webp" },
+  { id: 12, title: "Quarta Esquina", category: "Comercial", year: "2023", src: "/quarta-esquina/main-v2.webp" },
+  { id: 201, title: "Renderizações Realistas", category: "Visualização", year: "", src: "/visualizacao/renderizacoes-realistas/_1.webp" },
+  { id: 202, title: "Perspectivas artísticas", category: "Visualização", year: "", src: "/visualizacao/perspectivas-artisticas/Extra 01.webp" },
 ];
 
 const LOFT_A_IMAGES = [
-  "/loft-a-cover.png",
-  "/loft-a-view2.png",
-  "/loft-a-view3-v3.png",
-  "/loft-a-plan.png",
-  "/loft-a-section.png"
+  "/loft-a-cover.webp",
+  "/loft-a-view2.webp",
+  "/loft-a-view3-v3.webp",
+  "/loft-a-plan.webp",
+  "/loft-a-section.webp"
 ];
 
 const CASA_ARCOS_IMAGES = [
-  "/casa-arcos/main.png",
-  "/casa-arcos/view2.png",
-  "/casa-arcos/view3.png",
-  "/casa-arcos/view4.png",
-  "/casa-arcos/view5.png",
-  "/casa-arcos/planta.png",
-  "/casa-arcos/fachada.png"
+  "/casa-arcos/main.webp",
+  "/casa-arcos/view2.webp",
+  "/casa-arcos/view3.webp",
+  "/casa-arcos/view4.webp",
+  "/casa-arcos/view5.webp",
+  "/casa-arcos/planta.webp",
+  "/casa-arcos/fachada.webp"
 ];
 
 const QUARTA_ESQUINA_IMAGES = [
-  "/quarta-esquina/main-v2.png",
-  "/quarta-esquina/view2.png",
-  "/quarta-esquina/implantacao.png",
-  "/quarta-esquina/corte.png",
-  "/quarta-esquina/elevacao-oeste.png",
-  "/quarta-esquina/planta-inferior.png"
+  "/quarta-esquina/main-v2.webp",
+  "/quarta-esquina/view2.webp",
+  "/quarta-esquina/implantacao.webp",
+  "/quarta-esquina/corte.webp",
+  "/quarta-esquina/elevacao-oeste.webp",
+  "/quarta-esquina/planta-inferior.webp"
 ];
 
 const RENDER_REALISTAS_IMAGES = [
-  "/visualizacao/renderizacoes-realistas/_1.png",
-  "/visualizacao/renderizacoes-realistas/_1 base.png",
-  "/visualizacao/renderizacoes-realistas/_3.png",
-  "/visualizacao/renderizacoes-realistas/_3 base.png",
-  "/visualizacao/renderizacoes-realistas/Extra 01.png",
-  "/visualizacao/renderizacoes-realistas/Extra 02.png",
-  "/visualizacao/renderizacoes-realistas/Extra 03.png",
-  "/visualizacao/renderizacoes-realistas/Extra 04.png",
-  "/visualizacao/renderizacoes-realistas/Extra 05.png",
-  "/visualizacao/renderizacoes-realistas/Extra 06.png",
-  "/visualizacao/renderizacoes-realistas/Extra 07.png",
-  "/visualizacao/renderizacoes-realistas/Extra 08.png",
+  "/visualizacao/renderizacoes-realistas/_1.webp",
+  "/visualizacao/renderizacoes-realistas/_1 base.webp",
+  "/visualizacao/renderizacoes-realistas/_3.webp",
+  "/visualizacao/renderizacoes-realistas/_3 base.webp",
+  "/visualizacao/renderizacoes-realistas/Extra 01.webp",
+  "/visualizacao/renderizacoes-realistas/Extra 02.webp",
+  "/visualizacao/renderizacoes-realistas/Extra 03.webp",
+  "/visualizacao/renderizacoes-realistas/Extra 04.webp",
+  "/visualizacao/renderizacoes-realistas/Extra 05.webp",
+  "/visualizacao/renderizacoes-realistas/Extra 06.webp",
+  "/visualizacao/renderizacoes-realistas/Extra 07.webp",
+  "/visualizacao/renderizacoes-realistas/Extra 08.webp",
 ];
 
 const PERSPECTIVAS_ARTISTICAS_IMAGES = [
-  "/visualizacao/perspectivas-artisticas/_1.png",
-  "/visualizacao/perspectivas-artisticas/_1 base.png",
-  "/visualizacao/perspectivas-artisticas/_2.png",
-  "/visualizacao/perspectivas-artisticas/_2 base.png",
-  "/visualizacao/perspectivas-artisticas/Extra 01.png",
-  "/visualizacao/perspectivas-artisticas/Extra 02.jpg",
-  "/visualizacao/perspectivas-artisticas/Extra 03.jpg",
-  "/visualizacao/perspectivas-artisticas/Extra 04.jpg",
+  "/visualizacao/perspectivas-artisticas/_1.webp",
+  "/visualizacao/perspectivas-artisticas/_1 base.webp",
+  "/visualizacao/perspectivas-artisticas/_2.webp",
+  "/visualizacao/perspectivas-artisticas/_2 base.webp",
+  "/visualizacao/perspectivas-artisticas/Extra 01.webp",
+  "/visualizacao/perspectivas-artisticas/Extra 02.webp",
+  "/visualizacao/perspectivas-artisticas/Extra 03.webp",
+  "/visualizacao/perspectivas-artisticas/Extra 04.webp",
 ];
 
 const PLANTAS_HUMANIZADAS_IMAGES = [
-  "/visualizacao/plantas-humanizadas/1.jpg",
-  "/visualizacao/plantas-humanizadas/2.jpg",
-  "/visualizacao/plantas-humanizadas/3.jpg",
-  "/visualizacao/plantas-humanizadas/4.jpg",
+  "/visualizacao/plantas-humanizadas/1.webp",
+  "/visualizacao/plantas-humanizadas/2.webp",
+  "/visualizacao/plantas-humanizadas/3.webp",
+  "/visualizacao/plantas-humanizadas/4.webp",
 ];
 
 const BeforeAfterSlider = ({ before, after, onLightbox, label }: { before: string, after: string, onLightbox: (img: string) => void, label?: string }) => {
@@ -715,7 +715,7 @@ export default function Home() {
                 WebkitMaskPosition: isReturningVisit ? '100% 0' : '0 0',
                 animation: isReturningVisit ? 'none' : 'mask-wipe 3s ease-in-out 1.0s forwards'
               }}>
-                <Image src="/ref2-band.png" alt="Band" fill style={{ objectFit: "contain" }} priority />
+                <Image src="/ref2-band.webp" alt="Band" fill style={{ objectFit: "contain" }} priority />
               </div>
 
               {/* 2. Daniel Text Layer (Fade In - Perfectly Synced Easing) */}
@@ -724,7 +724,7 @@ export default function Home() {
                 opacity: isReturningVisit ? 1 : 0,
                 animation: isReturningVisit ? 'none' : 'fade-in 4s ease-in-out 0s forwards'
               }}>
-                <Image src="/ref2-daniel.png" alt="Daniel França" fill style={{ objectFit: "contain" }} priority />
+                <Image src="/ref2-daniel.webp" alt="Daniel França" fill style={{ objectFit: "contain" }} priority />
               </div>
 
               {/* 3. Drop Square or Video Animation */}
@@ -769,7 +769,7 @@ export default function Home() {
                     opacity: 0,
                     animation: 'square-drop 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.5s forwards'
                   }}>
-                    <Image src="/ref2-square.png" alt="Square" fill style={{ objectFit: "contain" }} priority />
+                    <Image src="/ref2-square.webp" alt="Square" fill style={{ objectFit: "contain" }} priority />
                   </div>
                 ) : clickVideoPlaying ? (
                   // Click Interaction: Play Click Video
@@ -813,7 +813,7 @@ export default function Home() {
                     <div style={{
                       position: 'absolute', inset: 0, zIndex: 3
                     }}>
-                      <Image src="/ref2-square.png" alt="Square" fill style={{ objectFit: "contain" }} priority />
+                      <Image src="/ref2-square.webp" alt="Square" fill style={{ objectFit: "contain" }} priority />
                     </div>
 
                     {/* Specific Click Trigger */}
@@ -844,7 +844,7 @@ export default function Home() {
                 opacity: isReturningVisit ? 1 : 0,
                 animation: isReturningVisit ? 'none' : 'fade-in 1s ease 3.0s forwards'
               }}>
-                <Image src="/ref2-dot.png" alt="Dot" fill style={{ objectFit: "contain" }} priority />
+                <Image src="/ref2-dot.webp" alt="Dot" fill style={{ objectFit: "contain" }} priority />
               </div>
 
               {/* 5. Arquitetura (Delay 4.0s) */}
@@ -853,7 +853,7 @@ export default function Home() {
                 opacity: isReturningVisit ? 1 : 0,
                 animation: isReturningVisit ? 'none' : 'fade-in 2s ease 4.0s forwards'
               }}>
-                <Image src="/ref2-arq.png" alt="Arquitetura" fill style={{ objectFit: "contain" }} priority />
+                <Image src="/ref2-arq.webp" alt="Arquitetura" fill style={{ objectFit: "contain" }} priority />
               </div>
             </div>
 
@@ -1024,7 +1024,7 @@ export default function Home() {
             >
               {/* Background Image (AFTER - RENDER) */}
               <img
-                src={isDark ? "/render-casa-arcos-v07.png" : "/render-casa-arcos-v04.png"}
+                src={isDark ? "/render-casa-arcos-v07.webp" : "/render-casa-arcos-v04.webp"}
                 alt="Render Final"
                 style={{ width: "100%", height: "auto", display: "block" }}
                 draggable="false"
@@ -1045,7 +1045,7 @@ export default function Home() {
                 }}
               >
                 <Image
-                  src="/before-state.png"
+                  src="/before-state.webp"
                   alt="Base"
                   fill
                   style={{ objectFit: "cover" }}
@@ -1144,7 +1144,7 @@ export default function Home() {
 
                 <div style={{ marginBottom: "1rem", opacity: 0.9 }}>
                   <Image
-                    src="/signature.png"
+                    src="/signature.webp"
                     alt={t.about.signatureAlt}
                     width={300}
                     height={150}
@@ -1178,7 +1178,7 @@ export default function Home() {
                   }}
                 >
                   <Image
-                    src="/daniel-profile.jpg"
+                    src="/daniel-profile.webp"
                     alt="Daniel França"
                     fill
                     style={{
@@ -1378,7 +1378,7 @@ export default function Home() {
                 {contactStatus === "success" ? (
                   <div style={{ opacity: 0.9, animation: "fade-in 1.5s ease both" }}>
                     <Image
-                      src="/signature.png"
+                      src="/signature.webp"
                       alt={t.about.signatureAlt}
                       width={250}
                       height={120}
@@ -1505,9 +1505,9 @@ export default function Home() {
                   {/* 1. Cover Image (Vista 1_4) */}
                   <div style={{ width: "100%", aspectRatio: "16/9", position: "relative" }}>
                     <img
-                      src="/loft-a-cover.png?v=2"
+                      src="/loft-a-cover.webp?v=2"
                       alt="Capa"
-                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/loft-a-cover.png?v=2"); }}
+                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/loft-a-cover.webp?v=2"); }}
                       style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0, cursor: "zoom-in", filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.15))" }}
                     />
                   </div>
@@ -1529,18 +1529,18 @@ export default function Home() {
                   <div style={{ display: "flex", gap: "2rem", alignItems: "center", margin: "20rem 0 calc(20rem - 30px) 0" }}>
                     <div style={{ flex: 3, aspectRatio: "4/3", position: "relative" }}>
                       <img
-                        src="/loft-a-plan.png?v=2"
+                        src="/loft-a-plan.webp?v=2"
                         alt="Implantação"
-                        onClick={(e) => { e.stopPropagation(); setLightboxImage("/loft-a-plan.png?v=2"); }}
+                        onClick={(e) => { e.stopPropagation(); setLightboxImage("/loft-a-plan.webp?v=2"); }}
                         style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "left", transform: "scale(2.3)", transformOrigin: "left center", cursor: "zoom-in" }}
                       />
                     </div>
 
                     <div style={{ flex: 4, aspectRatio: "16/9", position: "relative" }}>
                       <img
-                        src="/loft-a-section.png?v=2"
+                        src="/loft-a-section.webp?v=2"
                         alt="Corte"
-                        onClick={(e) => { e.stopPropagation(); setLightboxImage("/loft-a-section.png?v=2"); }}
+                        onClick={(e) => { e.stopPropagation(); setLightboxImage("/loft-a-section.webp?v=2"); }}
                         style={{ width: "100%", height: "100%", objectFit: "contain", transform: "translate(200px, 200px)", cursor: "zoom-in" }}
                       />
                     </div>
@@ -1560,15 +1560,15 @@ export default function Home() {
                     marginTop: "4rem"
                   }}>
                     <img
-                      src="/loft-a-view2.png?v=3"
+                      src="/loft-a-view2.webp?v=3"
                       alt="Vista 2"
-                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/loft-a-view2.png?v=3"); }}
+                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/loft-a-view2.webp?v=3"); }}
                       style={{ height: "65vh", width: "auto", maxWidth: "48vw", objectFit: "contain", cursor: "zoom-in", filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.15))" }}
                     />
                     <img
-                      src="/loft-a-view3-v3.png?v=2"
+                      src="/loft-a-view3-v3.webp?v=2"
                       alt="Vista 3"
-                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/loft-a-view3-v3.png?v=2"); }}
+                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/loft-a-view3-v3.webp?v=2"); }}
                       style={{ height: "45vh", width: "auto", maxWidth: "48vw", objectFit: "contain", cursor: "zoom-in", marginBottom: "80px", filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.15))" }}
                     />
                   </div>
@@ -1584,9 +1584,9 @@ export default function Home() {
                   {/* 1. Cover Image (Now Facade) */}
                   <div style={{ width: "100%", aspectRatio: "16/9", position: "relative" }}>
                     <img
-                      src="/casa-arcos/fachada.png"
+                      src="/casa-arcos/fachada.webp"
                       alt="Fachada Casa Arcos"
-                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/fachada.png"); }}
+                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/fachada.webp"); }}
                       style={{ width: "100%", height: "100%", objectFit: "contain", position: "absolute", top: 0, left: 0, cursor: "zoom-in", filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.15))" }}
                     />
                   </div>
@@ -1607,9 +1607,9 @@ export default function Home() {
                   {/* 3. Main Image (Moved here) */}
                   <div style={{ width: "100%", aspectRatio: "16/9", position: "relative", marginTop: "4rem" }}>
                     <img
-                      src="/casa-arcos/main.png"
+                      src="/casa-arcos/main.webp"
                       alt="Capa Casa Arcos"
-                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/main.png"); }}
+                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/main.webp"); }}
                       style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0, cursor: "zoom-in", filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.15))" }}
                     />
                   </div>
@@ -1618,9 +1618,9 @@ export default function Home() {
                   <div style={{ display: "flex", gap: "2rem", alignItems: "center", margin: "10rem 0 4rem 0", justifyContent: "center" }}>
                     <div style={{ width: "82.5%", aspectRatio: "4/3", position: "relative" }}>
                       <img
-                        src="/casa-arcos/planta.png"
+                        src="/casa-arcos/planta.webp"
                         alt="Planta"
-                        onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/planta.png"); }}
+                        onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/planta.webp"); }}
                         style={{ width: "100%", height: "100%", objectFit: "contain", cursor: "zoom-in" }}
                       />
                     </div>
@@ -1637,15 +1637,15 @@ export default function Home() {
                     marginBottom: "8rem"
                   }}>
                     <img
-                      src="/casa-arcos/view3.png"
+                      src="/casa-arcos/view3.webp"
                       alt="Vista 3"
-                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/view3.png"); }}
+                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/view3.webp"); }}
                       style={{ height: "auto", width: "80%", maxWidth: "1200px", objectFit: "contain", cursor: "zoom-in", filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.15))" }}
                     />
                     <img
-                      src="/casa-arcos/view4.png"
+                      src="/casa-arcos/view4.webp"
                       alt="Vista 4"
-                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/view4.png"); }}
+                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/view4.webp"); }}
                       style={{ height: "auto", width: "80%", maxWidth: "1200px", objectFit: "contain", cursor: "zoom-in", filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.15))" }}
                     />
                   </div>
@@ -1663,15 +1663,15 @@ export default function Home() {
                     marginTop: "4rem"
                   }}>
                     <img
-                      src="/casa-arcos/view2.png"
+                      src="/casa-arcos/view2.webp"
                       alt="Vista 2"
-                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/view2.png"); }}
+                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/view2.webp"); }}
                       style={{ height: "50vh", width: "auto", maxWidth: "48vw", objectFit: "contain", cursor: "zoom-in", filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.15))" }}
                     />
                     <img
-                      src="/casa-arcos/view5.png"
+                      src="/casa-arcos/view5.webp"
                       alt="Vista 5"
-                  onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/view5.png"); }}
+                  onClick={(e) => { e.stopPropagation(); setLightboxImage("/casa-arcos/view5.webp"); }}
                       style={{ height: "35vh", width: "auto", maxWidth: "48vw", objectFit: "contain", cursor: "zoom-in", marginBottom: "80px", filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.15))", clipPath: "inset(0 0 0 14.28%)", marginLeft: "-4vw" }}
                     />
                   </div>
@@ -1686,9 +1686,9 @@ export default function Home() {
                   {/* 1. Cover Image */}
                   <div style={{ width: "100%", aspectRatio: "16/9", position: "relative" }}>
                     <img
-                      src="/quarta-esquina/main-v2.png"
+                      src="/quarta-esquina/main-v2.webp"
                       alt="Capa Quarta Esquina"
-                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/quarta-esquina/main-v2.png"); }}
+                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/quarta-esquina/main-v2.webp"); }}
                       style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0, cursor: "zoom-in" }}
                     />
                   </div>
@@ -1717,9 +1717,9 @@ export default function Home() {
                     marginBottom: "8rem"
                   }}>
                     <img
-                      src="/quarta-esquina/implantacao.png?v=2"
+                      src="/quarta-esquina/implantacao.webp?v=2"
                       alt="Implantação"
-                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/quarta-esquina/implantacao.png?v=2"); }}
+                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/quarta-esquina/implantacao.webp?v=2"); }}
                       style={{ height: "auto", width: "80%", maxWidth: "1200px", objectFit: "contain", cursor: "zoom-in" }}
                     />
 
@@ -1729,9 +1729,9 @@ export default function Home() {
                   {/* 4. Full Width Render */}
                   <div style={{ width: "100%", aspectRatio: "16/9", position: "relative", marginTop: "4rem" }}>
                     <img
-                      src="/quarta-esquina/view2.png"
+                      src="/quarta-esquina/view2.webp"
                       alt="Vista 02"
-                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/quarta-esquina/view2.png"); }}
+                      onClick={(e) => { e.stopPropagation(); setLightboxImage("/quarta-esquina/view2.webp"); }}
                       style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", top: 0, left: 0, cursor: "zoom-in" }}
                     />
                   </div>
@@ -1743,15 +1743,15 @@ export default function Home() {
               {selectedProject.id === 201 && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "2rem", marginTop: "4rem", alignItems: "flex-start" }}>
                   <BeforeAfterSlider 
-                    after="/visualizacao/renderizacoes-realistas/_1.png" 
-                    before="/visualizacao/renderizacoes-realistas/_1 base.png" 
+                    after="/visualizacao/renderizacoes-realistas/_1.webp" 
+                    before="/visualizacao/renderizacoes-realistas/_1 base.webp" 
                     onLightbox={setLightboxImage} 
                     label="Perspectiva 01"
                   />
                   
                   <BeforeAfterSlider 
-                    after="/visualizacao/renderizacoes-realistas/_3.png" 
-                    before="/visualizacao/renderizacoes-realistas/_3 base.png" 
+                    after="/visualizacao/renderizacoes-realistas/_3.webp" 
+                    before="/visualizacao/renderizacoes-realistas/_3 base.webp" 
                     onLightbox={setLightboxImage} 
                     label="Perspectiva 02"
                   />
@@ -1767,15 +1767,15 @@ export default function Home() {
               {selectedProject.id === 202 && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "2rem", marginTop: "4rem", alignItems: "flex-start" }}>
                   <BeforeAfterSlider 
-                    after="/visualizacao/perspectivas-artisticas/_1.png" 
-                    before="/visualizacao/perspectivas-artisticas/_1 base.png" 
+                    after="/visualizacao/perspectivas-artisticas/_1.webp" 
+                    before="/visualizacao/perspectivas-artisticas/_1 base.webp" 
                     onLightbox={setLightboxImage} 
                     label="Croqui de Fachada"
                   />
                   
                   <BeforeAfterSlider 
-                    after="/visualizacao/perspectivas-artisticas/_2.png" 
-                    before="/visualizacao/perspectivas-artisticas/_2 base.png" 
+                    after="/visualizacao/perspectivas-artisticas/_2.webp" 
+                    before="/visualizacao/perspectivas-artisticas/_2 base.webp" 
                     onLightbox={setLightboxImage} 
                     label="Composição de Jardim"
                   />

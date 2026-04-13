@@ -59,7 +59,7 @@ const CollaborationCanvas = () => {
   return (
     <div style={{ display: "flex", gap: "2rem", height: "500px" }}>
       <div style={{ flex: 2, position: "relative", background: "#ddd", borderRadius: "8px", overflow: "hidden", cursor: "crosshair" }} onClick={addMarker}>
-        <Image src="/vista3-arcos.png" alt="Colaboração" fill style={{ objectFit: "contain" }} />
+        <Image src="/vista3-arcos.webp" alt="Colaboração" fill style={{ objectFit: "contain" }} />
         {markers.map(m => (
           <div key={m.id} style={{
             position: "absolute", top: m.y, left: m.x, width: "24px", height: "24px",
@@ -88,8 +88,8 @@ const CollaborationCanvas = () => {
 };
 
 const progressImages = [
-  { id: 1, src: "/casa-arcos/view1.png", stage: "Estudo Preliminar", date: "15/01/2026" },
-  { id: 2, src: "/casa-arcos/view2.png", stage: "Anteprojeto", date: "10/02/2026" },
+  { id: 1, src: "/casa-arcos/view1.webp", stage: "Estudo Preliminar", date: "15/01/2026" },
+  { id: 2, src: "/casa-arcos/view2.webp", stage: "Anteprojeto", date: "10/02/2026" },
 ];
 
 export default function ClientDashboard() {

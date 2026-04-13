@@ -30,7 +30,7 @@ export default function ArquiteturaPage() {
                     {/* Background Image */}
                     <div style={{ position: "absolute", inset: 0, zIndex: 1 }}>
                         <img
-                            src="/vista3-arcos.png"
+                            src="/vista3-arcos.webp"
                             alt="Casa Arcos Vista 3"
                             style={{
                                 width: "100%",

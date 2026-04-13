@@ -50,7 +50,7 @@ const mockFiles = [
 
 const mockOutputFiles = [
   { name: "Estudo_Arcos_v01.pdf", date: "14/02/2026", size: "22 MB", type: "pdf" },
-  { name: "Render_Quarta_Final.png", date: "14/02/2026", size: "5 MB", type: "png" },
+  { name: "Render_Quarta_Final.webp", date: "14/02/2026", size: "5 MB", type: "png" },
 ];
 
 const explorerData = [
@@ -190,7 +190,7 @@ const CollaborationCanvas = () => {
   return (
     <div style={{ display: "flex", gap: "2rem", height: "600px" }}>
       <div style={{ flex: 2, position: "relative", background: "#ddd", borderRadius: "8px", overflow: "hidden", cursor: "crosshair" }} onClick={addMarker}>
-        <Image src="/vista3-arcos.png" alt="Colaboração" fill style={{ objectFit: "contain" }} />
+        <Image src="/vista3-arcos.webp" alt="Colaboração" fill style={{ objectFit: "contain" }} />
         {markers.map(m => (
           <div key={m.id} style={{
             position: "absolute", top: m.y, left: m.x, width: "24px", height: "24px",
@@ -587,7 +587,7 @@ export default function AdminDashboard() {
               {[1, 2, 3, 4, 5, 6].map(i => (
                 <div key={i} onClick={() => { setIsGenerating(true); setTimeout(() => { setAiCaption("Projeto Casa Arcos destaca-se pela materialidade bruta e integração com a natureza. #arquitetura #design"); setIsGenerating(false); }, 1500); }}
                   style={{ aspectRatio: "1", background: "#eee", borderRadius: "8px", cursor: "pointer", position: "relative", overflow: "hidden" }} className="img-hover">
-                  <Image src={`/casa-arcos/view${i > 5 ? 2 : i < 2 ? 2 : i}.png`} alt="Post" fill style={{ objectFit: "cover" }} />
+                  <Image src={`/casa-arcos/view${i > 5 ? 2 : i < 2 ? 2 : i}.webp`} alt="Post" fill style={{ objectFit: "cover" }} />
                 </div>
               ))}
             </div>

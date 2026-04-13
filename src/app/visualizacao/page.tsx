@@ -41,7 +41,7 @@ function VisualizacaoContent() {
                             zIndex: 0
                         }}>
                             <img 
-                                src="/quarta-esquina/main-v2.png" 
+                                src="/quarta-esquina/main-v2.webp" 
                                 alt="Visualização Arquitetônica"
                                 style={{
                                     width: "100%",
