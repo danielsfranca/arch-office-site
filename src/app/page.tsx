@@ -1940,11 +1940,12 @@ export default function Home() {
       @media (max-width: 768px) {
         .hero-subtitles {
           flex-direction: column !important;
-          align-items: flex-start !important;
+          align-items: flex-end !important;
           gap: 0.6rem !important;
-          left: -15% !important; /* Adjusted to align better with logo on mobile */
-          width: 100% !important;
-          padding-left: 2rem;
+          width: 65% !important;
+          max-width: 650px !important;
+          padding-right: 0rem;
+          left: 12px !important;
         }
         .hero-subtitles span:nth-child(even) {
           display: none !important;
