@@ -1,8 +1,29 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+// ============================================================
+// 🚧 MAINTENANCE MODE — ativo
+// Para REATIVAR o site, delete ou comente o bloco abaixo
+// (da linha "// === INÍCIO ===" até "// === FIM ===")
+// ============================================================
+// === INÍCIO ===
+const MAINTENANCE_MODE = true;
+
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
+
+    if (MAINTENANCE_MODE) {
+        // Permite acesso apenas à própria página de manutenção e assets
+        if (
+            !pathname.startsWith("/maintenance") &&
+            !pathname.startsWith("/_next") &&
+            !pathname.startsWith("/favicon")
+        ) {
+            return NextResponse.redirect(new URL("/maintenance", request.url));
+        }
+        return NextResponse.next();
+    }
+    // === FIM ===
 
     // Protect Admin Dashboard
     if (pathname.startsWith("/admin-dashboard")) {
@@ -30,5 +51,5 @@ export function middleware(request: NextRequest) {
 
 // Configure paths to match
 export const config = {
-    matcher: ["/admin-dashboard/:path*", "/client-dashboard/:path*"],
+    matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };
