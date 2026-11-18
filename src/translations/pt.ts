@@ -82,6 +82,7 @@ export const pt: Translation = {
         categories: {
             residential: "Residencial",
             commercial: "Comercial",
+            institutional: "Institucional",
             academic: "Acadêmico"
         },
         details: {

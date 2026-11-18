@@ -16,7 +16,7 @@ import { useLanguage } from "@/context/LanguageContext";
 const projectsData = [
   { id: 100, title: "Loft A", category: "Residencial", year: "2021", src: "/loft-a-cover.webp" },
   { id: 11, title: "Casa Arcos", category: "Residencial", year: "2024", src: "/casa-arcos/main.webp" },
-  { id: 12, title: "Quarta Esquina", category: "Comercial", year: "2023", src: "/quarta-esquina/main-v2.webp" },
+  { id: 12, title: "Quarta Esquina", category: "Institucional", year: "2023", src: "/quarta-esquina/main-v2.webp" },
   { id: 201, title: "Renderizações Realistas", category: "Visualização", year: "", src: "/visualizacao/renderizacoes-realistas/_1.webp" },
   { id: 202, title: "Perspectivas artísticas", category: "Visualização", year: "", src: "/visualizacao/perspectivas-artisticas/Extra 01.webp" },
 ];
@@ -189,6 +189,9 @@ const ProjectExtras = ({ images, onLightbox }: { images: string[], onLightbox: (
 
 const ProjectCard = ({ project, onSelect, handleMouseEnter, handleMouseLeave }: any) => {
   const [imgIndex, setImgIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState<number | null>(null);
+  const [direction, setDirection] = useState<"next" | "prev" | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const photos = React.useMemo(() => {
     let list = [project.src];
@@ -206,14 +209,32 @@ const ProjectCard = ({ project, onSelect, handleMouseEnter, handleMouseLeave }: 
     return list.length > 0 ? list : [project.src];
   }, [project.id, project.src]);
 
-  const handleNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleNext = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (isAnimating || photos.length <= 1) return;
+    setIsAnimating(true);
+    setPrevIndex(imgIndex);
+    setDirection("next");
     setImgIndex((prev) => (prev + 1) % photos.length);
+    setTimeout(() => {
+      setPrevIndex(null);
+      setDirection(null);
+      setIsAnimating(false);
+    }, 450);
   };
 
-  const handlePrev = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handlePrev = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (isAnimating || photos.length <= 1) return;
+    setIsAnimating(true);
+    setPrevIndex(imgIndex);
+    setDirection("prev");
     setImgIndex((prev) => (prev - 1 + photos.length) % photos.length);
+    setTimeout(() => {
+      setPrevIndex(null);
+      setDirection(null);
+      setIsAnimating(false);
+    }, 450);
   };
 
   return (
@@ -225,19 +246,63 @@ const ProjectCard = ({ project, onSelect, handleMouseEnter, handleMouseLeave }: 
       onMouseLeave={handleMouseLeave}
     >
       <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", marginBottom: "1rem", overflow: "hidden", background: "#f5f5f5" }}>
-        <Image
-          src={photos[imgIndex] || project.src}
-          alt={project.title}
-          fill
-          priority={project.id < 200}
-          sizes="(max-width: 768px) 100vw, 33vw"
+        {/* Outgoing Image (Sliding Out) */}
+        {prevIndex !== null && direction && (
+          <div
+            key={`prev-${prevIndex}`}
+            style={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 1,
+              animation: direction === "next"
+                ? "slideOutToLeft 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards"
+                : "slideOutToRight 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards",
+              willChange: "transform"
+            }}
+          >
+            <Image
+              src={photos[prevIndex] || project.src}
+              alt={project.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              style={{
+                objectFit: "cover",
+                objectPosition: (project.id === 100 && prevIndex === 0) ? "left center" : "center",
+              }}
+              className="project-img"
+            />
+          </div>
+        )}
+
+        {/* Incoming / Current Image (Sliding In) */}
+        <div
+          key={`curr-${imgIndex}`}
           style={{
-            objectFit: "cover",
-            objectPosition: (project.id === 100 && imgIndex === 0) ? "left center" : "center",
-            transition: "transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)"
+            position: "absolute",
+            inset: 0,
+            zIndex: 2,
+            animation: direction === "next"
+              ? "slideInFromRight 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards"
+              : direction === "prev"
+                ? "slideInFromLeft 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards"
+                : "none",
+            willChange: "transform"
           }}
-          className="project-img"
-        />
+        >
+          <Image
+            src={photos[imgIndex] || project.src}
+            alt={project.title}
+            fill
+            priority={project.id < 200}
+            sizes="(max-width: 768px) 100vw, 33vw"
+            style={{
+              objectFit: "cover",
+              objectPosition: (project.id === 100 && imgIndex === 0) ? "left center" : "center",
+              transition: "transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)"
+            }}
+            className="project-img"
+          />
+        </div>
         
         {photos.length > 1 && (
           <div className="card-nav" style={{ 
@@ -286,7 +351,104 @@ export default function Home() {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [prevLightboxImage, setPrevLightboxImage] = useState<string | null>(null);
+  const [lightboxDirection, setLightboxDirection] = useState<"next" | "prev" | null>(null);
+  const [isLightboxAnimating, setIsLightboxAnimating] = useState(false);
+  const touchStartXRef = useRef<number | null>(null);
   const isDraggingRef = useRef(false);
+
+  const cleanPath = (url: string) => url.split("?")[0];
+
+  const getLightboxGallery = (img: string | null): string[] => {
+    if (!img) return [];
+    const clean = cleanPath(img);
+    if (LOFT_A_IMAGES.some(s => cleanPath(s) === clean)) return LOFT_A_IMAGES;
+    if (CASA_ARCOS_IMAGES.some(s => cleanPath(s) === clean)) return CASA_ARCOS_IMAGES;
+    if (QUARTA_ESQUINA_IMAGES.some(s => cleanPath(s) === clean)) return QUARTA_ESQUINA_IMAGES;
+    if (RENDER_REALISTAS_IMAGES.some(s => cleanPath(s) === clean)) {
+      return RENDER_REALISTAS_IMAGES.filter(s => !s.toLowerCase().includes("base"));
+    }
+    if (PERSPECTIVAS_ARTISTICAS_IMAGES.some(s => cleanPath(s) === clean)) {
+      return PERSPECTIVAS_ARTISTICAS_IMAGES.filter(s => !s.toLowerCase().includes("base"));
+    }
+    if (PLANTAS_HUMANIZADAS_IMAGES.some(s => cleanPath(s) === clean)) return PLANTAS_HUMANIZADAS_IMAGES;
+    return [img];
+  };
+
+  const navigateLightbox = (dir: "next" | "prev") => {
+    if (!lightboxImage || isLightboxAnimating) return;
+    const gallery = getLightboxGallery(lightboxImage);
+    if (gallery.length <= 1) return;
+
+    const clean = cleanPath(lightboxImage);
+    const currentIndex = gallery.findIndex(s => cleanPath(s) === clean);
+    const resolvedIndex = currentIndex >= 0 ? currentIndex : 0;
+    const nextIndex = dir === "next"
+      ? (resolvedIndex + 1) % gallery.length
+      : (resolvedIndex - 1 + gallery.length) % gallery.length;
+
+    const nextImage = gallery[nextIndex];
+    if (cleanPath(nextImage) === clean) return;
+
+    setIsLightboxAnimating(true);
+    setPrevLightboxImage(lightboxImage);
+    setLightboxDirection(dir);
+    setLightboxImage(nextImage);
+
+    setTimeout(() => {
+      setPrevLightboxImage(null);
+      setLightboxDirection(null);
+      setIsLightboxAnimating(false);
+    }, 450);
+  };
+
+  const renderLightboxContent = (imgUrl: string) => {
+    const isPresentation = !imgUrl.includes("view2") &&
+      !imgUrl.includes("renderizacoes") &&
+      !imgUrl.includes("perspectivas") &&
+      !imgUrl.includes("plantas");
+
+    if (isPresentation) {
+      return (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            width: "80vw",
+            aspectRatio: "16/9",
+            backgroundColor: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 20px 50px rgba(0,0,0,0.15)",
+            position: "relative"
+          }}
+        >
+          <img
+            src={imgUrl}
+            alt="Fullscreen Presentation"
+            style={{
+              width: (imgUrl.includes("cover") || imgUrl.includes("main") || imgUrl.includes("view3")) ? "100%" : "auto",
+              height: (imgUrl.includes("cover") || imgUrl.includes("main") || imgUrl.includes("view3")) ? "100%" : "auto",
+              maxHeight: (imgUrl.includes("cover") || imgUrl.includes("main") || imgUrl.includes("view3")) ? "100%" : "70%",
+              maxWidth: (imgUrl.includes("cover") || imgUrl.includes("main") || imgUrl.includes("view3")) ? "100%" : "70%",
+              objectFit: (imgUrl.includes("cover") || imgUrl.includes("main") || imgUrl.includes("view3")) ? "cover" : "contain",
+              userSelect: "none",
+              boxShadow: (imgUrl.includes("cover") || imgUrl.includes("main") || imgUrl.includes("view3")) ? "0 25px 60px rgba(0,0,0,0.3)" : "none"
+            }}
+          />
+        </div>
+      );
+    }
+
+    return (
+      <img
+        src={imgUrl}
+        alt="Fullscreen Render"
+        onClick={(e) => e.stopPropagation()}
+        style={{ maxHeight: "95vh", maxWidth: "95vw", objectFit: "contain", userSelect: "none", boxShadow: "0 20px 50px rgba(0,0,0,0.2)" }}
+      />
+    );
+  };
 
 
   // Custom History Management
@@ -400,25 +562,19 @@ export default function Home() {
 
       if (e.key === "Escape") {
         setLightboxImage(null);
-      } else {
-        const currentGallery = LOFT_A_IMAGES.includes(lightboxImage) ? LOFT_A_IMAGES : (CASA_ARCOS_IMAGES.includes(lightboxImage) ? CASA_ARCOS_IMAGES : (QUARTA_ESQUINA_IMAGES.includes(lightboxImage) ? QUARTA_ESQUINA_IMAGES : []));
-        if (currentGallery.length === 0) return;
-
-        if (e.key === "ArrowLeft") {
-          const currentIndex = currentGallery.indexOf(lightboxImage);
-          const prevIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
-          setLightboxImage(currentGallery[prevIndex]);
-        } else if (e.key === "ArrowRight") {
-          const currentIndex = currentGallery.indexOf(lightboxImage);
-          const nextIndex = (currentIndex + 1) % currentGallery.length;
-          setLightboxImage(currentGallery[nextIndex]);
-        }
+        setPrevLightboxImage(null);
+        setLightboxDirection(null);
+        setIsLightboxAnimating(false);
+      } else if (e.key === "ArrowLeft") {
+        navigateLightbox("prev");
+      } else if (e.key === "ArrowRight") {
+        navigateLightbox("next");
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxImage]);
+  }, [lightboxImage, isLightboxAnimating]);
 
   // Listen for Navbar view changes
   useEffect(() => {
@@ -1282,7 +1438,7 @@ export default function Home() {
                     </h3>
                   </div>
                   <div className="gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "4rem", marginBottom: "8rem" }}>
-                    {projectsData.filter(p => ["Residencial", "Comercial"].includes(p.category)).map(project => (
+                    {projectsData.filter(p => ["Residencial", "Comercial", "Institucional"].includes(p.category)).map(project => (
                       <ProjectCard 
                         key={project.id} 
                         project={project} 
@@ -1493,6 +1649,7 @@ export default function Home() {
                   {t.projects.categories[{
                     "Residencial": "residential",
                     "Comercial": "commercial",
+                    "Institucional": "institutional",
                     "Acadêmico": "academic"
                   }[selectedProject.category as string] as keyof typeof t.projects.categories] || selectedProject.category} | {selectedProject.year}
                 </p>
@@ -1804,10 +1961,27 @@ export default function Home() {
         }
       `}</style>
 
-      {/* Lightbox Overlay (ArchDaily Style with Navigation) */}
+      {/* Lightbox Overlay (ArchDaily Style with Navigation & Side Slide Transition) */}
       {lightboxImage && (
         <div
-          onClick={() => setLightboxImage(null)}
+          onClick={() => {
+            setLightboxImage(null);
+            setPrevLightboxImage(null);
+            setLightboxDirection(null);
+            setIsLightboxAnimating(false);
+          }}
+          onTouchStart={(e) => {
+            touchStartXRef.current = e.touches[0].clientX;
+          }}
+          onTouchEnd={(e) => {
+            if (touchStartXRef.current === null) return;
+            const deltaX = e.changedTouches[0].clientX - touchStartXRef.current;
+            touchStartXRef.current = null;
+            if (Math.abs(deltaX) > 40) {
+              if (deltaX < 0) navigateLightbox("next");
+              else navigateLightbox("prev");
+            }
+          }}
           style={{
             position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh",
             backgroundColor: "rgba(255, 255, 255, 0.7)", // Milky glass effect
@@ -1815,26 +1989,15 @@ export default function Home() {
             zIndex: 99999,
             display: "flex", alignItems: "center", justifyContent: "center",
             cursor: "default",
-            animation: "fadeIn 0.3s ease-out"
+            animation: "fadeIn 0.3s ease-out",
+            overflow: "hidden"
           }}
         >
           {/* Navigation Buttons */}
           <button
             onClick={(e) => {
               e.stopPropagation();
-              if (!lightboxImage) return;
-              let gallery: string[] = [];
-              if (LOFT_A_IMAGES.includes(lightboxImage)) gallery = LOFT_A_IMAGES;
-              else if (CASA_ARCOS_IMAGES.includes(lightboxImage)) gallery = CASA_ARCOS_IMAGES;
-              else if (QUARTA_ESQUINA_IMAGES.includes(lightboxImage)) gallery = QUARTA_ESQUINA_IMAGES;
-              else if (RENDER_REALISTAS_IMAGES.includes(lightboxImage)) gallery = RENDER_REALISTAS_IMAGES.filter(s => !s.toLowerCase().includes("base"));
-              else if (PERSPECTIVAS_ARTISTICAS_IMAGES.includes(lightboxImage)) gallery = PERSPECTIVAS_ARTISTICAS_IMAGES.filter(s => !s.toLowerCase().includes("base"));
-              else if (PLANTAS_HUMANIZADAS_IMAGES.includes(lightboxImage)) gallery = PLANTAS_HUMANIZADAS_IMAGES;
-              
-              if (gallery.length === 0) return;
-              const currentIndex = gallery.indexOf(lightboxImage);
-              const nextIndex = (currentIndex - 1 + gallery.length) % gallery.length;
-              setLightboxImage(gallery[nextIndex]);
+              navigateLightbox("prev");
             }}
             style={{
               position: "absolute", left: "2rem", top: "50%", transform: "translateY(-50%)",
@@ -1847,67 +2010,73 @@ export default function Home() {
             <ChevronLeft size={48} strokeWidth={1} />
           </button>
 
-          {/* Conditionally render based on image type (All White Frame except View 2) */
-            (lightboxImage && !lightboxImage.includes("view2") && !lightboxImage.includes("renderizacoes") && !lightboxImage.includes("perspectivas") && !lightboxImage.includes("plantas")) ? (
-              // Drawing/Presentation Layout: White Presentation Board
+          {/* Slide Viewport */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100vw",
+              height: "100vh",
+              overflow: "hidden",
+              pointerEvents: "none"
+            }}
+          >
+            {/* Outgoing Image */}
+            {prevLightboxImage && lightboxDirection && (
               <div
-                onClick={(e) => e.stopPropagation()}
+                key={`prev-lb-${prevLightboxImage}`}
                 style={{
-                  width: "80vw",
-                  aspectRatio: "16/9",
-                  backgroundColor: "white",
+                  position: "absolute",
+                  inset: 0,
+                  width: "100vw",
+                  height: "100vh",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  boxShadow: "0 20px 50px rgba(0,0,0,0.15)",
-                  position: "relative"
+                  pointerEvents: "auto",
+                  animation: lightboxDirection === "next"
+                    ? "slideOutToLeft 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards"
+                    : "slideOutToRight 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards",
+                  willChange: "transform"
                 }}
               >
-                <img
-                  src={lightboxImage}
-                  alt="Fullscreen Presentation"
-                  style={{
-                    width: (lightboxImage.includes("cover") || lightboxImage.includes("main") || lightboxImage.includes("view3")) ? "100%" : "auto",
-                    height: (lightboxImage.includes("cover") || lightboxImage.includes("main") || lightboxImage.includes("view3")) ? "100%" : "auto",
-                    maxHeight: (lightboxImage.includes("cover") || lightboxImage.includes("main") || lightboxImage.includes("view3")) ? "100%" : "70%",
-                    maxWidth: (lightboxImage.includes("cover") || lightboxImage.includes("main") || lightboxImage.includes("view3")) ? "100%" : "70%",
-                    objectFit: (lightboxImage.includes("cover") || lightboxImage.includes("main") || lightboxImage.includes("view3")) ? "cover" : "contain",
-                    userSelect: "none",
-                    boxShadow: (lightboxImage.includes("cover") || lightboxImage.includes("main") || lightboxImage.includes("view3")) ? "0 25px 60px rgba(0,0,0,0.3)" : "none"
-                  }}
-                />
+                {renderLightboxContent(prevLightboxImage)}
               </div>
-            ) : (
-              // Realistic Fullscreen Layout (For Renders and Visualizacao)
-              <img
-                src={lightboxImage}
-                alt="Fullscreen Render"
-                onClick={(e) => e.stopPropagation()}
-                style={{ maxHeight: "95vh", maxWidth: "95vw", objectFit: "contain", userSelect: "none", boxShadow: "0 20px 50px rgba(0,0,0,0.2)" }}
-              />
             )}
+
+            {/* Current / Incoming Image */}
+            <div
+              key={`curr-lb-${lightboxImage}`}
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100vw",
+                height: "100vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                pointerEvents: "auto",
+                animation: lightboxDirection === "next"
+                  ? "slideInFromRight 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards"
+                  : lightboxDirection === "prev"
+                    ? "slideInFromLeft 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards"
+                    : "none",
+                willChange: "transform"
+              }}
+            >
+              {renderLightboxContent(lightboxImage)}
+            </div>
+          </div>
 
           <button
             onClick={(e) => {
               e.stopPropagation();
-              if (!lightboxImage) return;
-              let gallery: string[] = [];
-              if (LOFT_A_IMAGES.includes(lightboxImage)) gallery = LOFT_A_IMAGES;
-              else if (CASA_ARCOS_IMAGES.includes(lightboxImage)) gallery = CASA_ARCOS_IMAGES;
-              else if (QUARTA_ESQUINA_IMAGES.includes(lightboxImage)) gallery = QUARTA_ESQUINA_IMAGES;
-              else if (RENDER_REALISTAS_IMAGES.includes(lightboxImage)) gallery = RENDER_REALISTAS_IMAGES.filter(s => !s.toLowerCase().includes("base"));
-              else if (PERSPECTIVAS_ARTISTICAS_IMAGES.includes(lightboxImage)) gallery = PERSPECTIVAS_ARTISTICAS_IMAGES.filter(s => !s.toLowerCase().includes("base"));
-              else if (PLANTAS_HUMANIZADAS_IMAGES.includes(lightboxImage)) gallery = PLANTAS_HUMANIZADAS_IMAGES;
-
-              if (gallery.length === 0) return;
-              const currentIndex = gallery.indexOf(lightboxImage);
-              const nextIndex = (currentIndex + 1) % gallery.length;
-              setLightboxImage(gallery[nextIndex]);
+              navigateLightbox("next");
             }}
             style={{
               position: "absolute", right: "2rem", top: "50%", transform: "translateY(-50%)",
               background: "none", border: "none", cursor: "pointer", padding: "1rem",
-              color: "#333", opacity: 0.7, transition: "opacity 0.2s"
+              color: "#333", opacity: 0.7, transition: "opacity 0.2s", zIndex: 110
             }}
             onMouseEnter={(e) => e.currentTarget.style.opacity = "1"}
             onMouseLeave={(e) => e.currentTarget.style.opacity = "0.7"}

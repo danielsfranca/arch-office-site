@@ -59,6 +59,7 @@ export type Translation = {
         categories: {
             residential: string;
             commercial: string;
+            institutional: string;
             academic: string;
         };
         details: {
